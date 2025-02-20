@@ -26,9 +26,9 @@ Feel free to fork this project :)
 3. Implement Records, Hash, Streams etc.
 4. Add a method to reveal the contents of Film-type Files. (already started developing it)
 5. Create a more organized way to list files. (already started developing it)
-6. Develop a frontend.
-7. Integrate with a database.
-8. Merge it all to create a web version using RESTful API concepts with Spring and JPA/Hibernate.
+6. Develop a frontend. (currently working on it)
+7. Integrate with a database. (currently working on it)
+8. Merge it all to create a web version using RESTful API concepts with Spring and JPA/Hibernate. (currently working on it)
 
 # Instructions
 
