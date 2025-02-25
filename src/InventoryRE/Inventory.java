@@ -1,6 +1,8 @@
 package InventoryRE;
 
 import InventoryRE.Files.File;
+import InventoryRE.Key.KeyItem;
+import InventoryRE.Key.KeyType;
 import InventoryRE.Recovery.RecoveryItem;
 import InventoryRE.Weaponry.Ammunition.Ammunition;
 import InventoryRE.Weaponry.Weapons.ReloadResult;
@@ -178,7 +180,9 @@ public class Inventory<T> implements InventoryInterface{
     public void readFile(String name){
         T file = getFileByName(name);
         if (file != null){
-            if (file instanceof File fileToRead){
+            if (file instanceof File){
+                File fileToRead = (File) file;
+                System.out.println("\n-------------------------------------------------------------------------------------------------------------------------");
                 System.out.println(fileToRead.getDescription());
             }
         } else {
@@ -203,6 +207,22 @@ public class Inventory<T> implements InventoryInterface{
                 knifeInUse.swingCount(nameWeapon, count);
             }
         }
-
     }
+
+    //method to reveal films
+    @Override
+    public void darkRoom(String name){
+        T item = getItemByName(name, false);
+        if (item instanceof KeyItem) {
+            KeyItem filmToReveal = (KeyItem) item;
+            if (item != null && filmToReveal.getTypeKey() == KeyType.FILM) {
+                File revealedFile = filmToReveal.revealFilm(name);
+                if (revealedFile != null) {
+                    addToFiles((T) revealedFile);
+                    readFile(revealedFile.getName());
+                }
+            }
+        }
+    }
+
 }

@@ -7,4 +7,5 @@ public interface InventoryInterface<T> {
     void itemBoxOut(String name);
     void readFile(String name);
     void useWeapon(String name, int count);
+    void darkRoom(String name);
 }

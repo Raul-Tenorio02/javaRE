@@ -50,12 +50,14 @@ public class Main {
         Leon.listFiles();
         Leon.readFile("Police Memorandum");
 
+        Leon.addToInventory(new KeyItem("Lighter", "\"An oil lighter\"", ItemType.KEY, KeyType.GENERAL));
         Leon.addToInventory(new Weapon("H&K VP70", "\"Manufactured by H&K, Germany. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 18, 18));
         Leon.addToInventory(new Ammunition("Hand Gun Bullets", "\"9x19 parabellum rounds that can be used for either the H&K VP70 or Browning HP.\"", ItemType.AMMUNITION, AmmoType.HANDGUN_BULLETS, 15));
         Leon.addToInventory(new Parts("Hand Gun Parts", "\"They look like parts for a gun.\"", ItemType.PART, PartType.HANDGUN_PARTS));
         Leon.addToInventory(new KeyItem("Ink Ribbon", "\"I can type in my progress with this.\"", ItemType.KEY, KeyType.INK_RIBBON, 3));
         Leon.addToInventory(new Knife("Knife", "\"A combat knife. It could come in handy...\"", ItemType.WEAPON, WeaponType.KNIFE));
         Leon.addToInventory(new Weapon("Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.SPECIAL, WeaponType.INFINITE_WEAPON, 1, 1));
+        Leon.addToInventory(new KeyItem("Film A", "\"I can't tell what's on the film until I develop it.\"", ItemType.KEY, KeyType.FILM));
         Leon.listInventory();
 
         Leon.itemBoxIn("Ink Ribbon");
@@ -73,5 +75,7 @@ public class Main {
         Leon.listInventory();
         Leon.useWeapon("Knife", 100);
         Leon.useWeapon("Rocket Launcher", 100);
+        Leon.darkRoom("Film A");
+        Leon.listFiles();
     }
 }
