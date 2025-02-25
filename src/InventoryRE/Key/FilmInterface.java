@@ -4,6 +4,6 @@ import InventoryRE.Files.File;
 
 public interface FilmInterface {
 
-    File revealFilm(String name);
+    File developFilm(String name);
 
 }

@@ -209,17 +209,17 @@ public class Inventory<T> implements InventoryInterface{
         }
     }
 
-    //method to reveal films
+    //method to develop films
     @Override
     public void darkRoom(String name){
         T item = getItemByName(name, false);
         if (item instanceof KeyItem) {
-            KeyItem filmToReveal = (KeyItem) item;
-            if (item != null && filmToReveal.getTypeKey() == KeyType.FILM) {
-                File revealedFile = filmToReveal.revealFilm(name);
-                if (revealedFile != null) {
-                    addToFiles((T) revealedFile);
-                    readFile(revealedFile.getName());
+            KeyItem filmToDevelop = (KeyItem) item;
+            if (item != null && filmToDevelop.getTypeKey() == KeyType.FILM) {
+                File developedFile = filmToDevelop.developFilm(name);
+                if (developedFile != null) {
+                    addToFiles((T) developedFile);
+                    readFile(developedFile.getName());
                 }
             }
         }

@@ -13,6 +13,7 @@ Feel free to fork this project :)
 3. Methods for combining items, such as mixing herbs, reloading weapons, or upgrading them.
 4. Methods for storage or get items from the item box.
 5. Methods for shooting (or swinging) a weapon. (I know it's not strictly an inventory feature, but it will increase the project's complexity as it's directly related to both reload and upgrade methods.)
+6. Method for developing film type items and transforming them into file type.
 
 # You should also expect:
 
@@ -24,11 +25,9 @@ Feel free to fork this project :)
 1. Improve the use of the ternary operator.
 2. Fix bugs and unwanted behavior of classes and methods (already fixing many of them)
 3. Implement Records, Hash, Streams etc.
-4. Add a method to reveal the contents of Film-type Files. (already started developing it)
-5. Create a more organized way to list files. (already started developing it)
-6. Develop a frontend. (currently working on it)
-7. Integrate with a database. (currently working on it)
-8. Merge it all to create a web version using RESTful API concepts with Spring and JPA/Hibernate. (currently working on it)
+4. Develop a frontend. (currently working on it)
+5. Integrate with a database. (currently working on it)
+6. Merge it all to create a web version using RESTful API concepts with Spring and JPA/Hibernate. (currently working on it)
 
 # Instructions
 

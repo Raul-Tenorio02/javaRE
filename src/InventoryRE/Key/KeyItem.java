@@ -37,7 +37,7 @@ public final class KeyItem extends Item implements FilmInterface{
     }
 
     @Override
-    public File revealFilm(String name) {
+    public File developFilm(String name) {
         File fileRevealed;
         if (this.typeKey == KeyType.FILM) {
             if (this.getName().equals("Film A")) {
