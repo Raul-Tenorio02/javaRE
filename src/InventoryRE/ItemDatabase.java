@@ -26,7 +26,7 @@ public abstract class ItemDatabase extends Item {
     public static final Weapon REMINGTON_M1100 = new Weapon("Remington M1100", "\"M1100 full size semi-automatic. The longer barrel results in more concentrated blasts.\"", ItemType.SPECIAL, WeaponType.SHOTGUN, 7 , 7);
     public static final Weapon BOW_GUN = new Weapon("Bow Gun", "\"A powerful box gun primarily used to hunt large game.", ItemType.WEAPON, WeaponType.BOWGUN, 18, 18, FireType.BURST);
     public static final Weapon COLT_SAA = new Weapon("Colt S.A.A", "\"Colt S.A.A. Artillery Model. Used by cowboys in the Wild West. Designed for a quick draw.\"", ItemType.WEAPON, WeaponType.HANDGUN, 6, 6);
-    public static final Weapon M79_GL =  new Weapon("M79 Grenade launcher", "\"Various rounds can be used. The cut stock causes a greater recoil. Made in the USA.\"", ItemType.WEAPON, WeaponType.GRENADE_LAUNCHER, 6, 255);
+    public static final Weapon M79_GL =  new Weapon("M79 Grenade launcher", "\"Various rounds can be used. The cut stock causes a greater recoil. Made in the USA.\"", ItemType.WEAPON, WeaponType.GRENADE_LAUNCHER, 6, 255, AmmoType.GRENADE_ROUNDS);
     public static final Weapon MAC11 = new Weapon("MAC11 Sub Machine Gun", "\"Manufactured by Military Armament CORP. It uses DOT380 rounds.", ItemType.WEAPON, WeaponType.MACHINE_GUN, 100, 100);
     public static final Weapon DESERT_EAGLE = new Weapon("Desert Eagle 50A.E", "\"A high caliber magnum pistol. It uses powerful DOT50A.E rounds. By IMI, Israel.\"", ItemType.WEAPON, WeaponType.MAGNUM, 8, 8);
     public static final Weapon DESERT_EAGLE_CUSTOM = new Weapon("Desert Eagle 50A.E Custom", "\"10 inch barrel is put on to D.E.50A.E. It can fire DOT50A.E. rounds more powerfully.\"", ItemType.SPECIAL, WeaponType.MAGNUM, 8 , 8);

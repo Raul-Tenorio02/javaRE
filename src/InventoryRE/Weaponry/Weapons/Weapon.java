@@ -25,17 +25,14 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
     }
 
     // overloading constructor to implement grenade launcher's specific reloading/switch ammo system
-    public Weapon(String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, int fireRate, AmmoType loadedAmmo) {
+    public Weapon(String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, AmmoType loadedAmmo) {
         this(name, description, type, typeWeapon, magazine, maxCapacity);
         this.loadedAmmo = loadedAmmo;
     }
 
     // overloading constructor to add fire rate attribute
     public Weapon(String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType) {
-        super(name, description, type);
-        this.magazine = magazine;
-        this.maxCapacity = maxCapacity;
-        this.typeWeapon = typeWeapon;
+        this(name, description, type, typeWeapon, magazine, maxCapacity);
         this.fireType = fireType;
     }
 

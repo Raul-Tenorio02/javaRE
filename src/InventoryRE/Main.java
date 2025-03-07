@@ -21,12 +21,24 @@ public class Main {
         Leon.collectItem(true, ItemDatabase.HK_VP70);
         Leon.collectItem(true, ItemDatabase.HANDGUN_BULLETS);
         Leon.listInventory();
-        Leon.useWeapon("H&K VP70", 3);
-        Leon.combineItems("H&K VP70", "Hand Gun Bullets");
+        Leon.useWeapon(ItemDatabase.HK_VP70, 3);
+        Leon.combineItems(ItemDatabase.HK_VP70, ItemDatabase.HANDGUN_BULLETS);
         Leon.listInventory();
         Leon.collectItem(true, ItemDatabase.HANDGUN_BULLETS);
         Leon.listInventory();
         Leon.collectItem(true, ItemDatabase.INK_RIBBON);
         Leon.listInventory();
+
+        Claire.collectItem(true, ItemDatabase.M79_GL);
+        Claire.collectItem(true,ItemDatabase.GRENADE_ROUNDS);
+        Claire.collectItem(true,ItemDatabase.ACID_ROUNDS);
+        Claire.collectItem(true,ItemDatabase.FLAME_ROUNDS);
+        Claire.listInventory();
+        Claire.combineItems(ItemDatabase.M79_GL, ItemDatabase.ACID_ROUNDS);
+        Claire.listInventory();
+        Claire.combineItems(ItemDatabase.M79_GL, ItemDatabase.GRENADE_ROUNDS);
+        Claire.listInventory();
+
+
     }
 }

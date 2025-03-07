@@ -263,9 +263,9 @@ public class Inventory<T extends Item> implements InventoryInterface{
 
     //TODO: create method that hold item 1's position and sets item created to it
     @Override
-    public void combineItems(String name1, String name2) {
-        T item1 = getItemByName(name1, false);
-        T item2 = getItemByName(name2, false);
+    public void combineItems(Item itemA, Item itemB) {
+        T item1 = getItemByName(itemA.getName(), false);
+        T item2 = getItemByName(itemB.getName(), false);
 
         if (item1 instanceof RecoveryItem herb1 && item2 instanceof RecoveryItem herb2) {
             RecoveryItem combinedHerb = herb1.mixHerb(herb2);
@@ -324,41 +324,42 @@ public class Inventory<T extends Item> implements InventoryInterface{
     }
 
     @Override
-    public void itemBoxIn(String name){
-        T item = getItemByName(name, false);
-        if (item != null) {
-            addToItemBox(item);
-            removeFromInventory(item);
+    public void itemBoxIn(Item item){
+        T itemToStorage = getItemByName(item.getName(), false);
+        if (itemToStorage != null) {
+            addToItemBox(itemToStorage);
+            removeFromInventory(itemToStorage);
         } else {
             System.out.println("\nError: item not found.");
         }
     }
 
     @Override
-    public void itemBoxOut(String name){
-        T item = getItemByName(name, true);
-        if(item != null) {
-            addToInventory(item);
-            removeFromItemBox(item);
+    public void itemBoxOut(Item item){
+        T itemToGetFromStorage = getItemByName(item.getName(), true);
+        if(itemToGetFromStorage != null) {
+            addToInventory(itemToGetFromStorage);
+            removeFromItemBox(itemToGetFromStorage);
         } else {
             System.out.println("\nError: item not found.");
         }
     }
 
     @Override
-    public void useWeapon(String nameWeapon, int count){
+    public void useWeapon(Item itemWeapon, int count){
         if (count == 0) {
             count = 1;
         }
-        T item = getItemByName(nameWeapon, false);
+        T item = getItemByName(itemWeapon.getName(), false);
         if (item == null) {
             System.out.println("\nWeapon not found");
             return;
         }
+        //TODO: refactor firecount
         if (item instanceof Weapon weaponInUse) {
-            weaponInUse.fireCount(nameWeapon, count);
+            weaponInUse.fireCount(itemWeapon.getName(), count);
         } else if (item instanceof Knife knifeInUse) {
-            knifeInUse.swingCount(nameWeapon, count);
+            knifeInUse.swingCount(itemWeapon.getName(), count);
         }
     }
 
@@ -377,8 +378,8 @@ public class Inventory<T extends Item> implements InventoryInterface{
 
     //method to develop films
     @Override
-    public void darkRoom(String name){
-        T item = getItemByName(name, false);
+    public void darkRoom(Item film){
+        T item = getItemByName(film.getName(), false);
         if (item instanceof KeyItem filmToDevelop) {
             if (filmToDevelop.getTypeKey() == KeyType.FILM) {
                 File developedFile = filmToDevelop.developFilm(filmToDevelop.getFilmID());
