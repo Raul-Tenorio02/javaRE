@@ -1,6 +1,7 @@
 package InventoryRE.Recovery;
 
 import InventoryRE.Item;
+import InventoryRE.ItemDatabase;
 import InventoryRE.ItemType;
 
 public class RecoveryItem extends Item implements MixInterface {
@@ -30,17 +31,17 @@ public class RecoveryItem extends Item implements MixInterface {
     public RecoveryItem mixHerb(RecoveryItem otherHerb) { // setting herb items to be combined
         if (this.getType() == ItemType.RECOVERY && otherHerb.getType() == ItemType.RECOVERY) {
             if (this.typeRecovery == RecoveryType.GREEN && otherHerb.typeRecovery == RecoveryType.GREEN) {
-                return new RecoveryItem("Mixed Herb G+G","\"A mixture of 2 green herbs.\"", ItemType.RECOVERY, RecoveryType.GG );
+                return ItemDatabase.MIXED_HERB_GG;
             } else if (this.typeRecovery == RecoveryType.GG && otherHerb.typeRecovery == RecoveryType.GREEN || typeRecovery == RecoveryType.GREEN && otherHerb.typeRecovery == RecoveryType.GG) {
-                return new RecoveryItem("Mixed Herb G+G+G","\"A mixture of 3 green herbs.\"", ItemType.RECOVERY, RecoveryType.GGG );
+                return ItemDatabase.MIXED_HERB_GGG;
             } else if (this.typeRecovery == RecoveryType.GREEN && otherHerb.typeRecovery == RecoveryType.RED || typeRecovery == RecoveryType.RED && otherHerb.typeRecovery == RecoveryType.GREEN) {
-                return new RecoveryItem("Mixed Herb G+R","\"A mixture of 1 green herb and 1 red herb.\"", ItemType.RECOVERY, RecoveryType.GR );
+                return ItemDatabase.MIXED_HERB_GR;
             } else if (this.typeRecovery == RecoveryType.GREEN && otherHerb.typeRecovery == RecoveryType.BLUE || typeRecovery == RecoveryType.BLUE && otherHerb.typeRecovery == RecoveryType.GREEN) {
-                return new RecoveryItem("Mixed Herb G+B","\"A mixture of 1 green herb and 1 blue herb.\"", ItemType.RECOVERY, RecoveryType.GB );
+                return ItemDatabase.MIXED_HERB_GB;
             } else if (this.typeRecovery == RecoveryType.GG && otherHerb.typeRecovery == RecoveryType.BLUE || typeRecovery == RecoveryType.BLUE && otherHerb.typeRecovery == RecoveryType.GG) {
-                return new RecoveryItem("Mixed Herb G+G+B","\"A mixture of 2 green herbs and 1 blue herb.\"", ItemType.RECOVERY, RecoveryType.GGB );
+                return ItemDatabase.MIXED_HERB_GGB;
             } else if (this.typeRecovery == RecoveryType.GR && otherHerb.typeRecovery == RecoveryType.BLUE || typeRecovery == RecoveryType.BLUE && otherHerb.typeRecovery == RecoveryType.GR || typeRecovery == RecoveryType.GB && otherHerb.typeRecovery == RecoveryType.RED || typeRecovery == RecoveryType.RED && otherHerb.typeRecovery == RecoveryType.GB) {
-                return new RecoveryItem("Mixed Herb G+R+B","\"A mixture of 1 green herb, 1 red herb and 1 blue herb.\"", ItemType.RECOVERY, RecoveryType.GRB );
+                return ItemDatabase.MIXED_HERB_GRB;
             }
         } else {
             System.out.println("There is no need of mixing these.\n");

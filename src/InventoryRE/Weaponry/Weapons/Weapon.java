@@ -1,6 +1,7 @@
 package InventoryRE.Weaponry.Weapons;
 
 import InventoryRE.Item;
+import InventoryRE.ItemDatabase;
 import InventoryRE.ItemType;
 import InventoryRE.Weaponry.Ammunition.AmmoType;
 import InventoryRE.Weaponry.Ammunition.Ammunition;

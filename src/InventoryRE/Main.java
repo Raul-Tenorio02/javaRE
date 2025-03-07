@@ -15,17 +15,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ItemDatabase<Item> Leon = new ItemDatabase<>();
-        ItemDatabase<Item> Claire = new ItemDatabase<>();
+        Inventory<Item> Leon = new Inventory<>();
+        Inventory<Item> Claire = new Inventory<>();
 
-        Leon.collectItem(true, "H&K VP70");
-        Leon.collectItem(true, "Hand Gun Parts");
-        Leon.collectItem(true, "Hand Gun Bullets");
-        Leon.collectItem(true, "Green Herb");
-        Leon.collectItem(true, "Red Herb");
-        Leon.collectItem(true, "Film A");
-        Leon.collectItem(true, "Police Memorandum");
-        Leon.collectItem(true, "Chris's Diary");
+        Leon.collectItem(true, ItemDatabase.HK_VP70);
+        Leon.collectItem(true, ItemDatabase.HANDGUN_PARTS);
+        Leon.collectItem(true, ItemDatabase.HANDGUN_BULLETS);
+        Leon.collectItem(true, ItemDatabase.GREEN_HERB);
+        Leon.collectItem(true, ItemDatabase.RED_HERB);
+        Leon.collectItem(true, ItemDatabase.FILM_1);
+        Leon.collectItem(true, ItemDatabase.POLICE_MEMORANDUM);
+        Leon.collectItem(true, ItemDatabase.CHRIS_DIARY);
         Leon.listInventory();
         Leon.listFiles();
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------");
@@ -37,11 +37,16 @@ public class Main {
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------");
         Leon.combineItems("H&K VP70 Burst", "Hand Gun Bullets");
         Leon.combineItems("Green Herb", "Red Herb");
-        Leon.darkRoom("Film A");
+        Leon.darkRoom("Film");
         Leon.listInventory();
         Leon.listFiles();
         Leon.itemBoxIn("Mixed Herb G+R");
         Leon.listItemBox();
+        Leon.itemBoxOut("Mixed Herb G+R");
+        Leon.listItemBox();
+        Leon.listInventory();
+
+
 
     }
 }
