@@ -10,7 +10,8 @@ import InventoryRE.Weaponry.WeaponParts.UpgradeWeaponsInterface;
 
 public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInterface, FireInterface {
 
-    private int magazine, maxCapacity, fireRate;
+    private int magazine, fireRate;
+    private final int maxCapacity;
     WeaponType typeWeapon;
     AmmoType loadedAmmo;
 
@@ -69,7 +70,7 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
     }
 
     @Override
-    public ReloadResult reloadWeapon(Ammunition ammo){
+    public ReloadResultRecord reloadWeapon(Ammunition ammo){
         Ammunition returnedAmmo = null;
 
         if (this.getType() == ItemType.WEAPON || this.getType() == ItemType.SPECIAL){
@@ -91,7 +92,7 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
             } else {
             System.out.println("\nCannot combine these items.");
             }
-        return new ReloadResult(this, returnedAmmo);
+        return new ReloadResultRecord(this, returnedAmmo);
     }
 
     @Override
@@ -107,7 +108,7 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
                 return new Weapon("Desert Eagle 50A.E Custom", "\"10 inch barrel is put on to D.E.50A.E. It can fire DOT50A.E. rounds more powerfully.\"", ItemType.SPECIAL, WeaponType.MAGNUM, 8 , 8);
             }
         } else {
-            System.out.println("These items cannot be combined.");
+            System.out.println("\nThese items cannot be combined.");
         }
         return null;
     }
@@ -145,27 +146,25 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
     }
 
     @Override
-    public int fireCount(String name, int count){
-        if (fireRate == 0){ // removing need of defining fire rate for common weapons
-            fireRate = 1;
-        } else if (this.typeWeapon == WeaponType.BOWGUN){
-            fireRate = 3; // in OG RE2, the bowgun shoots 3 bolts in a row
+    public void fireCount(String name, int count) {
+        if (this.fireRate == 0) {
+            this.fireRate = 1;
+        } else if (this.typeWeapon == WeaponType.BOWGUN) {
+            this.fireRate = 3;
         }
 
         if (this.typeWeapon == WeaponType.INFINITE_WEAPON) {
             System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x!");
-            setMagazine(this.fireRate); // never really updates magazine's ammo when it is supposed to be infinite ;) kind of useless now, but maybe it can help with defining the damage of each projectile
         } else {
             count *= this.fireRate;
-            if (count > magazine) {
-                count = magazine;
-                setMagazine(getMagazine() - count);
+            if (count > this.getMagazine()) {
+                count = this.getMagazine();
+                setMagazine(0);
                 System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x! Now your weapon is empty");
             } else {
                 setMagazine(getMagazine() - count);
                 System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x!");
             }
         }
-        return magazine;
     }
 }

@@ -8,6 +8,7 @@ public enum ItemType {
     AMMUNITION,
     PART,
     RECOVERY,
-    KEY;
+    KEY,
+    MISCELLANEOUS;
 
 }

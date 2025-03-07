@@ -1,16 +1,5 @@
 package InventoryRE;
 
-import InventoryRE.Files.File;
-import InventoryRE.Key.KeyItem;
-import InventoryRE.Key.KeyType;
-import InventoryRE.Weaponry.Ammunition.AmmoType;
-import InventoryRE.Weaponry.Ammunition.Ammunition;
-import InventoryRE.Weaponry.Weapons.Weapon;
-import InventoryRE.Weaponry.Weapons.WeaponType;
-import InventoryRE.Weaponry.Knife.Knife;
-import InventoryRE.Weaponry.WeaponParts.PartType;
-import InventoryRE.Weaponry.WeaponParts.Parts;
-
 public class Main {
 
     /*                          OG Resident Evil 2's Inventory
@@ -26,56 +15,33 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Inventory<Object> Leon = new Inventory<>();
-        Inventory<Object> Claire = new Inventory<>();
+        ItemDatabase<Item> Leon = new ItemDatabase<>();
+        ItemDatabase<Item> Claire = new ItemDatabase<>();
 
-
-
-        Leon.addToFiles(new File("Police Memorandum", """
-                
-                                                                        POLICE MEMORANDUM
-                
-                8/23/1998
-                This letter is just to inform everyone about the recent movement of equipment that has happened during the precinct's rearrangement.
-                
-                The safe with four digit lock has been moved from S.T.A.R.S. office on the second floor, to the eastern office on the first floor.
-                
-                                                                              "2236"
-                
-                                                                                                                        Raccoon Police Liaison Dept.
-                
-                
-                """, ItemType.FILE));
-
+        Leon.collectItem(true, "H&K VP70");
+        Leon.collectItem(true, "Hand Gun Parts");
+        Leon.collectItem(true, "Hand Gun Bullets");
+        Leon.collectItem(true, "Green Herb");
+        Leon.collectItem(true, "Red Herb");
+        Leon.collectItem(true, "Film A");
+        Leon.collectItem(true, "Police Memorandum");
+        Leon.collectItem(true, "Chris's Diary");
+        Leon.listInventory();
         Leon.listFiles();
-        Leon.readFile("Police Memorandum");
-
-        Leon.addToInventory(new KeyItem("Lighter", "\"An oil lighter\"", ItemType.KEY, KeyType.GENERAL));
-        Leon.addToInventory(new Weapon("H&K VP70", "\"Manufactured by H&K, Germany. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 18, 18));
-        Leon.addToInventory(new Ammunition("Hand Gun Bullets", "\"9x19 parabellum rounds that can be used for either the H&K VP70 or Browning HP.\"", ItemType.AMMUNITION, AmmoType.HANDGUN_BULLETS, 15));
-        Leon.addToInventory(new Parts("Hand Gun Parts", "\"They look like parts for a gun.\"", ItemType.PART, PartType.HANDGUN_PARTS));
-        Leon.addToInventory(new KeyItem("Ink Ribbon", "\"I can type in my progress with this.\"", ItemType.KEY, KeyType.INK_RIBBON, 3));
-        Leon.addToInventory(new Knife("Knife", "\"A combat knife. It could come in handy...\"", ItemType.WEAPON, WeaponType.KNIFE));
-        Leon.addToInventory(new Weapon("Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.SPECIAL, WeaponType.INFINITE_WEAPON, 1, 1));
-        Leon.addToInventory(new KeyItem("Film A", "\"I can't tell what's on the film until I develop it.\"", ItemType.KEY, KeyType.FILM));
-        Leon.listInventory();
-
-        Leon.itemBoxIn("Ink Ribbon");
-        Leon.listItemBox();
-
-        Leon.useWeapon("H&K VP70", 5);
-        Leon.listInventory();
-        Leon.combineItems("H&K VP70", "Hand Gun Bullets");
-        Leon.listInventory();
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------");
         Leon.combineItems("H&K VP70", "Hand Gun Parts");
         Leon.listInventory();
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------");
         Leon.useWeapon("H&K VP70 Burst", 1);
-        System.out.println("\nGetting item from the item box. Please wait...");
-        Leon.itemBoxOut("Ink Ribbon");
         Leon.listInventory();
-        Leon.useWeapon("Knife", 100);
-        Leon.useWeapon("Rocket Launcher", 100);
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------");
+        Leon.combineItems("H&K VP70 Burst", "Hand Gun Bullets");
+        Leon.combineItems("Green Herb", "Red Herb");
         Leon.darkRoom("Film A");
+        Leon.listInventory();
         Leon.listFiles();
+        Leon.itemBoxIn("Mixed Herb G+R");
+        Leon.listItemBox();
+
     }
 }

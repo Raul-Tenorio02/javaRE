@@ -6,6 +6,8 @@ public abstract class Item {
     private String name, description;
     ItemType type;
 
+    public Item() {}
+
     public Item(String name, String description, ItemType type) {
         this.name = name;
         this.description = description;
