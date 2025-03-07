@@ -22,6 +22,10 @@ public final class Ammunition extends Item {
         this.quantity = quantity;
     }
 
+    public void addQuantity(int amount) {
+        this.quantity += amount;
+    }
+
     public AmmoType getAmmoType(){
         return typeAmmo;
     }

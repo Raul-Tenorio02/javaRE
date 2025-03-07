@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Inventory<T extends Item> implements InventoryInterface{
 
-    // delimit item manipulation by creating 3 lists that interact with each other
+    // delimits item manipulation by creating 3 lists that interact with each other
     private List<T> equipments;
     private List<T> itemBox;
     private List<T> archive;
@@ -228,6 +228,7 @@ public class Inventory<T extends Item> implements InventoryInterface{
         return null;
     }
 
+    //TODO: refactor to be more readable
     @Override
     public void collectItem(Boolean confirm, Item itemToCollect){
         T item = getFromDatabase(itemToCollect.getName());
@@ -235,7 +236,25 @@ public class Inventory<T extends Item> implements InventoryInterface{
             System.out.println("Item not found");
             return;
         }
-        if (item instanceof File) {
+        if (item instanceof Ammunition ammo){
+            for (T inventoryItem : equipments){
+                if (inventoryItem instanceof Ammunition && inventoryItem.getName().equals(ammo.getName())) {
+                    ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 15);
+                    return;
+                }
+            }
+            addToInventory((T) ammo);
+        } else if (item instanceof KeyItem inkRibbon) {
+            for (T inventoryItem : equipments) {
+                if (inventoryItem instanceof KeyItem) {
+                    if (((KeyItem) inventoryItem).getTypeKey() == KeyType.INK_RIBBON) {
+                        ((KeyItem) inventoryItem).setQuantity(((KeyItem) inventoryItem).getQuantity() + 3);
+                        return;
+                    }
+                }
+            }
+            addToInventory((T) inkRibbon);
+        } else if (item instanceof File) {
             addToFiles(item);
         } else {
             addToInventory(item);

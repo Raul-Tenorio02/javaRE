@@ -11,10 +11,11 @@ import InventoryRE.Weaponry.WeaponParts.UpgradeWeaponsInterface;
 
 public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInterface, FireInterface {
 
-    private int magazine, fireRate;
+    private int magazine;
     private final int maxCapacity;
     WeaponType typeWeapon;
     AmmoType loadedAmmo;
+    FireType fireType;
 
     public Weapon(String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity) {
         super(name, description, type);
@@ -30,12 +31,12 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
     }
 
     // overloading constructor to add fire rate attribute
-    public Weapon(String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, int fireRate) {
+    public Weapon(String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType) {
         super(name, description, type);
         this.magazine = magazine;
         this.maxCapacity = maxCapacity;
         this.typeWeapon = typeWeapon;
-        this.fireRate = fireRate;
+        this.fireType = fireType;
     }
 
     public int getMagazine() {
@@ -52,6 +53,10 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
 
     public WeaponType getTypeWeapon(){
         return typeWeapon;
+    }
+
+    public void setFireType(FireType fireType) {
+        this.fireType = fireType;
     }
 
     @Override
@@ -102,11 +107,11 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
             // in OG Resident Evil 2, only Leon's weapons had custom parts so... fewer validations :)
             if (this.typeWeapon == WeaponType.HANDGUN && part.getTypePart() == PartType.HANDGUN_PARTS){
                 //OG RE2 would also full reload weapon's capacity without spending player's ammo if a part was combined to it
-                return new Weapon("H&K VP70 Burst", "\"VP70 with a stock holster. Capable of firing three round auto bursts.\"", ItemType.SPECIAL, WeaponType.HANDGUN , 18, 18, 3);
+                return ItemDatabase.HK_VP70_BURST;
             } else if (this.typeWeapon == WeaponType.SHOTGUN && part.getTypePart() == PartType.SHOTGUN_PARTS){
-                return new Weapon("Remington M1100", "\"M1100 full size semi-automatic. The longer barrel results in more concentrated blasts.\"", ItemType.SPECIAL, WeaponType.SHOTGUN, 7 , 7);
+                return ItemDatabase.REMINGTON_M1100;
             } else if (this.typeWeapon == WeaponType.MAGNUM && part.getTypePart() == PartType.MAGNUM_PARTS){
-                return new Weapon("Desert Eagle 50A.E Custom", "\"10 inch barrel is put on to D.E.50A.E. It can fire DOT50A.E. rounds more powerfully.\"", ItemType.SPECIAL, WeaponType.MAGNUM, 8 , 8);
+                return ItemDatabase.DESERT_EAGLE_CUSTOM;
             }
         } else {
             System.out.println("\nThese items cannot be combined.");
@@ -146,25 +151,42 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
         return null;
     }
 
+    //TODO: create section to handle specific grenade rounds behavior
     @Override
     public void fireCount(String name, int count) {
-        if (this.fireRate == 0) {
-            this.fireRate = 1;
-        } else if (this.typeWeapon == WeaponType.BOWGUN) {
-            this.fireRate = 3;
+        int fireRate;
+        if (this.fireType == FireType.BURST) {
+            fireRate = 3;
+        } else {
+            fireRate = 1;
         }
-
         if (this.typeWeapon == WeaponType.INFINITE_WEAPON) {
             System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x!");
         } else {
-            count *= this.fireRate;
-            if (count > this.getMagazine()) {
-                count = this.getMagazine();
-                setMagazine(0);
-                System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x! Now your weapon is empty");
-            } else {
-                setMagazine(getMagazine() - count);
-                System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x!");
+            switch (fireRate){
+                case 1:
+                    if (count * fireRate > this.getMagazine()) {
+                        count = this.getMagazine();
+                        setMagazine(0);
+                        System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x! Now your weapon is empty");
+                    } else {
+                        setMagazine(getMagazine() - count);
+                        System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x!");
+                    }
+                    break;
+                case 3:
+                    // 1 burst counts as 1 shot/use of a burst weapon, but uses 3 bullets
+                    int burstCount = count;
+                    if (burstCount * fireRate > this.getMagazine()) {
+                        count = Math.min((burstCount * fireRate), this.getMagazine())/fireRate;
+                        setMagazine(0);
+                        System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x! Now your weapon is empty");
+                    } else {
+                        burstCount *= fireRate;
+                        setMagazine(getMagazine() - burstCount);
+                        System.out.println("\nYou've shot an enemy with your \"" + getName() + "\" " + count + "x!");
+                    }
+                    break;
             }
         }
     }

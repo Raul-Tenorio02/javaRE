@@ -8,7 +8,7 @@ import InventoryRE.ItemType;
 public final class KeyItem extends Item implements FilmInterface {
 
     KeyType typeKey;
-    private int uses, filmID;
+    private int quantity, filmID;
 
     public KeyItem() {
     }
@@ -18,20 +18,24 @@ public final class KeyItem extends Item implements FilmInterface {
         this.typeKey = typeKey;
     }
 
-    public KeyItem(String name, String description, ItemType type, KeyType typeKey, int uses) {
+    public KeyItem(String name, String description, ItemType type, KeyType typeKey, int quantity) {
         super(name, description, type);
         this.typeKey = typeKey;
-        this.uses = uses;
+        this.quantity = quantity;
     }
 
-    public KeyItem(String name, String description, ItemType type, KeyType typeKey, int uses, int filmID) {
+    public KeyItem(String name, String description, ItemType type, KeyType typeKey, int quantity, int filmID) {
         super(name, description, type);
         this.typeKey = typeKey;
         this.filmID = filmID;
     }
 
-    public int getUses() {
-        return uses;
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getFilmID() {
@@ -45,7 +49,7 @@ public final class KeyItem extends Item implements FilmInterface {
     @Override
     public String toString() {
         if (typeKey == KeyType.INK_RIBBON) {
-            return "{" + getName() + ", " + getDescription() + ", " + getUses() + "}";
+            return "{" + getName() + ", " + getDescription() + ", " + getQuantity() + "}";
         } else {
             return "{" + getName() + ", " + getDescription() + "}";
         }
