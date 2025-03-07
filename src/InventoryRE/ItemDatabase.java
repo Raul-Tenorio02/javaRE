@@ -15,52 +15,6 @@ import InventoryRE.Weaponry.Weapons.WeaponType;
 
 public abstract class ItemDatabase extends Item {
 
-    /*
-    public static final Weapon HK_VP70_BURST = new Weapon("H&K VP70 Burst", "\"VP70 with a stock holster. Capable of firing three round auto bursts.\"", ItemType.SPECIAL, WeaponType.HANDGUN , 18, 18, 3);
-    public static final Weapon REMINGTON M1100 = new Weapon("Remington M1100", "\"M1100 full size semi-automatic. The longer barrel results in more concentrated blasts.\"", ItemType.SPECIAL, WeaponType.SHOTGUN, 7 , 7);
-    public static final Weapon DESERT_EAGLE_CUSTOM = new Weapon("Desert Eagle 50A.E Custom", "\"10 inch barrel is put on to D.E.50A.E. It can fire DOT50A.E. rounds more powerfully.\"", ItemType.SPECIAL, WeaponType.MAGNUM, 8 , 8);
-
-    public static final File FILM_A = new File("FILM A", """
-
-                                                                                       FILM A
-
-                                                                              Code G Human Body Experiment
-
-                                                                                    9/15  15:24
-
-                            """, ItemType.FILE);
-
-    public static final File FILM_A = new File("FILM B", """
-
-                                                                                       FILM B
-
-                            Pictured in front of the Arukas tailor.
-                            Regressed into a zombie within two hours.
-
-                            Subject repeatedly complained about severe agitation of the epidermis in addition to feelings of nausea.
-                            This happened up to the moment he lost conscience.
-
-                            """, ItemType.FILE);
-
-    public static final File FILM_A = new File("FILM C", """
-
-                                                                                       FILM C
-
-                            Development Code: T-103
-
-                            Due to accelerated metabolism relative to the earlier 00 series, this subject possesses exemplary regenerative capabilities.
-
-                                                                                                                                       PH-X016 File Data
-
-                            """, ItemType.FILE);
-
-    public static final File FILM_A = new File("FILM D", """
-
-                                                                                       FILM D
-
-                            """, ItemType.FILE);
-     */
-
     //WEAPONS
     public static final Knife KNIFE = new Knife("Knife", "\"A combat knife. It could come in handy...\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON);
     public static final Weapon HK_VP70 = new Weapon("H&K VP70", "\"Manufactured by H&K, Germany. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 18, 18);
