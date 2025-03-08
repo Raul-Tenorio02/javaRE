@@ -1,7 +1,7 @@
 package InventoryRE.Weaponry.Knife;
 
-import InventoryRE.Item;
-import InventoryRE.ItemType;
+import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemType;
 import InventoryRE.Weaponry.Weapons.WeaponType;
 
 public final class Knife extends Item implements KnifeInterface{

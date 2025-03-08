@@ -9,6 +9,6 @@ public enum AmmoType {
     ACID_ROUNDS,
     FLAME_ROUNDS,
     MAGNUM_BULLETS,
-    MACHINEGUN_BULLETS;
+    MACHINEGUN_BULLETS
 
 }

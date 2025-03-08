@@ -2,12 +2,11 @@ package InventoryRE.Weaponry.Weapons;
 
 import InventoryRE.Weaponry.Ammunition.Ammunition;
 
-public interface ReloadInterface {
+public interface WeaponInterface {
 
     ReloadResultRecord reloadWeapon(Ammunition ammo);
     int updateAmmoLeft(int quantity, int ammoNeeded);
-    // specific for grenade launchers
-    Ammunition unloadAmmo();
-
+    Ammunition unloadAmmo(); // specific for grenade launchers
+    void fireCount(String name, int count);
 
 }

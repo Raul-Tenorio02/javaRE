@@ -11,6 +11,6 @@ public enum RecoveryType {
     GR,
     GB,
     GGB,
-    GRB;
+    GRB
 
 }

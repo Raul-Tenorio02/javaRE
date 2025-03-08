@@ -2,7 +2,7 @@ package InventoryRE.Weaponry.Weapons;
 
 public enum FireType {
 
-    SINGLE,
-    BURST; // for burst type weapons
+    SINGLE, // future features of H&K VP70 Burst
+    BURST // for burst type weapons
 
 }

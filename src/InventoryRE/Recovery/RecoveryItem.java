@@ -1,8 +1,8 @@
 package InventoryRE.Recovery;
 
-import InventoryRE.Item;
-import InventoryRE.ItemDatabase;
-import InventoryRE.ItemType;
+import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemDatabase;
+import InventoryRE.Inventory.ItemType;
 
 public class RecoveryItem extends Item implements MixInterface {
 
@@ -10,14 +10,6 @@ public class RecoveryItem extends Item implements MixInterface {
 
     public RecoveryItem(String name, String description, ItemType type, RecoveryType typeRecovery) {
         super(name, description, type);
-        this.typeRecovery = typeRecovery;
-    }
-
-    public RecoveryType getTypeRecovery() {
-        return typeRecovery;
-    }
-
-    public void setTypeRecovery(RecoveryType typeRecovery) {
         this.typeRecovery = typeRecovery;
     }
 
@@ -48,4 +40,5 @@ public class RecoveryItem extends Item implements MixInterface {
         }
         return null;
     }
+
 }

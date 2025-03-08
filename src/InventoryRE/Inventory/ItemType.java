@@ -1,4 +1,4 @@
-package InventoryRE;
+package InventoryRE.Inventory;
 
 public enum ItemType {
 
@@ -9,6 +9,6 @@ public enum ItemType {
     PART,
     RECOVERY,
     KEY,
-    MISCELLANEOUS;
+    MISCELLANEOUS // future features
 
 }

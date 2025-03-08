@@ -1,15 +1,15 @@
 package InventoryRE.Weaponry.Weapons;
 
-import InventoryRE.Item;
-import InventoryRE.ItemDatabase;
-import InventoryRE.ItemType;
+import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemDatabase;
+import InventoryRE.Inventory.ItemType;
 import InventoryRE.Weaponry.Ammunition.AmmoType;
 import InventoryRE.Weaponry.Ammunition.Ammunition;
 import InventoryRE.Weaponry.WeaponParts.PartType;
 import InventoryRE.Weaponry.WeaponParts.Parts;
 import InventoryRE.Weaponry.WeaponParts.UpgradeWeaponsInterface;
 
-public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInterface, FireInterface {
+public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInterface {
 
     private int magazine;
     private final int maxCapacity;
@@ -50,10 +50,6 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
 
     public WeaponType getTypeWeapon(){
         return typeWeapon;
-    }
-
-    public void setFireType(FireType fireType) {
-        this.fireType = fireType;
     }
 
     @Override
@@ -172,7 +168,7 @@ public class Weapon extends Item implements ReloadInterface, UpgradeWeaponsInter
                     }
                     break;
                 case 3:
-                    // 1 burst counts as 1 shot/use of a burst weapon, but uses 3 bullets
+                    // 1 burst counts as 1 use of a burst weapon, but spends 3 bullets
                     int burstCount = count;
                     if (burstCount * fireRate > this.getMagazine()) {
                         count = Math.min((burstCount * fireRate), this.getMagazine())/fireRate;

@@ -1,4 +1,4 @@
-package InventoryRE;
+package InventoryRE.Inventory;
 
 public interface InventoryInterface {
 

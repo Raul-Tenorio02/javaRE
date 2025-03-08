@@ -1,4 +1,4 @@
-package InventoryRE;
+package InventoryRE.Inventory;
 
 public abstract class Item {
 

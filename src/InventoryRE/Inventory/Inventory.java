@@ -1,9 +1,10 @@
-package InventoryRE;
+package InventoryRE.Inventory;
 
 import InventoryRE.Files.File;
 import InventoryRE.Key.KeyItem;
 import InventoryRE.Key.KeyType;
 import InventoryRE.Recovery.RecoveryItem;
+import InventoryRE.Weaponry.Ammunition.AmmoType;
 import InventoryRE.Weaponry.Ammunition.Ammunition;
 import InventoryRE.Weaponry.WeaponParts.Parts;
 import InventoryRE.Weaponry.Weapons.ReloadResultRecord;
@@ -15,12 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory<T extends Item> implements InventoryInterface{
+    //TODO: refactor to eliminate "Unchecked cast" alerts
 
-    // delimits item manipulation by creating 3 lists that interact with each other
-    private List<T> equipments;
-    private List<T> itemBox;
-    private List<T> archive;
-    private List<T> database;
+    // delimits item manipulation by creating 4 lists that interact with each other
+    private final List<T> equipments;
+    private final List<T> itemBox;
+    private final List<T> archive;
+    private final List<T> database;
 
     public Inventory() {
         this.equipments = new ArrayList<>();
@@ -228,36 +230,41 @@ public class Inventory<T extends Item> implements InventoryInterface{
         return null;
     }
 
-    //TODO: refactor to be more readable
     @Override
     public void collectItem(Boolean confirm, Item itemToCollect){
         T item = getFromDatabase(itemToCollect.getName());
-        if ( item == null) {
-            System.out.println("Item not found");
-            return;
-        }
-        if (item instanceof Ammunition ammo){
-            for (T inventoryItem : equipments){
-                if (inventoryItem instanceof Ammunition && inventoryItem.getName().equals(ammo.getName())) {
-                    ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 15);
-                    return;
-                }
-            }
-            addToInventory((T) ammo);
-        } else if (item instanceof KeyItem inkRibbon) {
-            for (T inventoryItem : equipments) {
-                if (inventoryItem instanceof KeyItem) {
-                    if (((KeyItem) inventoryItem).getTypeKey() == KeyType.INK_RIBBON) {
-                        ((KeyItem) inventoryItem).setQuantity(((KeyItem) inventoryItem).getQuantity() + 3);
+        switch (item) {
+            case null -> System.out.println("Item not found");
+            case Ammunition ammo -> {
+                for (T inventoryItem : equipments) {
+                    if (inventoryItem instanceof Ammunition && inventoryItem.getName().equals(ammo.getName())) {
+                        // standard quantity for new ammo
+                        switch (ammo.getAmmoType()) {
+                            case AmmoType.HANDGUN_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 15);
+                            case AmmoType.SHOTGUN_SHELLS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 7);
+                            case AmmoType.BOWGUN_BOLTS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 18);
+                            case AmmoType.GRENADE_ROUNDS, AmmoType.ACID_ROUNDS, AmmoType.FLAME_ROUNDS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 6);
+                            case AmmoType.MAGNUM_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 8);
+                            case AmmoType.MACHINEGUN_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 100);
+                        }
                         return;
                     }
                 }
+                addToInventory((T) ammo);
             }
-            addToInventory((T) inkRibbon);
-        } else if (item instanceof File) {
-            addToFiles(item);
-        } else {
-            addToInventory(item);
+            case KeyItem inkRibbon -> {
+                for (T inventoryItem : equipments) {
+                    if (inventoryItem instanceof KeyItem) {
+                        if (((KeyItem) inventoryItem).getTypeKey() == KeyType.INK_RIBBON) {
+                            ((KeyItem) inventoryItem).setQuantity(((KeyItem) inventoryItem).getQuantity() + 3); //standard ink ribbon quantity
+                            return;
+                        }
+                    }
+                }
+                addToInventory((T) inkRibbon);
+            }
+            case File file -> addToFiles(item);
+            default -> addToInventory(item);
         }
     }
 
@@ -318,6 +325,16 @@ public class Inventory<T extends Item> implements InventoryInterface{
             } else {
                 System.out.println("\nThere is no need to combine these.");
             }
+        } else if (item1 instanceof KeyItem key1 && item2 instanceof KeyItem key2) {
+            KeyItem combinedKeyItem = key1.combineKeyItems(key2);
+            if (combinedKeyItem != null){
+                this.removeFromInventory(item1);
+                this.removeFromInventory(item2);
+                addToInventory((T) combinedKeyItem);
+                System.out.println("\nItems combined successfully!");
+            } else {
+                System.out.println("\nThere is no need to combine these.");
+            }
         } else {
             System.out.println("\nCannot combine these items.");
         }
@@ -351,15 +368,12 @@ public class Inventory<T extends Item> implements InventoryInterface{
             count = 1;
         }
         T item = getItemByName(itemWeapon.getName(), false);
-        if (item == null) {
-            System.out.println("\nWeapon not found");
-            return;
-        }
-        //TODO: refactor firecount
-        if (item instanceof Weapon weaponInUse) {
-            weaponInUse.fireCount(itemWeapon.getName(), count);
-        } else if (item instanceof Knife knifeInUse) {
-            knifeInUse.swingCount(itemWeapon.getName(), count);
+        switch (item) {
+            case null -> System.out.println("\nWeapon not found");
+            case Weapon weaponInUse -> weaponInUse.fireCount(itemWeapon.getName(), count);
+            case Knife knifeInUse -> knifeInUse.swingCount(itemWeapon.getName(), count);
+            default -> {
+            }
         }
     }
 

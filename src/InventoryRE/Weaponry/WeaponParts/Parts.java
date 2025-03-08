@@ -1,7 +1,7 @@
 package InventoryRE.Weaponry.WeaponParts;
 
-import InventoryRE.Item;
-import InventoryRE.ItemType;
+import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemType;
 
 public final class Parts extends Item {
 
@@ -14,10 +14,6 @@ public final class Parts extends Item {
 
     public PartType getTypePart() {
         return typePart;
-    }
-
-    public void setTypePart(PartType typePart) {
-        this.typePart = typePart;
     }
 
     @Override

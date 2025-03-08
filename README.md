@@ -1,61 +1,78 @@
 # OBJECT-ORIENTED INVENTORY SYSTEM
 
-This project aims to recreate some of the main features present in the classic Resident Evil 2's inventory/items system. It allows you to create items, list them in your inventory, update their characteristics, or merge two items to generate a new one with special attributes. Additionally, you can move items between your inventory and the item box.
+This project aims to recreate some of the main features of the classic Resident Evil 2 inventory and item management system. It allows you to create items, list them in your inventory, update their characteristics, or merge two items to generate a new one with special attributes. Additionally, you can transfer items between your inventory and the item box.
 
-Attention: This is NOT a game, but a data manipulation backend system.
+⚠️ Disclaimer: This is NOT a game, but a backend system for data manipulation inspired by Resident Evil's inventory mechanics.
 
-Feel free to fork this project :)
+Feel free to fork this project ;)
 
 # Current Features
 
-1. ArrayList-based data structure.
-2. Usage of generics, enums, interfaces, abstract classes, final classes, and both overriding and overloading.
-3. Methods for combining items, such as mixing herbs, reloading weapons, or upgrading them.
-4. Methods for storage or get items from the item box.
-5. Methods for shooting (or swinging) a weapon. (I know it's not strictly an inventory feature, but it will increase the project's complexity as it's directly related to both reload and upgrade methods.)
-6. Method for developing film type items and transforming them into file type.
+1. ArrayList-based data structure. 
+2. Usage of generics, enums, interfaces, abstract classes, final classes, records, method overriding, and overloading. 
+3. Item combination system, like mixing herbs, reloading and upgrading weapons, and crafting specific key items. 
+4. Inventory storage system, allowing you to deposit and retrieve items from the item box. 
+5. Comprehensive listing methods for the entire inventory system, including the item box, archive, and equipments. 
+6. Weapon usage mechanics. (Not strictly an inventory feature, but increase the use of other methods)
+7. Film development system, allowing you to reveal hidden contents. 
+8. File reading system.
 
-# You should also expect:
+# Known Issues & Limitations
 
-1. Some bugs and/or inappropriate method behaviors.
-2. Variables, getters, setters, functions and/or methods that exist but are used for absolutely nothing. I'm still working on it, so...
+1. Some methods may contain bugs, logic mistakes or unexpected behaviors.
+2. Some features are still under development.
 
-# Future implementations
+# Planned Features
 
-1. Improve the use of the ternary operator.
-2. Fix bugs and unwanted behavior of classes and methods (already fixing many of them)
-3. Implement Records, Hash, Streams etc.
-4. Develop a frontend. (currently working on it)
-5. Integrate with a database. (currently working on it)
-6. Merge it all to create a web version using RESTful API concepts with Spring and JPA/Hibernate. (currently working on it)
+1. Refactoring with Hash, Streams, and other optimizations.
+2. Frontend development (currently in progress).
+3. Database integration (currently in progress).
+4. Full web version using RESTful API concepts with Spring Boot and JPA/Hibernate (currently in progress).
 
-# Instructions
+# Getting Started
 
 1. Download the project's ZIP file and open it in your IDE.
-2. Predefined inventories for Leon and Claire are already set up:
+2. Some predefined inventories are already set up:
 
-        Inventory<Object> Leon = new Inventory<>();
-        Inventory<Object> Claire = new Inventory<>();
+         Inventory<Object> Leon = new Inventory<>();
+         Inventory<Object> Claire = new Inventory<>();
+         Inventory<Object> Ada = new Inventory<>();
+         Inventory<Object> Sherry = new Inventory<>();
 
-3. You can start calling methods on either variable, Leon or Claire:
+3. You can start calling methods. Here are some examples:
 
-        Leon.addToInventory(new --class instance here--(--parameters here--));
-        // Remember to check constructors in each class to create specific items correctly.
+         Leon.collectItem(true, ItemDatabase.<item_here>);
+         // Adds an item to Leon's inventory.
+         
+         Leon.listInventory();
+         // Lists all items in the inventory.
+         
+         Leon.itemBoxIn(ItemDatabase.<item_here>);
+         // Stores an item in the item box.
+         
+         Leon.itemBoxOut(ItemDatabase.<item_here>);
+         // Retrieves an item from the item box.
+         
+         Leon.listItemBox();
+         // Lists all stored items in the item box.
+         
+         Claire.combineItems(ItemDatabase.<item1>, ItemDatabase.<item2>);
+         // Combines two items (e.g., mixing herbs, upgrading weapons).
+         
+         Claire.useWeapon(ItemDatabase.<weapon_here>, <number_of_uses>);
+         // Uses a weapon, reducing its durability or ammo.
+         
+         Claire.darkRoom(ItemDatabase.<film_here>);
+         // Develops a film, revealing hidden content.
+         
+         Claire.readFile(ItemDatabase.<file_here>);
+         // Reads an in-game document.
+         
+         Claire.listFiles();
+         // Opens the archive section.
 
-        Leon.listInventory(); 
-        // Lists items created in the inventory.
+# Recent Updates
 
-        Leon.itemBoxIn("item to be stored"); 
-        // Stores an item in the item box.
-
-        Leon.itemBoxOut("item to be removed from storage"); 
-        // Removes an item from the item box.
-
-        Leon.listItemBox()
-        // Works the same as listInventory() but for the item box
-
-        Claire.combineItems("item to be combined", "item you're combining with"); 
-        // Calls different methods depending on the items you're combining.
-
-        Claire.useWeapon("weapon to be used here", --number of uses here (int)--);
-        // Calls different methods depending on the type of weapon you're trying to use.
+1. Introduced ItemDatabase to properly instantiate all objects for easier reference.
+2. Created collectItem() and made addToInventory() private.
+3. Refactored multiple methods to be private and final for better encapsulation.

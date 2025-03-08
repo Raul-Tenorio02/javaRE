@@ -4,6 +4,6 @@ public enum KeyType {
 
     GENERAL,
     INK_RIBBON,
-    FILM;
+    FILM
 
 }

@@ -1,32 +1,28 @@
 package InventoryRE.Key;
 
 import InventoryRE.Files.File;
-import InventoryRE.Item;
-import InventoryRE.ItemDatabase;
-import InventoryRE.ItemType;
+import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemDatabase;
+import InventoryRE.Inventory.ItemType;
 
-public final class KeyItem extends Item implements FilmInterface {
+public final class KeyItem extends Item implements KeyItemInterface {
 
     KeyType typeKey;
     private int quantity, filmID;
-
-    public KeyItem() {
-    }
 
     public KeyItem(String name, String description, ItemType type, KeyType typeKey) {
         super(name, description, type);
         this.typeKey = typeKey;
     }
 
+    //overloading to add specific attributes for films and ink ribbons
     public KeyItem(String name, String description, ItemType type, KeyType typeKey, int quantity) {
-        super(name, description, type);
-        this.typeKey = typeKey;
+        this(name, description, type, typeKey);
         this.quantity = quantity;
     }
 
     public KeyItem(String name, String description, ItemType type, KeyType typeKey, int quantity, int filmID) {
-        super(name, description, type);
-        this.typeKey = typeKey;
+        this(name, description, type, typeKey, quantity);
         this.filmID = filmID;
     }
 
@@ -67,6 +63,18 @@ public final class KeyItem extends Item implements FilmInterface {
                     return ItemDatabase.FILM_C;
                 case 4:
                     return ItemDatabase.FILM_D;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public KeyItem combineKeyItems(Item otherKeyItem){
+        if (this.getType() == ItemType.KEY && otherKeyItem.getType() == ItemType.KEY){
+            if (this == ItemDatabase.PLASTIC_BOMB && otherKeyItem == ItemDatabase.DETONATOR || this == ItemDatabase.DETONATOR && otherKeyItem == ItemDatabase.PLASTIC_BOMB ) {
+                return ItemDatabase.BOMB_DET;
+            } else if (this == ItemDatabase.BLUE_STONE_LEFT && otherKeyItem == ItemDatabase.BLUE_STONE_RIGHT || this == ItemDatabase.BLUE_STONE_RIGHT && otherKeyItem == ItemDatabase.BLUE_STONE_LEFT ) {
+                return ItemDatabase.JAGUAR_STONE;
             }
         }
         return null;

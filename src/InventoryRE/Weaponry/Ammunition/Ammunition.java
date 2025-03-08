@@ -1,7 +1,7 @@
 package InventoryRE.Weaponry.Ammunition;
 
-import InventoryRE.Item;
-import InventoryRE.ItemType;
+import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemType;
 
 public final class Ammunition extends Item {
 

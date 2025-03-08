@@ -2,7 +2,6 @@ package InventoryRE.Weaponry.Weapons;
 
 public enum WeaponType {
 
-    KNIFE,
     HANDGUN,
     SHOTGUN,
     BOWGUN,
@@ -11,6 +10,6 @@ public enum WeaponType {
     MACHINE_GUN,
     SPARKSHOT,
     FLAMETHROWER,
-    INFINITE_WEAPON;
+    INFINITE_WEAPON
 
 }
