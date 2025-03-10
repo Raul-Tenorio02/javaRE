@@ -60,13 +60,13 @@ Feel free to fork this project ;)
          // Combines two items (e.g., mixing herbs, upgrading weapons).
          
          Claire.useWeapon(ItemDatabase.<weapon_here>, <number_of_uses>);
-         // Uses a weapon, reducing its durability or ammo.
+         // Uses a weapon, reducing its ammo.
          
          Claire.darkRoom(ItemDatabase.<film_here>);
          // Develops a film, revealing hidden content.
          
          Claire.readFile(ItemDatabase.<file_here>);
-         // Reads an in-game document.
+         // Reads a document.
          
          Claire.listFiles();
          // Opens the archive section.
