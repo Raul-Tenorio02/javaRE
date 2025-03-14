@@ -24,8 +24,5 @@ public class Main {
         Inventory Ada = new Inventory(Characters.ADA);
         Inventory Sherry = new Inventory(Characters.SHERRY);
 
-        Leon.collectItem(true, db.getMEMO_TO_LEON());
-        Leon.readFile(db.getMEMO_TO_LEON());
-
     }
 }
