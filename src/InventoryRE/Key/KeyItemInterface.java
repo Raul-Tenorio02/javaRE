@@ -5,7 +5,7 @@ import InventoryRE.Inventory.Item;
 
 public interface KeyItemInterface {
 
-    File developFilm(int filmID);
+    File developFilm(KeyItem keyItem);
     KeyItem combineKeyItems(Item otherKeyItem);
 
 }

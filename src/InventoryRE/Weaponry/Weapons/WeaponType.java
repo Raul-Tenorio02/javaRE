@@ -10,6 +10,7 @@ public enum WeaponType {
     MACHINE_GUN,
     SPARKSHOT,
     FLAMETHROWER,
+    ROCKET_LAUNCHER,
     INFINITE_WEAPON
 
 }

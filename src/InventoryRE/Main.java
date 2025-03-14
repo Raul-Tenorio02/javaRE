@@ -1,7 +1,8 @@
 package InventoryRE;
 
+import InventoryRE.Inventory.Characters;
 import InventoryRE.Inventory.Inventory;
-import InventoryRE.Inventory.Item;
+import InventoryRE.Inventory.ItemDatabase;
 
 public class Main {
 
@@ -17,11 +18,14 @@ public class Main {
     */
 
     public static void main(String[] args) {
+        ItemDatabase db = new ItemDatabase();
+        Inventory Leon = new Inventory(Characters.LEON);
+        Inventory Claire = new Inventory(Characters.CLAIRE);
+        Inventory Ada = new Inventory(Characters.ADA);
+        Inventory Sherry = new Inventory(Characters.SHERRY);
 
-        Inventory<Item> Leon = new Inventory<>();
-        Inventory<Item> Claire = new Inventory<>();
-        Inventory<Item> Ada = new Inventory<>();
-        Inventory<Item> Sherry = new Inventory<>();
+        Leon.collectItem(true, db.getMEMO_TO_LEON());
+        Leon.readFile(db.getMEMO_TO_LEON());
 
     }
 }

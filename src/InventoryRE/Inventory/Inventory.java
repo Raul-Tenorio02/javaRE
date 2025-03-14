@@ -15,215 +15,275 @@ import InventoryRE.Weaponry.Weapons.WeaponType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory<T extends Item> implements InventoryInterface{
-    //TODO: refactor to eliminate "Unchecked cast" alerts
+public class Inventory implements InventoryInterface {
 
-    // delimits item manipulation by creating 4 lists that interact with each other
-    private final List<T> equipments;
-    private final List<T> itemBox;
-    private final List<T> archive;
-    private final List<T> database;
+    private final List<Item> equipments;
+    private final List<Item> itemBox;
+    private final List<Item> archive;
+    private final List<Item> database;
 
-    public Inventory() {
+    private final ItemDatabase itemDatabase;
+
+    Characters characters;
+
+    private Characters getCharacters() {
+        return characters;
+    }
+
+    private void setCharacters(Characters characters) {
+        this.characters = characters;
+    }
+
+    public Inventory(Characters character) {
         this.equipments = new ArrayList<>();
         this.itemBox = new ArrayList<>();
         this.archive = new ArrayList<>();
         this.database = new ArrayList<>();
 
+        itemDatabase = new ItemDatabase();
+        initialize(character);
+        //personalizing inventory "interface" only for backend visualizing
+        setCharacters(character);
+
         //WEAPONS
-        addToDatabase(ItemDatabase.KNIFE);
-        addToDatabase(ItemDatabase.HK_VP70);
-        addToDatabase(ItemDatabase.BROWNING_HP);
-        addToDatabase(ItemDatabase.REMINGTON_1100P);
-        addToDatabase(ItemDatabase.BOW_GUN);
-        addToDatabase(ItemDatabase.COLT_SAA);
-        addToDatabase(ItemDatabase.M79_GL);
-        addToDatabase(ItemDatabase.MAC11);
-        addToDatabase(ItemDatabase.DESERT_EAGLE);
-        addToDatabase(ItemDatabase.SPARK_SHOT);
-        addToDatabase(ItemDatabase.ROCKET_LAUNCHER);
-        addToDatabase(ItemDatabase.GATLING_GUN);
+        addToDatabase(itemDatabase.getKNIFE());
+        addToDatabase(itemDatabase.getHK_VP70());
+        addToDatabase(itemDatabase.getBROWNING_HP());
+        addToDatabase(itemDatabase.getREMINGTON_1100P());
+        addToDatabase(itemDatabase.getBOW_GUN());
+        addToDatabase(itemDatabase.getCOLT_SAA());
+        addToDatabase(itemDatabase.getM79_GL());
+        addToDatabase(itemDatabase.getMAC11());
+        addToDatabase(itemDatabase.getDESERT_EAGLE());
+        addToDatabase(itemDatabase.getSPARK_SHOT());
+        addToDatabase(itemDatabase.getFLAMETHROWER());
+        addToDatabase(itemDatabase.getROCKET_LAUNCHER());
+        //CUSTOM WEAPONS
+        addToDatabase(itemDatabase.getHK_VP70_BURST());
+        addToDatabase(itemDatabase.getREMINGTON_M1100());
+        addToDatabase(itemDatabase.getDESERT_EAGLE_CUSTOM());
+        // INFINITE WEAPONS
+        addToDatabase(itemDatabase.getINFINITE_MAC11());
+        addToDatabase(itemDatabase.getINFINITE_ROCKET_LAUNCHER());
+        addToDatabase(itemDatabase.getGATLING_GUN());
 
-        //WEAPON PARTS
-        addToDatabase(ItemDatabase.HANDGUN_PARTS);
-        addToDatabase(ItemDatabase.SHOTGUN_PARTS);
-        addToDatabase(ItemDatabase.MAGNUM_PARTS);
+        // WEAPON PARTS
+        addToDatabase(itemDatabase.getHANDGUN_PARTS());
+        addToDatabase(itemDatabase.getSHOTGUN_PARTS());
+        addToDatabase(itemDatabase.getMAGNUM_PARTS());
 
-        //AMMUNITION
-        addToDatabase(ItemDatabase.HANDGUN_BULLETS);
-        addToDatabase(ItemDatabase.SHOTGUN_SHELLS);
-        addToDatabase(ItemDatabase.BOW_GUN_BOLTS);
-        addToDatabase(ItemDatabase.GRENADE_ROUNDS);
-        addToDatabase(ItemDatabase.ACID_ROUNDS);
-        addToDatabase(ItemDatabase.FLAME_ROUNDS);
-        addToDatabase(ItemDatabase.MAGNUM_BULLETS);
-        addToDatabase(ItemDatabase.MACHINE_GUN_BULLETS);
+        // AMMUNITION
+        addToDatabase(itemDatabase.getHANDGUN_BULLETS());
+        addToDatabase(itemDatabase.getSHOTGUN_SHELLS());
+        addToDatabase(itemDatabase.getBOW_GUN_BOLTS());
+        addToDatabase(itemDatabase.getGRENADE_ROUNDS());
+        addToDatabase(itemDatabase.getACID_ROUNDS());
+        addToDatabase(itemDatabase.getFLAME_ROUNDS());
+        addToDatabase(itemDatabase.getMAGNUM_BULLETS());
+        addToDatabase(itemDatabase.getMACHINE_GUN_BULLETS());
 
-        //KEY ITEMS
-        addToDatabase(ItemDatabase.LIGHTER);
-        addToDatabase(ItemDatabase.LOCKPICK);
-        addToDatabase(ItemDatabase.ADA_PICTURE);
-        addToDatabase(ItemDatabase.SHERRY_PICTURE);
-        addToDatabase(ItemDatabase.SMALL_KEY);
-        addToDatabase(ItemDatabase.INK_RIBBON);
-        addToDatabase(ItemDatabase.BLUE_CARD_KEY);
-        addToDatabase(ItemDatabase.CABIN_KEY);
-        addToDatabase(ItemDatabase.FILM_1);
-        addToDatabase(ItemDatabase.FILM_2);
-        addToDatabase(ItemDatabase.FILM_3);
-        addToDatabase(ItemDatabase.FILM_4);
-        addToDatabase(ItemDatabase.UNICORN_MEDAL);
-        addToDatabase(ItemDatabase.SPADE_KEY);
-        addToDatabase(ItemDatabase.DIAMOND_KEY);
-        addToDatabase(ItemDatabase.VIRGIN_HEART);
-        addToDatabase(ItemDatabase.VALVE_HANDLE);
-        addToDatabase(ItemDatabase.PLASTIC_BOMB);
-        addToDatabase(ItemDatabase.DETONATOR);
-        addToDatabase(ItemDatabase.HEART_KEY);
-        addToDatabase(ItemDatabase.RED_CARD_KEY);
-        addToDatabase(ItemDatabase.BOMB_DET);
-        addToDatabase(ItemDatabase.SQUARE_CRANK);
-        addToDatabase(ItemDatabase.CORD);
-        addToDatabase(ItemDatabase.CLUB_KEY);
-        addToDatabase(ItemDatabase.KING_PLUG);
-        addToDatabase(ItemDatabase.ROOK_PLUG);
-        addToDatabase(ItemDatabase.KNIGHT_PLUG);
-        addToDatabase(ItemDatabase.BISHOP_PLUG);
-        addToDatabase(ItemDatabase.EAGLE_STONE);
-        addToDatabase(ItemDatabase.SERPENT_STONE);
-        addToDatabase(ItemDatabase.BLUE_STONE_LEFT);
-        addToDatabase(ItemDatabase.BLUE_STONE_RIGHT);
-        addToDatabase(ItemDatabase.JAGUAR_STONE);
-        addToDatabase(ItemDatabase.MANHOLE_OPENER);
-        addToDatabase(ItemDatabase.GOLD_COGWHEEL);
-        addToDatabase(ItemDatabase.EAGLE_MEDAL);
-        addToDatabase(ItemDatabase.WOLF_MEDAL);
-        addToDatabase(ItemDatabase.WEAPON_BOX_KEY);
-        addToDatabase(ItemDatabase.DOWN_KEY);
-        addToDatabase(ItemDatabase.UP_KEY);
-        addToDatabase(ItemDatabase.FUSE_CASE);
-        addToDatabase(ItemDatabase.MAIN_FUSE);
-        addToDatabase(ItemDatabase.LAB_CARD_KEY);
-        addToDatabase(ItemDatabase.MO_DISK);
-        addToDatabase(ItemDatabase.POWER_ROOM_KEY);
-        addToDatabase(ItemDatabase.VACCINE_CART);
-        addToDatabase(ItemDatabase.BASE_VACCINE);
-        addToDatabase(ItemDatabase.VACCINE_CART);
-        addToDatabase(ItemDatabase.BASE_VACCINE);
-        addToDatabase(ItemDatabase.VACCINE);
-        addToDatabase(ItemDatabase.G_VIRUS);
-        addToDatabase(ItemDatabase.MASTER_KEY);
-        addToDatabase(ItemDatabase.PLATFORM_KEY);
-        addToDatabase(ItemDatabase.JOINT_N_PLUG);
-        addToDatabase(ItemDatabase.JOINT_S_PLUG);
-        addToDatabase(ItemDatabase.LOCKER_KEY);
+        // KEY ITEMS
+        addToDatabase(itemDatabase.getLIGHTER());
+        addToDatabase(itemDatabase.getLOCKPICK());
+        addToDatabase(itemDatabase.getADA_PICTURE());
+        addToDatabase(itemDatabase.getSHERRY_PICTURE());
+        addToDatabase(itemDatabase.getSMALL_KEY());
+        addToDatabase(itemDatabase.getINK_RIBBON());
+        addToDatabase(itemDatabase.getBLUE_CARD_KEY());
+        addToDatabase(itemDatabase.getCABIN_KEY());
+        addToDatabase(itemDatabase.getFILM_1());
+        addToDatabase(itemDatabase.getFILM_2());
+        addToDatabase(itemDatabase.getFILM_3());
+        addToDatabase(itemDatabase.getFILM_4());
+        addToDatabase(itemDatabase.getUNICORN_MEDAL());
+        addToDatabase(itemDatabase.getSPADE_KEY());
+        addToDatabase(itemDatabase.getDIAMOND_KEY());
+        addToDatabase(itemDatabase.getVIRGIN_HEART());
+        addToDatabase(itemDatabase.getVALVE_HANDLE());
+        addToDatabase(itemDatabase.getPLASTIC_BOMB());
+        addToDatabase(itemDatabase.getDETONATOR());
+        addToDatabase(itemDatabase.getHEART_KEY());
+        addToDatabase(itemDatabase.getRED_CARD_KEY());
+        addToDatabase(itemDatabase.getBOMB_DET());
+        addToDatabase(itemDatabase.getSQUARE_CRANK());
+        addToDatabase(itemDatabase.getCORD());
+        addToDatabase(itemDatabase.getCLUB_KEY());
+        addToDatabase(itemDatabase.getKING_PLUG());
+        addToDatabase(itemDatabase.getROOK_PLUG());
+        addToDatabase(itemDatabase.getKNIGHT_PLUG());
+        addToDatabase(itemDatabase.getBISHOP_PLUG());
+        addToDatabase(itemDatabase.getEAGLE_STONE());
+        addToDatabase(itemDatabase.getSERPENT_STONE());
+        addToDatabase(itemDatabase.getBLUE_STONE_LEFT());
+        addToDatabase(itemDatabase.getBLUE_STONE_RIGHT());
+        addToDatabase(itemDatabase.getJAGUAR_STONE());
+        addToDatabase(itemDatabase.getMANHOLE_OPENER());
+        addToDatabase(itemDatabase.getGOLD_COGWHEEL());
+        addToDatabase(itemDatabase.getEAGLE_MEDAL());
+        addToDatabase(itemDatabase.getWOLF_MEDAL());
+        addToDatabase(itemDatabase.getWEAPON_BOX_KEY());
+        addToDatabase(itemDatabase.getDOWN_KEY());
+        addToDatabase(itemDatabase.getUP_KEY());
+        addToDatabase(itemDatabase.getFUSE_CASE());
+        addToDatabase(itemDatabase.getMAIN_FUSE());
+        addToDatabase(itemDatabase.getLAB_CARD_KEY());
+        addToDatabase(itemDatabase.getMO_DISK());
+        addToDatabase(itemDatabase.getPOWER_ROOM_KEY());
+        addToDatabase(itemDatabase.getVACCINE_CART());
+        addToDatabase(itemDatabase.getBASE_VACCINE());
+        addToDatabase(itemDatabase.getVACCINE());
+        addToDatabase(itemDatabase.getG_VIRUS());
+        addToDatabase(itemDatabase.getMASTER_KEY());
+        addToDatabase(itemDatabase.getPLATFORM_KEY());
+        addToDatabase(itemDatabase.getJOINT_N_PLUG());
+        addToDatabase(itemDatabase.getJOINT_S_PLUG());
+        addToDatabase(itemDatabase.getLOCKER_KEY());
 
-        //RECOVERY ITEMS
-        addToDatabase(ItemDatabase.GREEN_HERB);
-        addToDatabase(ItemDatabase.RED_HERB);
-        addToDatabase(ItemDatabase.BLUE_HERB);
-        addToDatabase(ItemDatabase.FIRST_AID_SPRAY);
-        addToDatabase(ItemDatabase.MIXED_HERB_GG);
-        addToDatabase(ItemDatabase.MIXED_HERB_GR);
-        addToDatabase(ItemDatabase.MIXED_HERB_GB);
-        addToDatabase(ItemDatabase.MIXED_HERB_GGG);
-        addToDatabase(ItemDatabase.MIXED_HERB_GGB);
-        addToDatabase(ItemDatabase.MIXED_HERB_GRB);
+        // RECOVERY ITEMS
+        addToDatabase(itemDatabase.getGREEN_HERB());
+        addToDatabase(itemDatabase.getRED_HERB());
+        addToDatabase(itemDatabase.getBLUE_HERB());
+        addToDatabase(itemDatabase.getFIRST_AID_SPRAY());
+        addToDatabase(itemDatabase.getMIXED_HERB_GG());
+        addToDatabase(itemDatabase.getMIXED_HERB_GR());
+        addToDatabase(itemDatabase.getMIXED_HERB_GB());
+        addToDatabase(itemDatabase.getMIXED_HERB_GGG());
+        addToDatabase(itemDatabase.getMIXED_HERB_GGB());
+        addToDatabase(itemDatabase.getMIXED_HERB_GRB());
 
-        //FILES
-        addToDatabase(ItemDatabase.POLICE_MEMORANDUM);
-        addToDatabase(ItemDatabase.CHRIS_DIARY);
-        addToDatabase(ItemDatabase.MAIL_TO_CHRIS);
-        addToDatabase(ItemDatabase.OPERATION_REPORT1);
-        addToDatabase(ItemDatabase.MEMO_TO_LEON);
-        addToDatabase(ItemDatabase.OPERATION_REPORT2);
-        addToDatabase(ItemDatabase.CHIEF_DIARY);
-        addToDatabase(ItemDatabase.FILM_A);
-        addToDatabase(ItemDatabase.FILM_B);
-        addToDatabase(ItemDatabase.FILM_C);
-        addToDatabase(ItemDatabase.FILM_D);
-        addToDatabase(ItemDatabase.PATROL_REPORT);
-        addToDatabase(ItemDatabase.SECRETARY_DIARY_A);
-        addToDatabase(ItemDatabase.SECRETARY_DIARY_B);
-        addToDatabase(ItemDatabase.WATCHMAN_DIARY);
-        addToDatabase(ItemDatabase.MAIL_TO_THE_CHIEF);
-        addToDatabase(ItemDatabase.SEWER_MANAGER_FAX);
-        addToDatabase(ItemDatabase.SEWER_MANAGE_DIARY);
-        addToDatabase(ItemDatabase.LAB_SECURITY_MANUAL);
-        addToDatabase(ItemDatabase.P_EPSILON_REPORT);
-        addToDatabase(ItemDatabase.USER_REGISTRATION);
-        addToDatabase(ItemDatabase.VACCINE_SYNTHESIS);
+        // FILES
+        addToDatabase(itemDatabase.getPOLICE_MEMORANDUM());
+        addToDatabase(itemDatabase.getCHRIS_DIARY());
+        addToDatabase(itemDatabase.getMAIL_TO_CHRIS());
+        addToDatabase(itemDatabase.getOPERATION_REPORT1());
+        addToDatabase(itemDatabase.getMEMO_TO_LEON());
+        addToDatabase(itemDatabase.getOPERATION_REPORT2());
+        addToDatabase(itemDatabase.getCHIEF_DIARY());
+        addToDatabase(itemDatabase.getFILM_A());
+        addToDatabase(itemDatabase.getFILM_B());
+        addToDatabase(itemDatabase.getFILM_C());
+        addToDatabase(itemDatabase.getFILM_D());
+        addToDatabase(itemDatabase.getPATROL_REPORT());
+        addToDatabase(itemDatabase.getSECRETARY_DIARY_A());
+        addToDatabase(itemDatabase.getSECRETARY_DIARY_B());
+        addToDatabase(itemDatabase.getWATCHMAN_DIARY());
+        addToDatabase(itemDatabase.getMAIL_TO_THE_CHIEF());
+        addToDatabase(itemDatabase.getSEWER_MANAGER_FAX());
+        addToDatabase(itemDatabase.getSEWER_MANAGE_DIARY());
+        addToDatabase(itemDatabase.getLAB_SECURITY_MANUAL());
+        addToDatabase(itemDatabase.getP_EPSILON_REPORT());
+        addToDatabase(itemDatabase.getUSER_REGISTRATION());
+        addToDatabase(itemDatabase.getVACCINE_SYNTHESIS());
 
+    }
+
+    private void initialize(Characters character){
+        switch (character) {
+            //Leon's standard inventory
+            case Characters.LEON -> {
+                if (equipments.isEmpty()) {
+                    addToInventory(itemDatabase.getLIGHTER());
+                    addToInventory(itemDatabase.getHK_VP70());
+                    addToInventory(itemDatabase.getKNIFE());
+                }
+            }
+            //Claire's standard inventory
+            case Characters.CLAIRE -> {
+                if (equipments.isEmpty()) {
+                    addToInventory(itemDatabase.getLOCKPICK());
+                    addToInventory(itemDatabase.getBROWNING_HP());
+                    addToInventory(itemDatabase.getKNIFE());
+                }
+            }
+            //Ada's standard inventory
+            case Characters.ADA -> {
+                if (equipments.isEmpty()) {
+                    Ammunition initialAmmo = itemDatabase.getHANDGUN_BULLETS();
+                    initialAmmo.setQuantity(initialAmmo.updateQuantity(initialAmmo.getQuantity(), 3));
+                    addToInventory(itemDatabase.getADA_PICTURE());
+                    addToInventory(itemDatabase.getBROWNING_HP());
+                    addToInventory(initialAmmo);
+                    addToInventory(itemDatabase.getFIRST_AID_SPRAY());
+                }
+            }
+            //Sherry's standard inventory
+            case Characters.SHERRY -> {
+                if (equipments.isEmpty()) {
+                    addToInventory(itemDatabase.getSHERRY_PICTURE());
+                    addToInventory(itemDatabase.getFIRST_AID_SPRAY());
+                }
+            }
+        }
     }
 
     private void addToDatabase(Item item){
-        database.add((T) item);
+        database.add(item);
     }
 
-    private T getFromDatabase(String name){
-        for (T item : database) {
-            if (item.getName().equalsIgnoreCase(name)) {
+    private Item getFromDatabase(Item itemToGet){
+        for (Item item : database) {
+            if (item.getId().equals(itemToGet.getId())) {
                 return item;
             }
         }
         return null;
     }
 
-    private void addToInventory(T item) {
+    private void addToInventory(Item item) {
         equipments.add(item);
     }
 
     //private because technically you should be able to remove an item from your inventory only by using it or by sending it to the item box
-    private void removeFromInventory(T item){
+    private void removeFromInventory(Item item){
         equipments.remove(item);
     }
 
+    private void addToFiles(Item item) {
+        archive.add(item);
+    }
+
+    private void addToItemBox(Item item){
+        itemBox.add(item);
+    }
+
+    private void removeFromItemBox(Item item){
+        itemBox.remove(item);
+    }
+
     public void listInventory(){
-        System.out.println("\n---------------------------------------------------------INVENTORY--------------------------------------------------------\n");
-        for (T item : equipments) {
+        System.out.println("\n---------------------------------------------------------"+ this.getCharacters() + " | INVENTORY--------------------------------------------------------\n");
+        for (Item item : equipments) {
                 System.out.println(item);
         }
     }
 
-    private void addToFiles(T item) {
-        archive.add(item);
-    }
-
     public void listFiles(){
-        System.out.println("\n-----------------------------------------------------------FILES----------------------------------------------------------\n");
-        for (T item : archive) {
+        System.out.println("\n-----------------------------------------------------------"+ this.getCharacters() + " | FILES----------------------------------------------------------\n");
+        for (Item item : archive) {
             System.out.println(item);
         }
     }
 
-    private void addToItemBox(T item){
-        itemBox.add(item);
-    }
-
-    private void removeFromItemBox(T item){
-        itemBox.remove(item);
-    }
-
     public void listItemBox(){
-        System.out.println("\n----------------------------------------------------------ITEM BOX--------------------------------------------------------\n");
-        for (T item : itemBox){
+        System.out.println("\n----------------------------------------------------------"+ this.getCharacters() + " | ITEM BOX--------------------------------------------------------\n");
+        for (Item item : itemBox){
                 System.out.println(item);
         }
     }
 
-    private T getItemByName (String name, boolean searchItemBox) {
-        List<T> targetList = searchItemBox ? itemBox : equipments;
-        for (T item : targetList) {
-            if (item != null && item.getName().equalsIgnoreCase(name)) {
+    private Item getItemById (Item itemToSearch, boolean searchItemBox) {
+        List<Item> targetList = searchItemBox ? itemBox : equipments;
+        for (Item item : targetList) {
+            if (item != null && item.getId().equals(itemToSearch.getId())) {
                 return item;
             }
         }
         return null;
     }
 
-    private T getFileByName (String name) {
-        for (T file : archive) {
-            if (file != null && file.getName().equalsIgnoreCase(name)){
+    private Item getFile (Item item) {
+        for (Item file : archive) {
+            if (file != null && file.getId().equals(item.getId())){
                 return file;
             }
         }
@@ -231,14 +291,13 @@ public class Inventory<T extends Item> implements InventoryInterface{
     }
 
     @Override
-    public void collectItem(Boolean confirm, Item itemToCollect){
-        T item = getFromDatabase(itemToCollect.getName());
+    public void collectItem(Boolean confirm, Item itemToCollect) {
+        Item item = getFromDatabase(itemToCollect);
         switch (item) {
             case null -> System.out.println("Item not found");
             case Ammunition ammo -> {
-                for (T inventoryItem : equipments) {
+                for (Item inventoryItem : equipments) {
                     if (inventoryItem instanceof Ammunition && inventoryItem.getName().equals(ammo.getName())) {
-                        // standard quantity for new ammo
                         switch (ammo.getAmmoType()) {
                             case AmmoType.HANDGUN_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 15);
                             case AmmoType.SHOTGUN_SHELLS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 7);
@@ -250,10 +309,10 @@ public class Inventory<T extends Item> implements InventoryInterface{
                         return;
                     }
                 }
-                addToInventory((T) ammo);
+                addToInventory(ammo);
             }
             case KeyItem inkRibbon -> {
-                for (T inventoryItem : equipments) {
+                for (Item inventoryItem : equipments) {
                     if (inventoryItem instanceof KeyItem) {
                         if (((KeyItem) inventoryItem).getTypeKey() == KeyType.INK_RIBBON) {
                             ((KeyItem) inventoryItem).setQuantity(((KeyItem) inventoryItem).getQuantity() + 3); //standard ink ribbon quantity
@@ -261,9 +320,9 @@ public class Inventory<T extends Item> implements InventoryInterface{
                         }
                     }
                 }
-                addToInventory((T) inkRibbon);
+                addToInventory(inkRibbon);
             }
-            case File file -> addToFiles(item);
+            case File file -> addToFiles(file);
             default -> addToInventory(item);
         }
     }
@@ -271,27 +330,26 @@ public class Inventory<T extends Item> implements InventoryInterface{
     //TODO: create method that hold item 1's position and sets item created to it
     @Override
     public void combineItems(Item itemA, Item itemB) {
-        T item1 = getItemByName(itemA.getName(), false);
-        T item2 = getItemByName(itemB.getName(), false);
+        Item item1 = getItemById(itemA, false);
+        Item item2 = getItemById(itemB, false);
 
         if (item1 instanceof RecoveryItem herb1 && item2 instanceof RecoveryItem herb2) {
             RecoveryItem combinedHerb = herb1.mixHerb(herb2);
-            if (combinedHerb != null){
+            if (combinedHerb != null) {
                 this.removeFromInventory(item1);
                 this.removeFromInventory(item2);
-                addToInventory((T) combinedHerb);
+                addToInventory(combinedHerb);
                 System.out.println("\nHerbs combined successfully!");
-            } else {
-                System.out.println("\nThere is no need to combine these.");
             }
         } else if (item1 instanceof Weapon && item2 instanceof Ammunition || item1 instanceof Ammunition && item2 instanceof Weapon) {
-            Weapon weapon = (Weapon) item1;
-            Ammunition ammo = (Ammunition) item2;
+            Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
+            Ammunition ammo = (item1 instanceof Ammunition) ? (Ammunition) item1 : (Ammunition) item2;
+
             ReloadResultRecord reloadResult = weapon.reloadWeapon(ammo);
             Ammunition returnedAmmo = reloadResult.returnedAmmo();
             if (returnedAmmo != null) {
                 boolean ammoAdded = false;
-                for (T item : equipments) {
+                for (Item item : equipments) {
                     if (item instanceof Ammunition inventoryAmmo) {
                         if (inventoryAmmo.getAmmoType() == returnedAmmo.getAmmoType()) {
                             inventoryAmmo.setQuantity(inventoryAmmo.getQuantity() + returnedAmmo.getQuantity());
@@ -300,37 +358,33 @@ public class Inventory<T extends Item> implements InventoryInterface{
                         }
                     }
                 }
-                if(!ammoAdded){
-                    addToInventory((T) returnedAmmo);
+                if (!ammoAdded) {
+                    addToInventory(returnedAmmo);
                 }
             }
-            if(weapon.getTypeWeapon() != WeaponType.INFINITE_WEAPON) {
+            if (weapon.getTypeWeapon() != WeaponType.INFINITE_WEAPON) {
                 if (ammo.getQuantity() <= 0) {
-                    this.removeFromInventory((T) ammo);
-                    System.out.println("\nWeapon reloaded sucessfully!");
-                } else {
-                    System.out.println("\nWeapon reloaded sucessfully!");
+                    this.removeFromInventory(ammo);
                 }
             }
         } else if (item1 instanceof Weapon && item2 instanceof Parts || item1 instanceof Parts && item2 instanceof Weapon) {
-            Weapon weapon = (Weapon) item1;
-            Parts parts = (Parts) item2;
-
+            Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
+            Parts parts = (item1 instanceof Parts) ? (Parts) item1 : (Parts) item2;
             Weapon customWeapon = weapon.upgradeWeapon(parts);
-            if (customWeapon != null){
-                this.removeFromInventory((T) parts);
-                this.removeFromInventory((T) weapon);
-                addToInventory((T) customWeapon);
-                System.out.println("\nWeapon customized sucessfully!");
+            if (customWeapon != null) {
+                this.removeFromInventory(parts);
+                this.removeFromInventory(weapon);
+                addToInventory(customWeapon);
+                System.out.println("\nWeapon customized successfully!");
             } else {
                 System.out.println("\nThere is no need to combine these.");
             }
         } else if (item1 instanceof KeyItem key1 && item2 instanceof KeyItem key2) {
             KeyItem combinedKeyItem = key1.combineKeyItems(key2);
-            if (combinedKeyItem != null){
+            if (combinedKeyItem != null) {
                 this.removeFromInventory(item1);
                 this.removeFromInventory(item2);
-                addToInventory((T) combinedKeyItem);
+                addToInventory(combinedKeyItem);
                 System.out.println("\nItems combined successfully!");
             } else {
                 System.out.println("\nThere is no need to combine these.");
@@ -342,7 +396,7 @@ public class Inventory<T extends Item> implements InventoryInterface{
 
     @Override
     public void itemBoxIn(Item item){
-        T itemToStorage = getItemByName(item.getName(), false);
+        Item itemToStorage = getItemById(item, false);
         if (itemToStorage != null) {
             addToItemBox(itemToStorage);
             removeFromInventory(itemToStorage);
@@ -353,7 +407,7 @@ public class Inventory<T extends Item> implements InventoryInterface{
 
     @Override
     public void itemBoxOut(Item item){
-        T itemToGetFromStorage = getItemByName(item.getName(), true);
+        Item itemToGetFromStorage = getItemById(item, true);
         if(itemToGetFromStorage != null) {
             addToInventory(itemToGetFromStorage);
             removeFromItemBox(itemToGetFromStorage);
@@ -362,12 +416,13 @@ public class Inventory<T extends Item> implements InventoryInterface{
         }
     }
 
+    //fires a weapon and calculates ammo use with fireCount()
     @Override
     public void useWeapon(Item itemWeapon, int count){
         if (count == 0) {
             count = 1;
         }
-        T item = getItemByName(itemWeapon.getName(), false);
+        Item item = getItemById(itemWeapon, false);
         switch (item) {
             case null -> System.out.println("\nWeapon not found");
             case Weapon weaponInUse -> weaponInUse.fireCount(itemWeapon.getName(), count);
@@ -378,11 +433,11 @@ public class Inventory<T extends Item> implements InventoryInterface{
     }
 
     @Override
-    public void readFile(String name){
-        T file = getFileByName(name);
+    public void readFile(Item item){
+        Item file = getFile(item);
         if (file != null){
             if (file instanceof File fileToRead){
-                System.out.println("\n-------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println(fileToRead.getDescription());
             }
         } else {
@@ -393,14 +448,14 @@ public class Inventory<T extends Item> implements InventoryInterface{
     //method to develop films
     @Override
     public void darkRoom(Item film){
-        T item = getItemByName(film.getName(), false);
+        Item item = getItemById(film, false);
         if (item instanceof KeyItem filmToDevelop) {
             if (filmToDevelop.getTypeKey() == KeyType.FILM) {
-                File developedFile = filmToDevelop.developFilm(filmToDevelop.getFilmID());
+                File developedFile = filmToDevelop.developFilm(filmToDevelop);
                 if (developedFile != null) {
-                    addToFiles((T) developedFile);
-                    removeFromInventory((T) filmToDevelop);
-                    readFile(developedFile.getName());
+                    addToFiles(developedFile);
+                    removeFromInventory(filmToDevelop);
+                    readFile(developedFile);
                 }
             }
         }

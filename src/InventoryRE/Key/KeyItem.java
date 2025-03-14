@@ -8,22 +8,18 @@ import InventoryRE.Inventory.ItemType;
 public final class KeyItem extends Item implements KeyItemInterface {
 
     KeyType typeKey;
-    private int quantity, filmID;
+    private int quantity;
+    ItemDatabase itemDatabase = new ItemDatabase();
 
-    public KeyItem(String name, String description, ItemType type, KeyType typeKey) {
-        super(name, description, type);
+    public KeyItem(Long id, String name, String description, ItemType type, KeyType typeKey) {
+        super(id, name, description, type);
         this.typeKey = typeKey;
     }
 
     //overloading to add specific attributes for films and ink ribbons
-    public KeyItem(String name, String description, ItemType type, KeyType typeKey, int quantity) {
-        this(name, description, type, typeKey);
+    public KeyItem(Long id, String name, String description, ItemType type, KeyType typeKey, int quantity) {
+        this(id, name, description, type, typeKey);
         this.quantity = quantity;
-    }
-
-    public KeyItem(String name, String description, ItemType type, KeyType typeKey, int quantity, int filmID) {
-        this(name, description, type, typeKey, quantity);
-        this.filmID = filmID;
     }
 
     public int getQuantity() {
@@ -32,10 +28,6 @@ public final class KeyItem extends Item implements KeyItemInterface {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public int getFilmID() {
-        return filmID;
     }
 
     public KeyType getTypeKey() {
@@ -52,18 +44,18 @@ public final class KeyItem extends Item implements KeyItemInterface {
     }
 
     @Override
-    public File developFilm(int filmID) {
+    public File developFilm(KeyItem film) {
         if (this.typeKey == KeyType.FILM) {
-            switch (this.getFilmID()) {
-                case 1:
-                    return ItemDatabase.FILM_A;
-                case 2:
-                    return ItemDatabase.FILM_B;
-                case 3:
-                    return ItemDatabase.FILM_C;
-                case 4:
-                    return ItemDatabase.FILM_D;
+            if (film.getId() == 38L) {
+                return itemDatabase.getFILM_A();
+            } else if (film.getId() == 39L) {
+                return itemDatabase.getFILM_B();
+            } else if (film.getId() == 40L) {
+                return itemDatabase.getFILM_C();
+            } else if (film.getId() == 41L) {
+                return itemDatabase.getFILM_D();
             }
+            return null;
         }
         return null;
     }
@@ -71,10 +63,10 @@ public final class KeyItem extends Item implements KeyItemInterface {
     @Override
     public KeyItem combineKeyItems(Item otherKeyItem){
         if (this.getType() == ItemType.KEY && otherKeyItem.getType() == ItemType.KEY){
-            if (this == ItemDatabase.PLASTIC_BOMB && otherKeyItem == ItemDatabase.DETONATOR || this == ItemDatabase.DETONATOR && otherKeyItem == ItemDatabase.PLASTIC_BOMB ) {
-                return ItemDatabase.BOMB_DET;
-            } else if (this == ItemDatabase.BLUE_STONE_LEFT && otherKeyItem == ItemDatabase.BLUE_STONE_RIGHT || this == ItemDatabase.BLUE_STONE_RIGHT && otherKeyItem == ItemDatabase.BLUE_STONE_LEFT ) {
-                return ItemDatabase.JAGUAR_STONE;
+            if (this.equals(itemDatabase.getPLASTIC_BOMB()) && otherKeyItem.equals(itemDatabase.getDETONATOR()) || this.equals(itemDatabase.getDETONATOR()) && otherKeyItem.equals(itemDatabase.getPLASTIC_BOMB())) {
+                return itemDatabase.getBOMB_DET();
+            } else if (this.equals(itemDatabase.getBLUE_STONE_LEFT()) && otherKeyItem.equals(itemDatabase.getBLUE_STONE_RIGHT()) || this.equals(itemDatabase.getBLUE_STONE_RIGHT()) && otherKeyItem.equals(itemDatabase.getBLUE_STONE_LEFT())) {
+                return itemDatabase.getJAGUAR_STONE();
             }
         }
         return null;

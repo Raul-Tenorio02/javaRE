@@ -8,8 +8,8 @@ public final class Knife extends Item implements KnifeInterface{
 
     WeaponType typeWeapon;
 
-    public Knife(String name, String description, ItemType type, WeaponType typeWeapon) {
-        super(name, description, type);
+    public Knife(Long id, String name, String description, ItemType type, WeaponType typeWeapon) {
+        super(id, name, description, type);
         this.typeWeapon = typeWeapon;
     }
 

@@ -5,8 +5,8 @@ import InventoryRE.Inventory.ItemType;
 
 public final class  File extends Item {
 
-    public File(String name, String description, ItemType type) {
-        super(name, description, type);
+    public File(Long id, String name, String description, ItemType type) {
+        super(id, name, description, type);
     }
 
     @Override
