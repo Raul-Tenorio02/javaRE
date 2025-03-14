@@ -34,7 +34,7 @@ Feel free to fork this project ;)
 1. Download the project's ZIP file and open it in your IDE.
 2. All predefined inventories are already set up:
 
-        ItemDatabase db = new ItemDatabase(); // use db to properly acess items in inventory
+        ItemDatabase db = new ItemDatabase(); // use db to properly access items in inventory
         Inventory Leon = new Inventory(Characters.LEON);
         Inventory Claire = new Inventory(Characters.CLAIRE);
         Inventory Ada = new Inventory(Characters.ADA);
