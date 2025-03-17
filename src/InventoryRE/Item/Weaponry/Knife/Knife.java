@@ -1,16 +1,13 @@
-package InventoryRE.Weaponry.Knife;
+package InventoryRE.Item.Weaponry.Knife;
 
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemType;
-import InventoryRE.Weaponry.Weapons.WeaponType;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemType;
+import InventoryRE.Item.Weaponry.Weapons.WeaponType;
 
 public final class Knife extends Item implements KnifeInterface{
 
-    WeaponType typeWeapon;
-
     public Knife(Long id, String name, String description, ItemType type, WeaponType typeWeapon) {
         super(id, name, description, type);
-        this.typeWeapon = typeWeapon;
     }
 
     @Override

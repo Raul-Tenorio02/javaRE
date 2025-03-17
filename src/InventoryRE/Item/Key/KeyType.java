@@ -1,4 +1,4 @@
-package InventoryRE.Key;
+package InventoryRE.Item.Key;
 
 public enum KeyType {
 

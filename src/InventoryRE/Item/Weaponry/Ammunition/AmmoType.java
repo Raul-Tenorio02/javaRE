@@ -1,4 +1,4 @@
-package InventoryRE.Weaponry.Ammunition;
+package InventoryRE.Item.Weaponry.Ammunition;
 
 public enum AmmoType {
 

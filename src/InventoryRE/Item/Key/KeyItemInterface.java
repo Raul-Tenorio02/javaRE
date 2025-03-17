@@ -1,7 +1,7 @@
-package InventoryRE.Key;
+package InventoryRE.Item.Key;
 
-import InventoryRE.Files.File;
-import InventoryRE.Inventory.Item;
+import InventoryRE.Item.Files.File;
+import InventoryRE.Item.Item;
 
 public interface KeyItemInterface {
 

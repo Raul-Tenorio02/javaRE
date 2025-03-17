@@ -1,16 +1,18 @@
 package InventoryRE.Inventory;
 
-import InventoryRE.Files.File;
-import InventoryRE.Key.KeyItem;
-import InventoryRE.Key.KeyType;
-import InventoryRE.Recovery.RecoveryItem;
-import InventoryRE.Weaponry.Ammunition.AmmoType;
-import InventoryRE.Weaponry.Ammunition.Ammunition;
-import InventoryRE.Weaponry.WeaponParts.Parts;
-import InventoryRE.Weaponry.Weapons.ReloadResultRecord;
-import InventoryRE.Weaponry.Weapons.Weapon;
-import InventoryRE.Weaponry.Knife.Knife;
-import InventoryRE.Weaponry.Weapons.WeaponType;
+import InventoryRE.Item.Files.File;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemDatabase;
+import InventoryRE.Item.Key.KeyItem;
+import InventoryRE.Item.Key.KeyType;
+import InventoryRE.Item.Recovery.RecoveryItem;
+import InventoryRE.Item.Weaponry.Ammunition.AmmoType;
+import InventoryRE.Item.Weaponry.Ammunition.Ammunition;
+import InventoryRE.Item.Weaponry.WeaponParts.Parts;
+import InventoryRE.Item.Weaponry.Weapons.ReloadResultRecord;
+import InventoryRE.Item.Weaponry.Weapons.Weapon;
+import InventoryRE.Item.Weaponry.Knife.Knife;
+import InventoryRE.Item.Weaponry.Weapons.WeaponType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Inventory implements InventoryInterface {
 
     private final ItemDatabase itemDatabase;
 
-    Characters characters;
+    private Characters characters;
 
     private Characters getCharacters() {
         return characters;

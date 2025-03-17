@@ -1,7 +1,7 @@
-package InventoryRE.Files;
+package InventoryRE.Item.Files;
 
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemType;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemType;
 
 public final class  File extends Item {
 

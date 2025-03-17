@@ -1,13 +1,13 @@
-package InventoryRE.Key;
+package InventoryRE.Item.Key;
 
-import InventoryRE.Files.File;
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemDatabase;
-import InventoryRE.Inventory.ItemType;
+import InventoryRE.Item.Files.File;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemDatabase;
+import InventoryRE.Item.ItemType;
 
 public final class KeyItem extends Item implements KeyItemInterface {
 
-    KeyType typeKey;
+    private final KeyType typeKey;
     private int quantity;
     ItemDatabase itemDatabase = new ItemDatabase();
 

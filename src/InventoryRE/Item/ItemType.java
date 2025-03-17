@@ -1,4 +1,4 @@
-package InventoryRE.Inventory;
+package InventoryRE.Item;
 
 public enum ItemType {
 

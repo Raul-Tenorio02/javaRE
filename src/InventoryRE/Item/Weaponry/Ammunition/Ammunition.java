@@ -1,12 +1,12 @@
-package InventoryRE.Weaponry.Ammunition;
+package InventoryRE.Item.Weaponry.Ammunition;
 
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemType;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemType;
 
 public final class Ammunition extends Item {
 
     private int quantity;
-    AmmoType typeAmmo;
+    private AmmoType typeAmmo;
 
     public Ammunition(Long id, String name, String description, ItemType type, AmmoType typeAmmo , int quantity) {
         super(id, name, description, type);

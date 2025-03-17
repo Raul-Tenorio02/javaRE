@@ -1,4 +1,4 @@
-package InventoryRE.Weaponry.WeaponParts;
+package InventoryRE.Item.Weaponry.WeaponParts;
 
 public enum PartType {
 

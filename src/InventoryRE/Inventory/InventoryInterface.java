@@ -1,5 +1,7 @@
 package InventoryRE.Inventory;
 
+import InventoryRE.Item.Item;
+
 public interface InventoryInterface {
 
     void collectItem(Boolean confirm, Item itemToCollect);

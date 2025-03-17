@@ -1,14 +1,14 @@
-package InventoryRE.Recovery;
+package InventoryRE.Item.Recovery;
 
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemDatabase;
-import InventoryRE.Inventory.ItemType;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemDatabase;
+import InventoryRE.Item.ItemType;
 
 import java.util.*;
 
 public class RecoveryItem extends Item implements MixInterface {
 
-    RecoveryType typeRecovery;
+    private final RecoveryType typeRecovery;
 
     ItemDatabase itemDatabase = new ItemDatabase();
 

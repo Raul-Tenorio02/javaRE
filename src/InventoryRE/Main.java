@@ -2,7 +2,7 @@ package InventoryRE;
 
 import InventoryRE.Inventory.Characters;
 import InventoryRE.Inventory.Inventory;
-import InventoryRE.Inventory.ItemDatabase;
+import InventoryRE.Item.ItemDatabase;
 
 public class Main {
 

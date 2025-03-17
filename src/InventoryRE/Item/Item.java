@@ -1,11 +1,10 @@
-package InventoryRE.Inventory;
+package InventoryRE.Item;
 
 public abstract class Item {
 
-    // i'm still getting used on commenting my projects, sorry for that :v
     private Long id;
     private String name, description;
-    ItemType type;
+    private ItemType type;
 
     public Item() {}
 
@@ -29,6 +28,5 @@ public abstract class Item {
     public ItemType getType() {
         return type;
     }
-
 
 }

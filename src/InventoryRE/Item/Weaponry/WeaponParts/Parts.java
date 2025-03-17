@@ -1,11 +1,11 @@
-package InventoryRE.Weaponry.WeaponParts;
+package InventoryRE.Item.Weaponry.WeaponParts;
 
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemType;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemType;
 
 public final class Parts extends Item {
 
-    PartType typePart;
+    private final PartType typePart;
 
     public Parts(Long id, String name, String description, ItemType type, PartType typePart) {
         super(id, name, description, type);

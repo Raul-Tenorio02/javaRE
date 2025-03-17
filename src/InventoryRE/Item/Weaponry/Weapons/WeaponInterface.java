@@ -1,6 +1,6 @@
-package InventoryRE.Weaponry.Weapons;
+package InventoryRE.Item.Weaponry.Weapons;
 
-import InventoryRE.Weaponry.Ammunition.Ammunition;
+import InventoryRE.Item.Weaponry.Ammunition.Ammunition;
 
 public interface WeaponInterface {
 

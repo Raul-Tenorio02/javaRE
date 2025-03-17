@@ -1,4 +1,4 @@
-package InventoryRE.Weaponry.Knife;
+package InventoryRE.Item.Weaponry.Knife;
 
 public interface KnifeInterface {
 

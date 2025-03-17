@@ -1,18 +1,18 @@
-package InventoryRE.Inventory;
+package InventoryRE.Item;
 
-import InventoryRE.Files.File;
-import InventoryRE.Key.KeyItem;
-import InventoryRE.Key.KeyType;
-import InventoryRE.Recovery.RecoveryItem;
-import InventoryRE.Recovery.RecoveryType;
-import InventoryRE.Weaponry.Ammunition.AmmoType;
-import InventoryRE.Weaponry.Ammunition.Ammunition;
-import InventoryRE.Weaponry.Knife.Knife;
-import InventoryRE.Weaponry.WeaponParts.PartType;
-import InventoryRE.Weaponry.WeaponParts.Parts;
-import InventoryRE.Weaponry.Weapons.FireType;
-import InventoryRE.Weaponry.Weapons.Weapon;
-import InventoryRE.Weaponry.Weapons.WeaponType;
+import InventoryRE.Item.Files.File;
+import InventoryRE.Item.Key.KeyItem;
+import InventoryRE.Item.Key.KeyType;
+import InventoryRE.Item.Recovery.RecoveryItem;
+import InventoryRE.Item.Recovery.RecoveryType;
+import InventoryRE.Item.Weaponry.Ammunition.AmmoType;
+import InventoryRE.Item.Weaponry.Ammunition.Ammunition;
+import InventoryRE.Item.Weaponry.Knife.Knife;
+import InventoryRE.Item.Weaponry.WeaponParts.PartType;
+import InventoryRE.Item.Weaponry.WeaponParts.Parts;
+import InventoryRE.Item.Weaponry.Weapons.FireType;
+import InventoryRE.Item.Weaponry.Weapons.Weapon;
+import InventoryRE.Item.Weaponry.Weapons.WeaponType;
 
 public final class ItemDatabase {
 

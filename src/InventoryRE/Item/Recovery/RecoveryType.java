@@ -1,4 +1,4 @@
-package InventoryRE.Recovery;
+package InventoryRE.Item.Recovery;
 
 public enum RecoveryType {
 

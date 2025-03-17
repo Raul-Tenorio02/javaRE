@@ -1,4 +1,4 @@
-package InventoryRE.Weaponry.Weapons;
+package InventoryRE.Item.Weaponry.Weapons;
 
 public enum FireType {
 

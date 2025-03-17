@@ -1,13 +1,13 @@
-package InventoryRE.Weaponry.Weapons;
+package InventoryRE.Item.Weaponry.Weapons;
 
-import InventoryRE.Inventory.Item;
-import InventoryRE.Inventory.ItemDatabase;
-import InventoryRE.Inventory.ItemType;
-import InventoryRE.Weaponry.Ammunition.AmmoType;
-import InventoryRE.Weaponry.Ammunition.Ammunition;
-import InventoryRE.Weaponry.WeaponParts.PartType;
-import InventoryRE.Weaponry.WeaponParts.Parts;
-import InventoryRE.Weaponry.WeaponParts.UpgradeWeaponsInterface;
+import InventoryRE.Item.Item;
+import InventoryRE.Item.ItemDatabase;
+import InventoryRE.Item.ItemType;
+import InventoryRE.Item.Weaponry.Ammunition.AmmoType;
+import InventoryRE.Item.Weaponry.Ammunition.Ammunition;
+import InventoryRE.Item.Weaponry.WeaponParts.PartType;
+import InventoryRE.Item.Weaponry.WeaponParts.Parts;
+import InventoryRE.Item.Weaponry.WeaponParts.UpgradeWeaponsInterface;
 
 import java.util.List;
 import java.util.Map;
@@ -16,9 +16,9 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
 
     private int magazine;
     private final int maxCapacity;
-    WeaponType typeWeapon;
-    AmmoType loadedAmmo;
-    FireType fireType;
+    private final WeaponType typeWeapon;
+    private AmmoType loadedAmmo;
+    private FireType fireType;
 
     ItemDatabase itemDatabase = new ItemDatabase();
 
