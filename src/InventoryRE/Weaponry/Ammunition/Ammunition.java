@@ -6,7 +6,7 @@ import InventoryRE.Inventory.ItemType;
 public final class Ammunition extends Item {
 
     private int quantity;
-    AmmoType typeAmmo;
+    private AmmoType typeAmmo;
 
     public Ammunition(Long id, String name, String description, ItemType type, AmmoType typeAmmo , int quantity) {
         super(id, name, description, type);

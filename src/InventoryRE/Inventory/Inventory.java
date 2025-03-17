@@ -24,7 +24,7 @@ public class Inventory implements InventoryInterface {
 
     private final ItemDatabase itemDatabase;
 
-    Characters characters;
+    private Characters characters;
 
     private Characters getCharacters() {
         return characters;

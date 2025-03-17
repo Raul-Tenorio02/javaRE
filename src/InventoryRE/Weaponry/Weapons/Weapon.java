@@ -16,9 +16,9 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
 
     private int magazine;
     private final int maxCapacity;
-    WeaponType typeWeapon;
-    AmmoType loadedAmmo;
-    FireType fireType;
+    private final WeaponType typeWeapon;
+    private AmmoType loadedAmmo;
+    private FireType fireType;
 
     ItemDatabase itemDatabase = new ItemDatabase();
 

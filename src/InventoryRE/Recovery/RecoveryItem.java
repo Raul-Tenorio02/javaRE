@@ -8,7 +8,7 @@ import java.util.*;
 
 public class RecoveryItem extends Item implements MixInterface {
 
-    RecoveryType typeRecovery;
+    private final RecoveryType typeRecovery;
 
     ItemDatabase itemDatabase = new ItemDatabase();
 

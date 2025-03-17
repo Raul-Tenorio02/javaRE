@@ -7,7 +7,7 @@ import InventoryRE.Inventory.ItemType;
 
 public final class KeyItem extends Item implements KeyItemInterface {
 
-    KeyType typeKey;
+    private final KeyType typeKey;
     private int quantity;
     ItemDatabase itemDatabase = new ItemDatabase();
 
