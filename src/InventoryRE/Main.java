@@ -1,8 +1,11 @@
 package InventoryRE;
 
-import InventoryRE.Inventory.Characters;
-import InventoryRE.Inventory.Inventory;
 import InventoryRE.Item.ItemDatabase;
+
+import static InventoryRE.Inventory.Inventory.Claire;
+import static InventoryRE.Inventory.Inventory.Leon;
+import static InventoryRE.Inventory.Inventory.Ada;
+import static InventoryRE.Inventory.Inventory.Sherry;
 
 public class Main {
 
@@ -18,11 +21,13 @@ public class Main {
     */
 
     public static void main(String[] args) {
+
         ItemDatabase db = new ItemDatabase();
-        Inventory Leon = new Inventory(Characters.LEON);
-        Inventory Claire = new Inventory(Characters.CLAIRE);
-        Inventory Ada = new Inventory(Characters.ADA);
-        Inventory Sherry = new Inventory(Characters.SHERRY);
+
+        Leon.listInventory();
+        Claire.listInventory();
+        Ada.listInventory();
+        Sherry.listInventory();
 
     }
 }

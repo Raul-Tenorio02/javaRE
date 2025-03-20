@@ -35,10 +35,6 @@ Feel free to fork this project ;)
 2. All predefined inventories are already set up:
 
         ItemDatabase db = new ItemDatabase(); // use db to properly access items in inventory
-        Inventory Leon = new Inventory(Characters.LEON);
-        Inventory Claire = new Inventory(Characters.CLAIRE);
-        Inventory Ada = new Inventory(Characters.ADA);
-        Inventory Sherry = new Inventory(Characters.SHERRY);
 
 3. You can start calling methods. Here are some examples:
 
@@ -48,28 +44,28 @@ Feel free to fork this project ;)
          Leon.listInventory();
          // Lists all items in the inventory.
          
-         Leon.itemBoxIn(db.<item_here>);
+         Claire.itemBoxIn(db.<item_here>);
          // Stores an item in the item box.
          
-         Leon.itemBoxOut(db.<item_here>);
+         Claire.itemBoxOut(db.<item_here>);
          // Retrieves an item from the item box.
          
-         Leon.listItemBox();
+         Claire.listItemBox();
          // Lists all stored items in the item box.
          
-         Claire.combineItems(db.<item1>, db.<item2>);
+         Ada.combineItems(db.<item1>, db.<item2>);
          // Combines two items (e.g., mixing herbs, upgrading weapons).
          
-         Claire.useWeapon(db.<weapon_here>, <number_of_uses>);
+         Ada.useWeapon(db.<weapon_here>, <number_of_uses>);
          // Uses a weapon, reducing its ammo.
          
          Claire.darkRoom(db.<film_here>);
          // Develops a film, revealing hidden content.
          
-         Claire.readFile(db.<file_here>);
+         Sherry.readFile(db.<file_here>);
          // Reads a document.
          
-         Claire.listFiles();
+         Leon.listFiles();
          // Opens the archive section.
 
 # Recent Updates
@@ -82,3 +78,5 @@ Feel free to fork this project ;)
 6. Improved use of ternary operator and switch case to increase performance and reduce code.
 7. Refactored getItemByName to getItem (using Object directly as a parameter), eliminating issues with items that have the same name but different internal attributes.
 8. Refactored to initialize all inventories at once with predefined starting items.
+9. Moved Characters inventories to Inventory Class and declared them static.
+10. Reordered packages to improve architecture. 

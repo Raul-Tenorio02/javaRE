@@ -36,6 +36,11 @@ public class Inventory implements InventoryInterface {
         this.characters = characters;
     }
 
+    public static Inventory Leon = new Inventory(Characters.LEON);
+    public static Inventory Claire = new Inventory(Characters.CLAIRE);
+    public static Inventory Ada = new Inventory(Characters.ADA);
+    public static Inventory Sherry = new Inventory(Characters.SHERRY);
+
     public Inventory(Characters character) {
         this.equipments = new ArrayList<>();
         this.itemBox = new ArrayList<>();
