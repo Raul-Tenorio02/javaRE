@@ -74,7 +74,7 @@ public final class ItemDatabase {
     }
 
     public Weapon getROCKET_LAUNCHER(){
-        return new Weapon(15,"Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON, 1, 1);
+        return new Weapon(15,"Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.WEAPON, WeaponType.ROCKET_LAUNCHER, 1, 1);
     }
 
     //INFINITE WEAPONS

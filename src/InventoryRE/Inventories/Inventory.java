@@ -33,6 +33,94 @@ public class Inventory {
         this.characters = characters;
     }
 
+    private Weapon equipWeapon(Weapon equippedWeapon) {
+        return equippedWeapon;
+    }
+
+    private void addToDatabase(Item item){
+        database.add(item);
+    }
+
+    private Item getFromDatabase(int itemToGet){
+        for (Item item : database) {
+            if (Objects.equals(item.getId(), itemToGet)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    private void addToInventory(Item item) {
+        equipments.add(item);
+    }
+
+    //private because technically you should be able to remove an item from your inventory only by using it or by sending it to the item box
+    private void removeFromInventory(Item item){
+        equipments.remove(item);
+    }
+
+    private void addToFiles(Item item) {
+        archive.add(item);
+    }
+
+    private void addToItemBox(Item item){
+        itemBox.add(item);
+    }
+
+    private void removeFromItemBox(Item item){
+        itemBox.remove(item);
+    }
+
+    private void listInventory(){
+        System.out.println("\n---------------------------------------------------------"+ this.getCharacters() + " | INVENTORY--------------------------------------------------------\n");
+        for (Item item : equipments) {
+            System.out.println("ID: " + item.getId() + " " + item);
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    private void listFiles(){
+        System.out.println("\n-----------------------------------------------------------"+ this.getCharacters() + " | FILES----------------------------------------------------------\n");
+        for (Item item : archive) {
+            System.out.println("ID: " + item.getId() + " " + item);
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    private void listItemBox(){
+        System.out.println("\n----------------------------------------------------------"+ this.getCharacters() + " | ITEM BOX--------------------------------------------------------\n");
+        for (Item item : itemBox){
+            System.out.println("ID: " + item.getId() + " " + item);
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    private void listDatabase(){
+        System.out.println("\n---------------------------------------------------------ITEM DATABASE--------------------------------------------------------\n");
+        for (Item item : database) {
+            System.out.println("{" + item.getId() + "," + item.getName() + "}");
+        }
+    }
+
+    private Item getItemById (int itemToSearch, boolean searchItemBox) {
+        List<Item> targetList = searchItemBox ? itemBox : equipments;
+        for (Item item : targetList) {
+            if (item != null && Objects.equals(item.getId(), itemToSearch)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    private Item getFileById (int item) {
+        for (Item file : archive) {
+            if (file != null && Objects.equals(file.getId(), item)){
+                return file;
+            }
+        }
+        return null;
+    }
+
     public static Inventory Leon = new Inventory(Characters.LEON);
     public static Inventory Claire = new Inventory(Characters.CLAIRE);
     public static Inventory Ada = new Inventory(Characters.ADA);
@@ -236,108 +324,115 @@ public class Inventory {
                 scanner.nextLine();
                 switch (opt_set1) {
                     case 1:
-                        characterInUse.listInventory();
-                        int opt_set2 = 0;
-                        while (opt_set2 != 4) {
-                            System.out.println("\nWhat do you want to do next?");
-                            System.out.println("1. Equip weapon.");
-                            System.out.println("2. Combine items.");
-                            System.out.println("3. Reveal a file's content.");
-                            System.out.println("4. Return.");
-                            System.out.print("Type here: ");
-                            opt_set2 = scanner.nextInt();
-                            scanner.nextLine();
-                            switch (opt_set2) {
-                                case 1:
-                                    System.out.println("\nWhich weapon do you want to equip?");
-                                    System.out.print("Type here (ID): ");
-                                    int opt_gun = scanner.nextInt();
-                                    scanner.nextLine();
-                                    equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun, false));
-                                    break;
-                                case 2:
-                                    System.out.println("\nSelect items to combine (ID).");
-                                    System.out.print("Item 1: ");
-                                    int item1 = scanner.nextInt();
-                                    scanner.nextLine();
-                                    System.out.print("Item 2: ");
-                                    int item2 = scanner.nextInt();
-                                    scanner.nextLine();
-                                    characterInUse.combineItems(item1, item2);
-                                    characterInUse.listInventory();
-                                    break;
-                                case 3:
-                                    System.out.println("\n---------------------------DARK ROOM--------------------------");
-                                    System.out.println("Choose a file to develop (ID)");
-                                    System.out.print("Type here: ");
-                                    int fileToReveal = scanner.nextInt();
-                                    scanner.nextLine();
-                                    characterInUse.darkRoom(fileToReveal);
-                                    break;
-                                case 4:
-                                    break;
+                        if (characterInUse != null) {
+                            characterInUse.listInventory();
+                            int opt_set2 = 0;
+                            while (opt_set2 != 4) {
+                                System.out.println("\nWhat do you want to do next?");
+                                System.out.println("1. Equip weapon.");
+                                System.out.println("2. Combine items.");
+                                System.out.println("3. Reveal a file's content.");
+                                System.out.println("4. Return.");
+                                System.out.print("Type here: ");
+                                opt_set2 = scanner.nextInt();
+                                scanner.nextLine();
+                                switch (opt_set2) {
+                                    case 1:
+                                        System.out.println("\nWhich weapon do you want to equip?");
+                                        System.out.print("Type here (ID): ");
+                                        int opt_gun = scanner.nextInt();
+                                        scanner.nextLine();
+                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun, false));
+                                        break;
+                                    case 2:
+                                        System.out.println("\nSelect items to combine (ID).");
+                                        System.out.print("Item 1: ");
+                                        int item1 = scanner.nextInt();
+                                        scanner.nextLine();
+                                        System.out.print("Item 2: ");
+                                        int item2 = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.combineItems(item1, item2);
+                                        characterInUse.listInventory();
+                                        break;
+                                    case 3:
+                                        System.out.println("\n---------------------------DARK ROOM--------------------------");
+                                        System.out.println("Choose a file to develop (ID)");
+                                        System.out.print("Type here: ");
+                                        int fileToReveal = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.darkRoom(fileToReveal);
+                                        break;
+                                    case 4:
+                                        break;
+                                }
                             }
                         }
                         break;
                     case 2:
-                        characterInUse.listFiles();
-                        int opt_set3 = 0;
-                        while (opt_set3 != 2) {
-                            System.out.println("\nWhat do you want to do next?");
-                            System.out.println("1. Read a file.");
-                            System.out.println("2. Return.");
-                            System.out.print("Type here: ");
-                            opt_set3 = scanner.nextInt();
-                            scanner.nextLine();
-                            switch (opt_set3) {
-                                case 1:
-                                    System.out.println("\nChoose a file (ID): ");
-                                    System.out.print("Type here: ");
-                                    int fileToRead = scanner.nextInt();
-                                    scanner.nextLine();
-                                    characterInUse.readFile(fileToRead);
-                                    break;
-                                case 2:
-                                    break;
+                        if (characterInUse != null) {
+                            characterInUse.listFiles();
+                            int opt_set3 = 0;
+                            while (opt_set3 != 2) {
+                                System.out.println("\nWhat do you want to do next?");
+                                System.out.println("1. Read a file.");
+                                System.out.println("2. Return.");
+                                System.out.print("Type here: ");
+                                opt_set3 = scanner.nextInt();
+                                scanner.nextLine();
+                                switch (opt_set3) {
+                                    case 1:
+                                        System.out.println("\nChoose a file (ID): ");
+                                        System.out.print("Type here: ");
+                                        int fileToRead = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.readFile(fileToRead);
+                                        break;
+                                    case 2:
+                                        break;
+                                }
                             }
                         }
                         break;
                     case 3:
-                        characterInUse.listItemBox();
-                        int opt_itemBox = 0;
-                        while (opt_itemBox != 3) {
-                            System.out.println("\nWhat do you want to do next?");
-                            System.out.println("1. Storage Item.");
-                            System.out.println("2. Retrieve Item.");
-                            System.out.println("3. Return.");
-                            System.out.print("Type here: ");
-                            opt_itemBox = scanner.nextInt();
-                            scanner.nextLine();
-                            switch (opt_itemBox) {
-                                case 1:
-                                    characterInUse.listInventory();
-                                    System.out.println("\nSelect an item to storage (ID).");
-                                    System.out.print("Type here: ");
-                                    int itemToStorage = scanner.nextInt();
-                                    scanner.nextLine();
-                                    characterInUse.itemBoxIn(itemToStorage);
-                                    characterInUse.listItemBox();
-                                    break;
-                                case 2:
-                                    characterInUse.listItemBox();
-                                    System.out.println("\nSelect an item to retrieve (ID).");
-                                    System.out.print("Type here: ");
-                                    int itemToRetrieve = scanner.nextInt();
-                                    scanner.nextLine();
-                                    characterInUse.itemBoxOut(itemToRetrieve);
-                                    characterInUse.listInventory();
-                                    break;
-                                case 3:
-                                    break;
+                        if (characterInUse != null) {
+                            characterInUse.listItemBox();
+                            int opt_itemBox = 0;
+                            while (opt_itemBox != 3) {
+                                System.out.println("\nWhat do you want to do next?");
+                                System.out.println("1. Storage Item.");
+                                System.out.println("2. Retrieve Item.");
+                                System.out.println("3. Return.");
+                                System.out.print("Type here: ");
+                                opt_itemBox = scanner.nextInt();
+                                scanner.nextLine();
+                                switch (opt_itemBox) {
+                                    case 1:
+                                        characterInUse.listInventory();
+                                        System.out.println("\nSelect an item to storage (ID).");
+                                        System.out.print("Type here: ");
+                                        int itemToStorage = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.itemBoxIn(itemToStorage);
+                                        characterInUse.listItemBox();
+                                        break;
+                                    case 2:
+                                        characterInUse.listItemBox();
+                                        System.out.println("\nSelect an item to retrieve (ID).");
+                                        System.out.print("Type here: ");
+                                        int itemToRetrieve = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.itemBoxOut(itemToRetrieve);
+                                        characterInUse.listInventory();
+                                        break;
+                                    case 3:
+                                        break;
+                                }
                             }
                         }
                         break;
                     case 4:
+                        if (characterInUse != null) {
                         characterInUse.listDatabase();
                         System.out.println("\nSelect an item to collect (ID).");
                         System.out.print("Type here: ");
@@ -345,12 +440,13 @@ public class Inventory {
                         scanner.nextLine();
                         characterInUse.collectItem(itemToCollect);
                         characterInUse.listInventory();
+                        }
                         break;
                     case 5:
-                        int stopFire = 0;
                         if (equippedWeapon == null) {
                             System.out.println("\nYou're not equipped with any weapons.");
                         } else {
+                            int stopFire = 0;
                             while (stopFire != 2) {
                                 characterInUse.useWeapon(equippedWeapon.getId());
                                 System.out.println("Keep firing?");
@@ -447,94 +543,6 @@ public class Inventory {
                 }
             }
         }
-    }
-
-    private Weapon equipWeapon(Weapon equippedWeapon) {
-        return equippedWeapon;
-    }
-
-    private void addToDatabase(Item item){
-        database.add(item);
-    }
-
-    private Item getFromDatabase(int itemToGet){
-        for (Item item : database) {
-            if (Objects.equals(item.getId(), itemToGet)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    private void addToInventory(Item item) {
-        equipments.add(item);
-    }
-
-    //private because technically you should be able to remove an item from your inventory only by using it or by sending it to the item box
-    private void removeFromInventory(Item item){
-        equipments.remove(item);
-    }
-
-    private void addToFiles(Item item) {
-        archive.add(item);
-    }
-
-    private void addToItemBox(Item item){
-        itemBox.add(item);
-    }
-
-    private void removeFromItemBox(Item item){
-        itemBox.remove(item);
-    }
-
-    private void listInventory(){
-        System.out.println("\n---------------------------------------------------------"+ this.getCharacters() + " | INVENTORY--------------------------------------------------------\n");
-        for (Item item : equipments) {
-                System.out.println("ID: " + item.getId() + " " + item);
-        }
-        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    }
-
-    private void listFiles(){
-        System.out.println("\n-----------------------------------------------------------"+ this.getCharacters() + " | FILES----------------------------------------------------------\n");
-        for (Item item : archive) {
-            System.out.println("ID: " + item.getId() + " " + item);
-        }
-        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    }
-
-    private void listItemBox(){
-        System.out.println("\n----------------------------------------------------------"+ this.getCharacters() + " | ITEM BOX--------------------------------------------------------\n");
-        for (Item item : itemBox){
-            System.out.println("ID: " + item.getId() + " " + item);
-        }
-        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    }
-
-    private void listDatabase(){
-        System.out.println("\n---------------------------------------------------------ITEM DATABASE--------------------------------------------------------\n");
-        for (Item item : database) {
-            System.out.println("{" + item.getId() + "," + item.getName() + "}");
-        }
-    }
-
-    private Item getItemById (int itemToSearch, boolean searchItemBox) {
-        List<Item> targetList = searchItemBox ? itemBox : equipments;
-        for (Item item : targetList) {
-            if (item != null && Objects.equals(item.getId(), itemToSearch)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    private Item getFileById (int item) {
-        for (Item file : archive) {
-            if (file != null && Objects.equals(file.getId(), item)){
-                return file;
-            }
-        }
-        return null;
     }
 
     private void collectItem(int itemToCollect) {
