@@ -35,40 +35,7 @@ Feel free to fork this project ;)
 
 1. Download the project's ZIP file and open it in your IDE.
 2. All predefined inventories are already set up:
-
-        ItemDatabase db = new ItemDatabase(); // use db to properly access items in inventory
-
-3. You can start calling methods. Here are some examples:
-
-         Leon.collectItem(true, db.<item_here>);
-         // Adds an item to Leon's inventory.
-         
-         Leon.listInventory();
-         // Lists all items in the inventory.
-         
-         Claire.itemBoxIn(db.<item_here>);
-         // Stores an item in the item box.
-         
-         Claire.itemBoxOut(db.<item_here>);
-         // Retrieves an item from the item box.
-         
-         Claire.listItemBox();
-         // Lists all stored items in the item box.
-         
-         Ada.combineItems(db.<item1>, db.<item2>);
-         // Combines two items (e.g., mixing herbs, upgrading weapons).
-         
-         Ada.useWeapon(db.<weapon_here>, <number_of_uses>);
-         // Uses a weapon, reducing its ammo.
-         
-         Claire.darkRoom(db.<film_here>);
-         // Develops a film, revealing hidden content.
-         
-         Sherry.readFile(db.<file_here>);
-         // Reads a document.
-         
-         Leon.listFiles();
-         // Opens the archive section.
+3. Run the application and start exploring.
 
 # Recent Updates
 
