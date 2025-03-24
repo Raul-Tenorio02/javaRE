@@ -19,7 +19,7 @@ Feel free to fork this project ;)
 
 # Known Issues & Limitations
 
-1. Some methods may contain bugs, logic mistakes or unexpected behaviors.
+1. Some features can present logic mistakes or unexpected behaviors.
 2. Some features are still under development.
 
 # Planned Features
@@ -28,6 +28,8 @@ Feel free to fork this project ;)
 2. Frontend development (currently in progress).
 3. Database integration (currently in progress).
 4. Full web version using RESTful API concepts with Spring Boot and JPA/Hibernate (currently in progress).
+5. Improve commenting.
+6. Add Try/Catch.
 
 # Getting Started
 
@@ -80,3 +82,4 @@ Feel free to fork this project ;)
 8. Refactored to initialize all inventories at once with predefined starting items.
 9. Moved Characters inventories to Inventory Class and declared them static.
 10. Reordered packages to improve architecture. 
+11. Started implementing a CLI.

@@ -1,0 +1,16 @@
+package InventoryRE.Items.Weaponry.Weapons;
+
+public enum WeaponType {
+
+    HANDGUN,
+    SHOTGUN,
+    BOWGUN,
+    GRENADE_LAUNCHER,
+    MAGNUM,
+    MACHINE_GUN,
+    SPARKSHOT,
+    FLAMETHROWER,
+    ROCKET_LAUNCHER,
+    INFINITE_WEAPON
+
+}
