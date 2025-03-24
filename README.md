@@ -80,3 +80,4 @@ Feel free to fork this project ;)
 8. Refactored to initialize all inventories at once with predefined starting items.
 9. Moved Characters inventories to Inventory Class and declared them static.
 10. Reordered packages to improve architecture. 
+11. Started implementing a CLI.

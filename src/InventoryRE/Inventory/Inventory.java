@@ -14,8 +14,7 @@ import InventoryRE.Item.Weaponry.Weapons.Weapon;
 import InventoryRE.Item.Weaponry.Knife.Knife;
 import InventoryRE.Item.Weaponry.Weapons.WeaponType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Inventory implements InventoryInterface {
 
@@ -49,7 +48,6 @@ public class Inventory implements InventoryInterface {
 
         itemDatabase = new ItemDatabase();
         initialize(character);
-        //personalizing inventory "interface" only for backend visualizing
         setCharacters(character);
 
         //WEAPONS
@@ -65,10 +63,7 @@ public class Inventory implements InventoryInterface {
         addToDatabase(itemDatabase.getSPARK_SHOT());
         addToDatabase(itemDatabase.getFLAMETHROWER());
         addToDatabase(itemDatabase.getROCKET_LAUNCHER());
-        //CUSTOM WEAPONS
-        addToDatabase(itemDatabase.getHK_VP70_BURST());
-        addToDatabase(itemDatabase.getREMINGTON_M1100());
-        addToDatabase(itemDatabase.getDESERT_EAGLE_CUSTOM());
+        // custom weapons are declared in Weapon Class
         // INFINITE WEAPONS
         addToDatabase(itemDatabase.getINFINITE_MAC11());
         addToDatabase(itemDatabase.getINFINITE_ROCKET_LAUNCHER());
@@ -111,7 +106,7 @@ public class Inventory implements InventoryInterface {
         addToDatabase(itemDatabase.getDETONATOR());
         addToDatabase(itemDatabase.getHEART_KEY());
         addToDatabase(itemDatabase.getRED_CARD_KEY());
-        addToDatabase(itemDatabase.getBOMB_DET());
+        // "bomb and det." is declared in KeyItem Class
         addToDatabase(itemDatabase.getSQUARE_CRANK());
         addToDatabase(itemDatabase.getCORD());
         addToDatabase(itemDatabase.getCLUB_KEY());
@@ -123,7 +118,7 @@ public class Inventory implements InventoryInterface {
         addToDatabase(itemDatabase.getSERPENT_STONE());
         addToDatabase(itemDatabase.getBLUE_STONE_LEFT());
         addToDatabase(itemDatabase.getBLUE_STONE_RIGHT());
-        addToDatabase(itemDatabase.getJAGUAR_STONE());
+        // "jaguar stone" is declared in KeyItem Class
         addToDatabase(itemDatabase.getMANHOLE_OPENER());
         addToDatabase(itemDatabase.getGOLD_COGWHEEL());
         addToDatabase(itemDatabase.getEAGLE_MEDAL());
@@ -151,12 +146,7 @@ public class Inventory implements InventoryInterface {
         addToDatabase(itemDatabase.getRED_HERB());
         addToDatabase(itemDatabase.getBLUE_HERB());
         addToDatabase(itemDatabase.getFIRST_AID_SPRAY());
-        addToDatabase(itemDatabase.getMIXED_HERB_GG());
-        addToDatabase(itemDatabase.getMIXED_HERB_GR());
-        addToDatabase(itemDatabase.getMIXED_HERB_GB());
-        addToDatabase(itemDatabase.getMIXED_HERB_GGG());
-        addToDatabase(itemDatabase.getMIXED_HERB_GGB());
-        addToDatabase(itemDatabase.getMIXED_HERB_GRB());
+        // herb mixes are declared in RecoveryItem Class
 
         // FILES
         addToDatabase(itemDatabase.getPOLICE_MEMORANDUM());
@@ -227,9 +217,9 @@ public class Inventory implements InventoryInterface {
         database.add(item);
     }
 
-    private Item getFromDatabase(Item itemToGet){
+    private Item getFromDatabase(int itemToGet){
         for (Item item : database) {
-            if (item.getId().equals(itemToGet.getId())) {
+            if (Objects.equals(item.getId(), itemToGet)) {
                 return item;
             }
         }
@@ -260,37 +250,47 @@ public class Inventory implements InventoryInterface {
     public void listInventory(){
         System.out.println("\n---------------------------------------------------------"+ this.getCharacters() + " | INVENTORY--------------------------------------------------------\n");
         for (Item item : equipments) {
-                System.out.println(item);
+                System.out.println("ID: " + item.getId() + " " + item);
         }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void listFiles(){
         System.out.println("\n-----------------------------------------------------------"+ this.getCharacters() + " | FILES----------------------------------------------------------\n");
         for (Item item : archive) {
-            System.out.println(item);
+            System.out.println("ID: " + item.getId() + " " + item);
         }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void listItemBox(){
         System.out.println("\n----------------------------------------------------------"+ this.getCharacters() + " | ITEM BOX--------------------------------------------------------\n");
         for (Item item : itemBox){
-                System.out.println(item);
+            System.out.println("ID: " + item.getId() + " " + item);
+        }
+        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    public void listDatabase(){
+        System.out.println("\n---------------------------------------------------------ITEM DATABASE--------------------------------------------------------\n");
+        for (Item item : database) {
+            System.out.println("{" + item.getId() + "," + item.getName() + "}");
         }
     }
 
-    private Item getItemById (Item itemToSearch, boolean searchItemBox) {
+    private Item getItemById (int itemToSearch, boolean searchItemBox) {
         List<Item> targetList = searchItemBox ? itemBox : equipments;
         for (Item item : targetList) {
-            if (item != null && item.getId().equals(itemToSearch.getId())) {
+            if (item != null && Objects.equals(item.getId(), itemToSearch)) {
                 return item;
             }
         }
         return null;
     }
 
-    private Item getFile (Item item) {
+    private Item getFileById (int item) {
         for (Item file : archive) {
-            if (file != null && file.getId().equals(item.getId())){
+            if (file != null && Objects.equals(file.getId(), item)){
                 return file;
             }
         }
@@ -298,7 +298,7 @@ public class Inventory implements InventoryInterface {
     }
 
     @Override
-    public void collectItem(Boolean confirm, Item itemToCollect) {
+    public void collectItem(Boolean confirm, int itemToCollect) {
         Item item = getFromDatabase(itemToCollect);
         switch (item) {
             case null -> System.out.println("Item not found");
@@ -336,7 +336,7 @@ public class Inventory implements InventoryInterface {
 
     //TODO: create method that hold item 1's position and sets item created to it
     @Override
-    public void combineItems(Item itemA, Item itemB) {
+    public void combineItems(int itemA, int itemB) {
         Item item1 = getItemById(itemA, false);
         Item item2 = getItemById(itemB, false);
 
@@ -402,7 +402,7 @@ public class Inventory implements InventoryInterface {
     }
 
     @Override
-    public void itemBoxIn(Item item){
+    public void itemBoxIn(int item){
         Item itemToStorage = getItemById(item, false);
         if (itemToStorage != null) {
             addToItemBox(itemToStorage);
@@ -413,7 +413,7 @@ public class Inventory implements InventoryInterface {
     }
 
     @Override
-    public void itemBoxOut(Item item){
+    public void itemBoxOut(int item){
         Item itemToGetFromStorage = getItemById(item, true);
         if(itemToGetFromStorage != null) {
             addToInventory(itemToGetFromStorage);
@@ -425,23 +425,23 @@ public class Inventory implements InventoryInterface {
 
     //fires a weapon and calculates ammo use with fireCount()
     @Override
-    public void useWeapon(Item itemWeapon, int count){
+    public void useWeapon(int itemWeapon, int count){
         if (count == 0) {
             count = 1;
         }
         Item item = getItemById(itemWeapon, false);
         switch (item) {
             case null -> System.out.println("\nWeapon not found");
-            case Weapon weaponInUse -> weaponInUse.fireCount(itemWeapon.getName(), count);
-            case Knife knifeInUse -> knifeInUse.swingCount(itemWeapon.getName(), count);
+            case Weapon weaponInUse -> weaponInUse.fireCount(item.getName(), count);
+            case Knife knifeInUse -> knifeInUse.swingCount(item.getName(), count);
             default -> {
             }
         }
     }
 
     @Override
-    public void readFile(Item item){
-        Item file = getFile(item);
+    public void readFile(int item){
+        Item file = getFileById(item);
         if (file != null){
             if (file instanceof File fileToRead){
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -454,7 +454,7 @@ public class Inventory implements InventoryInterface {
 
     //method to develop films
     @Override
-    public void darkRoom(Item film){
+    public void darkRoom(int film){
         Item item = getItemById(film, false);
         if (item instanceof KeyItem filmToDevelop) {
             if (filmToDevelop.getTypeKey() == KeyType.FILM) {
@@ -462,7 +462,7 @@ public class Inventory implements InventoryInterface {
                 if (developedFile != null) {
                     addToFiles(developedFile);
                     removeFromInventory(filmToDevelop);
-                    readFile(developedFile);
+                    readFile(developedFile.getId());
                 }
             }
         }

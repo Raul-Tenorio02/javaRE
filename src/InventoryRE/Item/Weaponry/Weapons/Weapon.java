@@ -22,7 +22,7 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
 
     ItemDatabase itemDatabase = new ItemDatabase();
 
-    public Weapon(Long id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity) {
+    public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity) {
         super(id, name, description, type);
         this.magazine = magazine;
         this.maxCapacity = maxCapacity;
@@ -30,13 +30,13 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
     }
 
     // overloading constructor to implement grenade launcher's specific reloading/switch ammo system
-    public Weapon(Long id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, AmmoType loadedAmmo) {
+    public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, AmmoType loadedAmmo) {
         this(id, name, description, type, typeWeapon, magazine, maxCapacity);
         this.loadedAmmo = loadedAmmo;
     }
 
     // overloading constructor to add fire rate attribute
-    public Weapon(Long id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType) {
+    public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType) {
         this(id, name, description, type, typeWeapon, magazine, maxCapacity);
         this.fireType = fireType;
     }

@@ -8,7 +8,7 @@ public final class Ammunition extends Item {
     private int quantity;
     private AmmoType typeAmmo;
 
-    public Ammunition(Long id, String name, String description, ItemType type, AmmoType typeAmmo , int quantity) {
+    public Ammunition(int id, String name, String description, ItemType type, AmmoType typeAmmo , int quantity) {
         super(id, name, description, type);
         this.typeAmmo = typeAmmo;
         this.quantity = quantity;

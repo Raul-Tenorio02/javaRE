@@ -11,13 +11,13 @@ public final class KeyItem extends Item implements KeyItemInterface {
     private int quantity;
     ItemDatabase itemDatabase = new ItemDatabase();
 
-    public KeyItem(Long id, String name, String description, ItemType type, KeyType typeKey) {
+    public KeyItem(int id, String name, String description, ItemType type, KeyType typeKey) {
         super(id, name, description, type);
         this.typeKey = typeKey;
     }
 
     //overloading to add specific attributes for films and ink ribbons
-    public KeyItem(Long id, String name, String description, ItemType type, KeyType typeKey, int quantity) {
+    public KeyItem(int id, String name, String description, ItemType type, KeyType typeKey, int quantity) {
         this(id, name, description, type, typeKey);
         this.quantity = quantity;
     }
@@ -46,13 +46,13 @@ public final class KeyItem extends Item implements KeyItemInterface {
     @Override
     public File developFilm(KeyItem film) {
         if (this.typeKey == KeyType.FILM) {
-            if (film.getId() == 38L) {
+            if (film.getId() == 38) {
                 return itemDatabase.getFILM_A();
-            } else if (film.getId() == 39L) {
+            } else if (film.getId() == 39) {
                 return itemDatabase.getFILM_B();
-            } else if (film.getId() == 40L) {
+            } else if (film.getId() == 40) {
                 return itemDatabase.getFILM_C();
-            } else if (film.getId() == 41L) {
+            } else if (film.getId() == 41) {
                 return itemDatabase.getFILM_D();
             }
             return null;
@@ -61,11 +61,11 @@ public final class KeyItem extends Item implements KeyItemInterface {
     }
 
     @Override
-    public KeyItem combineKeyItems(Item otherKeyItem){
+    public KeyItem combineKeyItems(KeyItem otherKeyItem){
         if (this.getType() == ItemType.KEY && otherKeyItem.getType() == ItemType.KEY){
-            if (this.equals(itemDatabase.getPLASTIC_BOMB()) && otherKeyItem.equals(itemDatabase.getDETONATOR()) || this.equals(itemDatabase.getDETONATOR()) && otherKeyItem.equals(itemDatabase.getPLASTIC_BOMB())) {
+            if (this.getId() == itemDatabase.getPLASTIC_BOMB().getId() && otherKeyItem.getId() == itemDatabase.getDETONATOR().getId() || this.getId() == itemDatabase.getDETONATOR().getId() && otherKeyItem.getId() == (itemDatabase.getPLASTIC_BOMB().getId())) {
                 return itemDatabase.getBOMB_DET();
-            } else if (this.equals(itemDatabase.getBLUE_STONE_LEFT()) && otherKeyItem.equals(itemDatabase.getBLUE_STONE_RIGHT()) || this.equals(itemDatabase.getBLUE_STONE_RIGHT()) && otherKeyItem.equals(itemDatabase.getBLUE_STONE_LEFT())) {
+            } else if (this.getId() == itemDatabase.getBLUE_STONE_LEFT().getId() && otherKeyItem.getId() == itemDatabase.getBLUE_STONE_RIGHT().getId() || this.getId() == itemDatabase.getBLUE_STONE_RIGHT().getId() && otherKeyItem.getId() == (itemDatabase.getBLUE_STONE_LEFT().getId())) {
                 return itemDatabase.getJAGUAR_STONE();
             }
         }

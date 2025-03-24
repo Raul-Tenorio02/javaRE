@@ -7,7 +7,7 @@ public final class Parts extends Item {
 
     private final PartType typePart;
 
-    public Parts(Long id, String name, String description, ItemType type, PartType typePart) {
+    public Parts(int id, String name, String description, ItemType type, PartType typePart) {
         super(id, name, description, type);
         this.typePart = typePart;
     }

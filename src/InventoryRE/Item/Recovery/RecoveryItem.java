@@ -12,7 +12,7 @@ public class RecoveryItem extends Item implements MixInterface {
 
     ItemDatabase itemDatabase = new ItemDatabase();
 
-    public RecoveryItem(Long id, String name, String description, ItemType type, RecoveryType typeRecovery) {
+    public RecoveryItem(int id, String name, String description, ItemType type, RecoveryType typeRecovery) {
         super(id, name, description, type);
         this.typeRecovery = typeRecovery;
     }

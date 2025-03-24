@@ -6,7 +6,7 @@ import InventoryRE.Item.Weaponry.Weapons.WeaponType;
 
 public final class Knife extends Item implements KnifeInterface{
 
-    public Knife(Long id, String name, String description, ItemType type, WeaponType typeWeapon) {
+    public Knife(int id, String name, String description, ItemType type, WeaponType typeWeapon) {
         super(id, name, description, type);
     }
 
