@@ -37,9 +37,9 @@ public final class KeyItem extends Item implements KeyItemInterface {
     @Override
     public String toString() {
         if (typeKey == KeyType.INK_RIBBON) {
-            return "{" + getName() + ", " + getDescription() + ", " + getQuantity() + "}";
+            return " | " + getName() + " | " + getDescription() + " | " + getQuantity();
         } else {
-            return "{" + getName() + ", " + getDescription() + "}";
+            return " | " + getName() + " | " + getDescription();
         }
     }
 

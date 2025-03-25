@@ -12,7 +12,7 @@ public final class Knife extends Item implements KnifeInterface{
 
     @Override
     public String toString() {
-        return "{" + getName() + ", " + getDescription() + "}";
+        return " | " + getName() + " | " + getDescription();
     }
 
     @Override

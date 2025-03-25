@@ -51,10 +51,13 @@ public class Inventory {
     }
 
     private void addToInventory(Item item) {
-        equipments.add(item);
+        if (equipments.size() >= 8) {
+            System.out.println("\nYou cannot carry any more items.");
+        } else {
+            equipments.add(item);
+        }
     }
 
-    //private because technically you should be able to remove an item from your inventory only by using it or by sending it to the item box
     private void removeFromInventory(Item item){
         equipments.remove(item);
     }
@@ -74,7 +77,7 @@ public class Inventory {
     private void listInventory(){
         System.out.println("\n---------------------------------------------------------"+ this.getCharacters() + " | INVENTORY--------------------------------------------------------\n");
         for (Item item : equipments) {
-            System.out.println("ID: " + item.getId() + " " + item);
+            System.out.println("| ID: " + item.getId() + " " + item + " |");
         }
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     }

@@ -36,7 +36,7 @@ public final class Ammunition extends Item {
 
     @Override
     public String toString() {
-        return "{" + getName() + ", " + getDescription()
-                + ", Quantity: " + getQuantity() + "}";
+        return " | " + getName() + " | " + getDescription()
+                + " | Quantity: " + getQuantity();
     }
 }

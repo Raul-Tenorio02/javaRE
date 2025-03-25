@@ -18,7 +18,7 @@ public final class Parts extends Item {
 
     @Override
     public String toString() {
-        return "{" + getName() + ", " + getDescription() + "}";
+        return " | " + getName() + " | " + getDescription();
     }
 
 }

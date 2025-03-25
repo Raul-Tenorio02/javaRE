@@ -60,11 +60,10 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
     @Override
     public String toString() {
         if (!isInfiniteWeapon()) {
-            return "{" + getName() + ", " + getDescription()
-                    + ", Magazine: " + getMagazine() + ", Capacity: " + getMaxCapacity()
-                    + "}";
+            return "| " + getName() + " | " + getDescription()
+                    + " | Magazine: " + getMagazine() + " | Capacity: " + getMaxCapacity();
         }
-        return "{" + getName() + ", " + getDescription() + ", Magazine: ∞" + "}";
+        return " | " + getName() + " | " + getDescription() + " | Magazine: ∞";
     }
 
     private boolean isWeapon() {

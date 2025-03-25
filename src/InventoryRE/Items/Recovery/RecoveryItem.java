@@ -19,8 +19,7 @@ public class RecoveryItem extends Item implements MixInterface {
 
     @Override
     public String toString() {
-        return "{" + getName() + ", " + getDescription()
-                + "}";
+        return " | " + getName() + " | " + getDescription();
     }
 
     @Override
