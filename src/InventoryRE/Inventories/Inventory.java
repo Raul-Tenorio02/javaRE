@@ -41,21 +41,22 @@ public class Inventory {
         database.add(item);
     }
 
-    private Item getFromDatabase(int itemToGet){
-        for (Item item : database) {
-            if (Objects.equals(item.getId(), itemToGet)) {
-                return item;
-            }
-        }
-        return null;
+    private void addAllToDatabase(List<Item> items) {
+        items.forEach(this::addToDatabase);
+    }
+
+    private Optional<Item> getFromDatabase(int itemToGet){
+        return database.stream()
+                .filter(item -> Objects.equals(item.getId(), itemToGet))
+                .findFirst();
     }
 
     private void addToInventory(Item item) {
         if (equipments.size() >= 8) {
             System.out.println("\nYou cannot carry any more items.");
-        } else {
-            equipments.add(item);
+            return;
         }
+        equipments.add(item);
     }
 
     private void removeFromInventory(Item item){
@@ -74,54 +75,40 @@ public class Inventory {
         itemBox.remove(item);
     }
 
-    private void listInventory(){
-        System.out.println("\n---------------------------------------------------------"+ this.getCharacters() + " | INVENTORY--------------------------------------------------------\n");
-        for (Item item : equipments) {
-            System.out.println("| ID: " + item.getId() + " " + item + " |");
-        }
+    private void printList(String title, List<Item> items) {
+        System.out.println("\n---------------------------------------------------------"+ title + "--------------------------------------------------------\n");
+        items.forEach(item -> System.out.println("ID: " + item.getId() + " " + item));
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    private void listInventory(){
+        printList(getCharacters() + " | INVENTORY", equipments);
     }
 
     private void listFiles(){
-        System.out.println("\n-----------------------------------------------------------"+ this.getCharacters() + " | FILES----------------------------------------------------------\n");
-        for (Item item : archive) {
-            System.out.println("ID: " + item.getId() + " " + item);
-        }
-        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        printList(getCharacters() + " | FILES", archive);
     }
 
     private void listItemBox(){
-        System.out.println("\n----------------------------------------------------------"+ this.getCharacters() + " | ITEM BOX--------------------------------------------------------\n");
-        for (Item item : itemBox){
-            System.out.println("ID: " + item.getId() + " " + item);
-        }
-        System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        printList(getCharacters() + " | ITEM BOX", itemBox);
     }
 
     private void listDatabase(){
-        System.out.println("\n---------------------------------------------------------ITEM DATABASE--------------------------------------------------------\n");
-        for (Item item : database) {
-            System.out.println("{" + item.getId() + "," + item.getName() + "}");
-        }
+        printList("ITEM DATABASE", database);
     }
 
-    private Item getItemById (int itemToSearch, boolean searchItemBox) {
-        List<Item> targetList = searchItemBox ? itemBox : equipments;
-        for (Item item : targetList) {
-            if (item != null && Objects.equals(item.getId(), itemToSearch)) {
-                return item;
-            }
-        }
-        return null;
+    private Item getItemById (int itemToSearch) {
+        return equipments.stream()
+                .filter(item -> item != null && Objects.equals(item.getId(), itemToSearch))
+                .findFirst()
+                .orElse(null);
     }
 
     private Item getFileById (int item) {
-        for (Item file : archive) {
-            if (file != null && Objects.equals(file.getId(), item)){
-                return file;
-            }
-        }
-        return null;
+        return archive.stream()
+                .filter(file -> file != null && Objects.equals(file.getId(), item))
+                .findFirst()
+                .orElse(null);
     }
 
     public static Inventory Leon = new Inventory(Characters.LEON);
@@ -139,126 +126,58 @@ public class Inventory {
         initialize(character);
         setCharacters(character);
 
-        //WEAPONS
-        addToDatabase(itemDatabase.getKNIFE());
-        addToDatabase(itemDatabase.getHK_VP70());
-        addToDatabase(itemDatabase.getBROWNING_HP());
-        addToDatabase(itemDatabase.getREMINGTON_1100P());
-        addToDatabase(itemDatabase.getBOW_GUN());
-        addToDatabase(itemDatabase.getCOLT_SAA());
-        addToDatabase(itemDatabase.getM79_GL());
-        addToDatabase(itemDatabase.getMAC11());
-        addToDatabase(itemDatabase.getDESERT_EAGLE());
-        addToDatabase(itemDatabase.getSPARK_SHOT());
-        addToDatabase(itemDatabase.getFLAMETHROWER());
-        addToDatabase(itemDatabase.getROCKET_LAUNCHER());
-        // custom weapons are declared in Weapon Class
+        addAllToDatabase(
+                List.of(
+                        //WEAPONS
+                        itemDatabase.getKNIFE(), itemDatabase.getHK_VP70(), itemDatabase.getBROWNING_HP(),
+                        itemDatabase.getREMINGTON_1100P(), itemDatabase.getBOW_GUN(), itemDatabase.getCOLT_SAA(),
+                        itemDatabase.getM79_GL(), itemDatabase.getMAC11(), itemDatabase.getDESERT_EAGLE(),
+                        itemDatabase.getSPARK_SHOT(), itemDatabase.getFLAMETHROWER(), itemDatabase.getROCKET_LAUNCHER(),
+                        //custom weapons are declared in Weapon Class
 
-        // INFINITE WEAPONS
-        addToDatabase(itemDatabase.getINFINITE_MAC11());
-        addToDatabase(itemDatabase.getINFINITE_ROCKET_LAUNCHER());
-        addToDatabase(itemDatabase.getGATLING_GUN());
+                        //INFINITE WEAPONS
+                        itemDatabase.getINFINITE_MAC11(), itemDatabase.getINFINITE_ROCKET_LAUNCHER(), itemDatabase.getGATLING_GUN(),
 
-        // WEAPON PARTS
-        addToDatabase(itemDatabase.getHANDGUN_PARTS());
-        addToDatabase(itemDatabase.getSHOTGUN_PARTS());
-        addToDatabase(itemDatabase.getMAGNUM_PARTS());
+                        //WEAPON PARTS
+                        itemDatabase.getHANDGUN_PARTS(), itemDatabase.getSHOTGUN_PARTS(), itemDatabase.getMAGNUM_PARTS(),
 
-        // AMMUNITION
-        addToDatabase(itemDatabase.getHANDGUN_BULLETS());
-        addToDatabase(itemDatabase.getSHOTGUN_SHELLS());
-        addToDatabase(itemDatabase.getBOW_GUN_BOLTS());
-        addToDatabase(itemDatabase.getGRENADE_ROUNDS());
-        addToDatabase(itemDatabase.getACID_ROUNDS());
-        addToDatabase(itemDatabase.getFLAME_ROUNDS());
-        addToDatabase(itemDatabase.getMAGNUM_BULLETS());
-        addToDatabase(itemDatabase.getMACHINE_GUN_BULLETS());
+                        //AMMUNITION
+                        itemDatabase.getHANDGUN_BULLETS(), itemDatabase.getSHOTGUN_SHELLS(), itemDatabase.getBOW_GUN_BOLTS(),
+                        itemDatabase.getGRENADE_ROUNDS(), itemDatabase.getACID_ROUNDS(), itemDatabase.getFLAME_ROUNDS(),
+                        itemDatabase.getMAGNUM_BULLETS(), itemDatabase.getMACHINE_GUN_BULLETS(),
 
-        // KEY ITEMS
-        addToDatabase(itemDatabase.getLIGHTER());
-        addToDatabase(itemDatabase.getLOCKPICK());
-        addToDatabase(itemDatabase.getADA_PICTURE());
-        addToDatabase(itemDatabase.getSHERRY_PICTURE());
-        addToDatabase(itemDatabase.getSMALL_KEY());
-        addToDatabase(itemDatabase.getINK_RIBBON());
-        addToDatabase(itemDatabase.getBLUE_CARD_KEY());
-        addToDatabase(itemDatabase.getCABIN_KEY());
-        addToDatabase(itemDatabase.getFILM_1());
-        addToDatabase(itemDatabase.getFILM_2());
-        addToDatabase(itemDatabase.getFILM_3());
-        addToDatabase(itemDatabase.getFILM_4());
-        addToDatabase(itemDatabase.getUNICORN_MEDAL());
-        addToDatabase(itemDatabase.getSPADE_KEY());
-        addToDatabase(itemDatabase.getDIAMOND_KEY());
-        addToDatabase(itemDatabase.getVIRGIN_HEART());
-        addToDatabase(itemDatabase.getVALVE_HANDLE());
-        addToDatabase(itemDatabase.getPLASTIC_BOMB());
-        addToDatabase(itemDatabase.getDETONATOR());
-        addToDatabase(itemDatabase.getHEART_KEY());
-        addToDatabase(itemDatabase.getRED_CARD_KEY());
-        // "bomb and det." is declared in KeyItem Class
-        addToDatabase(itemDatabase.getSQUARE_CRANK());
-        addToDatabase(itemDatabase.getCORD());
-        addToDatabase(itemDatabase.getCLUB_KEY());
-        addToDatabase(itemDatabase.getKING_PLUG());
-        addToDatabase(itemDatabase.getROOK_PLUG());
-        addToDatabase(itemDatabase.getKNIGHT_PLUG());
-        addToDatabase(itemDatabase.getBISHOP_PLUG());
-        addToDatabase(itemDatabase.getEAGLE_STONE());
-        addToDatabase(itemDatabase.getSERPENT_STONE());
-        addToDatabase(itemDatabase.getBLUE_STONE_LEFT());
-        addToDatabase(itemDatabase.getBLUE_STONE_RIGHT());
-        // "jaguar stone" is declared in KeyItem Class
-        addToDatabase(itemDatabase.getMANHOLE_OPENER());
-        addToDatabase(itemDatabase.getGOLD_COGWHEEL());
-        addToDatabase(itemDatabase.getEAGLE_MEDAL());
-        addToDatabase(itemDatabase.getWOLF_MEDAL());
-        addToDatabase(itemDatabase.getWEAPON_BOX_KEY());
-        addToDatabase(itemDatabase.getDOWN_KEY());
-        addToDatabase(itemDatabase.getUP_KEY());
-        addToDatabase(itemDatabase.getFUSE_CASE());
-        addToDatabase(itemDatabase.getMAIN_FUSE());
-        addToDatabase(itemDatabase.getLAB_CARD_KEY());
-        addToDatabase(itemDatabase.getMO_DISK());
-        addToDatabase(itemDatabase.getPOWER_ROOM_KEY());
-        addToDatabase(itemDatabase.getVACCINE_CART());
-        addToDatabase(itemDatabase.getBASE_VACCINE());
-        addToDatabase(itemDatabase.getVACCINE());
-        addToDatabase(itemDatabase.getG_VIRUS());
-        addToDatabase(itemDatabase.getMASTER_KEY());
-        addToDatabase(itemDatabase.getPLATFORM_KEY());
-        addToDatabase(itemDatabase.getJOINT_N_PLUG());
-        addToDatabase(itemDatabase.getJOINT_S_PLUG());
-        addToDatabase(itemDatabase.getLOCKER_KEY());
+                        //KEY ITEMS
+                        itemDatabase.getLIGHTER(), itemDatabase.getLOCKPICK(), itemDatabase.getADA_PICTURE(), itemDatabase.getSHERRY_PICTURE(),
+                        itemDatabase.getSMALL_KEY(), itemDatabase.getINK_RIBBON(), itemDatabase.getBLUE_CARD_KEY(),
+                        itemDatabase.getCABIN_KEY(), itemDatabase.getFILM_1(), itemDatabase.getFILM_2(), itemDatabase.getFILM_3(),
+                        itemDatabase.getFILM_4(), itemDatabase.getUNICORN_MEDAL(), itemDatabase.getSPADE_KEY(),
+                        itemDatabase.getDIAMOND_KEY(), itemDatabase.getVIRGIN_HEART(), itemDatabase.getVALVE_HANDLE(),
+                        itemDatabase.getPLASTIC_BOMB(), itemDatabase.getDETONATOR(), itemDatabase.getHEART_KEY(),
+                        itemDatabase.getRED_CARD_KEY(), itemDatabase.getSQUARE_CRANK(), itemDatabase.getCORD(),
+                        itemDatabase.getCLUB_KEY(), itemDatabase.getKING_PLUG(), itemDatabase.getROOK_PLUG(),
+                        itemDatabase.getKNIGHT_PLUG(), itemDatabase.getBISHOP_PLUG(), itemDatabase.getEAGLE_STONE(),
+                        itemDatabase.getSERPENT_STONE(), itemDatabase.getBLUE_STONE_LEFT(), itemDatabase.getBLUE_STONE_RIGHT(),
+                        itemDatabase.getMANHOLE_OPENER(), itemDatabase.getGOLD_COGWHEEL(), itemDatabase.getEAGLE_MEDAL(),
+                        itemDatabase.getWOLF_MEDAL(), itemDatabase.getWEAPON_BOX_KEY(), itemDatabase.getDOWN_KEY(),
+                        itemDatabase.getUP_KEY(), itemDatabase.getFUSE_CASE(), itemDatabase.getMAIN_FUSE(),
+                        itemDatabase.getLAB_CARD_KEY(), itemDatabase.getMO_DISK(), itemDatabase.getPOWER_ROOM_KEY(),
+                        itemDatabase.getVACCINE_CART(), itemDatabase.getBASE_VACCINE(), itemDatabase.getVACCINE(),
+                        itemDatabase.getG_VIRUS(), itemDatabase.getMASTER_KEY(), itemDatabase.getPLATFORM_KEY(),
+                        itemDatabase.getJOINT_N_PLUG(), itemDatabase.getJOINT_S_PLUG(), itemDatabase.getLOCKER_KEY(),
 
-        // RECOVERY ITEMS
-        addToDatabase(itemDatabase.getGREEN_HERB());
-        addToDatabase(itemDatabase.getRED_HERB());
-        addToDatabase(itemDatabase.getBLUE_HERB());
-        addToDatabase(itemDatabase.getFIRST_AID_SPRAY());
-        // herb mixes are declared in RecoveryItem Class
+                        //RECOVERY ITEMS
+                        itemDatabase.getGREEN_HERB(), itemDatabase.getRED_HERB(),
+                        itemDatabase.getBLUE_HERB(), itemDatabase.getFIRST_AID_SPRAY(),
 
-        // FILES
-        addToDatabase(itemDatabase.getPOLICE_MEMORANDUM());
-        addToDatabase(itemDatabase.getCHRIS_DIARY());
-        addToDatabase(itemDatabase.getMAIL_TO_CHRIS());
-        addToDatabase(itemDatabase.getOPERATION_REPORT1());
-        addToDatabase(itemDatabase.getMEMO_TO_LEON());
-        addToDatabase(itemDatabase.getOPERATION_REPORT2());
-        addToDatabase(itemDatabase.getCHIEF_DIARY());
-        // films A, B, C, D are declared in KeyItem Class
-        addToDatabase(itemDatabase.getPATROL_REPORT());
-        addToDatabase(itemDatabase.getSECRETARY_DIARY_A());
-        addToDatabase(itemDatabase.getSECRETARY_DIARY_B());
-        addToDatabase(itemDatabase.getWATCHMAN_DIARY());
-        addToDatabase(itemDatabase.getMAIL_TO_THE_CHIEF());
-        addToDatabase(itemDatabase.getSEWER_MANAGER_FAX());
-        addToDatabase(itemDatabase.getSEWER_MANAGE_DIARY());
-        addToDatabase(itemDatabase.getLAB_SECURITY_MANUAL());
-        addToDatabase(itemDatabase.getP_EPSILON_REPORT());
-        addToDatabase(itemDatabase.getUSER_REGISTRATION());
-        addToDatabase(itemDatabase.getVACCINE_SYNTHESIS());
-
+                        //FILES
+                        itemDatabase.getPOLICE_MEMORANDUM(), itemDatabase.getCHRIS_DIARY(), itemDatabase.getMAIL_TO_CHRIS(),
+                        itemDatabase.getOPERATION_REPORT1(), itemDatabase.getMEMO_TO_LEON(), itemDatabase.getOPERATION_REPORT2(),
+                        itemDatabase.getCHIEF_DIARY(), itemDatabase.getPATROL_REPORT(), itemDatabase.getSECRETARY_DIARY_A(),
+                        itemDatabase.getSECRETARY_DIARY_B(), itemDatabase.getWATCHMAN_DIARY(), itemDatabase.getMAIL_TO_THE_CHIEF(),
+                        itemDatabase.getSEWER_MANAGER_FAX(), itemDatabase.getSEWER_MANAGE_DIARY(), itemDatabase.getLAB_SECURITY_MANUAL(),
+                        itemDatabase.getP_EPSILON_REPORT(), itemDatabase.getUSER_REGISTRATION(), itemDatabase.getVACCINE_SYNTHESIS()
+                )
+        );
     }
 
     private void initialize(Characters character){
@@ -345,7 +264,7 @@ public class Inventory {
                                         System.out.print("Type here (ID): ");
                                         int opt_gun = scanner.nextInt();
                                         scanner.nextLine();
-                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun, false));
+                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun));
                                         break;
                                     case 2:
                                         System.out.println("\nSelect items to combine (ID).");
@@ -416,7 +335,7 @@ public class Inventory {
                                         System.out.print("Type here: ");
                                         int itemToStorage = scanner.nextInt();
                                         scanner.nextLine();
-                                        characterInUse.itemBoxIn(itemToStorage);
+                                        characterInUse.itemBoxTransfer(itemToStorage, true);
                                         characterInUse.listItemBox();
                                         break;
                                     case 2:
@@ -425,7 +344,7 @@ public class Inventory {
                                         System.out.print("Type here: ");
                                         int itemToRetrieve = scanner.nextInt();
                                         scanner.nextLine();
-                                        characterInUse.itemBoxOut(itemToRetrieve);
+                                        characterInUse.itemBoxTransfer(itemToRetrieve, false);
                                         characterInUse.listInventory();
                                         break;
                                     case 3:
@@ -481,7 +400,7 @@ public class Inventory {
                     case 1:
                         Sherry.listInventory();
                         int opt_set2 = 0;
-                        while (opt_set2 != 3) {
+                        while (opt_set2 != 2) {
                             System.out.println("\nWhat do you want to do next?");
                             System.out.println("1. Combine items.");
                             System.out.println("2. Return.");
@@ -549,81 +468,108 @@ public class Inventory {
     }
 
     private void collectItem(int itemToCollect) {
-        Item item = getFromDatabase(itemToCollect);
-        switch (item) {
-            case null -> System.out.println("Item not found");
-            case Ammunition ammo -> {
-                for (Item inventoryItem : equipments) {
-                    if (inventoryItem instanceof Ammunition && inventoryItem.getName().equals(ammo.getName())) {
-                        switch (ammo.getAmmoType()) {
-                            case AmmoType.HANDGUN_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 15);
-                            case AmmoType.SHOTGUN_SHELLS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 7);
-                            case AmmoType.BOWGUN_BOLTS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 18);
-                            case AmmoType.GRENADE_ROUNDS, AmmoType.ACID_ROUNDS, AmmoType.FLAME_ROUNDS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 6);
-                            case AmmoType.MAGNUM_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 8);
-                            case AmmoType.MACHINEGUN_BULLETS -> ((Ammunition) inventoryItem).setQuantity(ammo.getQuantity() + 100);
-                        }
-                        return;
+        getFromDatabase(itemToCollect).ifPresentOrElse(
+                item -> {
+                    switch (item) {
+                        case Ammunition ammo -> stackAmmo(ammo);
+                        case KeyItem inkRibbon -> stackInkRibbon(inkRibbon);
+                        case File file -> addToFiles(file);
+                        default -> addToInventory(item);
                     }
-                }
-                addToInventory(ammo);
-            }
-            case KeyItem inkRibbon -> {
-                for (Item inventoryItem : equipments) {
-                    if (inventoryItem instanceof KeyItem) {
-                        if (((KeyItem) inventoryItem).getTypeKey() == KeyType.INK_RIBBON) {
-                            ((KeyItem) inventoryItem).setQuantity(((KeyItem) inventoryItem).getQuantity() + 3); //standard ink ribbon quantity
-                            return;
-                        }
-                    }
-                }
-                addToInventory(inkRibbon);
-            }
-            case File file -> addToFiles(file);
-            default -> addToInventory(item);
-        }
+                    },
+                () -> System.out.println("Item not found")
+        );
+    }
+
+    private void stackAmmo(Ammunition ammo) {
+        equipments.stream()
+                .filter(inventoryItem -> inventoryItem instanceof Ammunition && inventoryItem.getName().equals(ammo.getName()))
+                .findFirst()
+                .ifPresentOrElse(inventoryItem -> {
+                        Ammunition inventoryAmmo = (Ammunition) inventoryItem;
+                        updateAmmo(inventoryAmmo, ammo.getAmmoType());
+                        }, () -> addToInventory(ammo));
+    }
+
+    private void updateAmmo(Ammunition inventoryAmmo, AmmoType ammoType) {
+        int quantityToAdd = switch (ammoType) {
+            case HANDGUN_BULLETS -> 15;
+            case SHOTGUN_SHELLS -> 7;
+            case BOWGUN_BOLTS -> 18;
+            case GRENADE_ROUNDS, ACID_ROUNDS, FLAME_ROUNDS -> 6;
+            case MAGNUM_BULLETS -> 8;
+            case MACHINEGUN_BULLETS -> 100;
+        };
+        inventoryAmmo.setQuantity(inventoryAmmo.getQuantity() + quantityToAdd);
+    }
+
+    private void stackInkRibbon(KeyItem keyItem) {
+        equipments.stream()
+                .filter(inventoryItem -> inventoryItem instanceof KeyItem)
+                .map(inventoryItem -> (KeyItem) inventoryItem)
+                .filter(key -> key.getTypeKey() == KeyType.INK_RIBBON)
+                .findFirst()
+                .ifPresentOrElse(inventoryItem -> inventoryItem.setQuantity(inventoryItem.getQuantity() + 3),
+                        () -> addToInventory(keyItem));
     }
 
     //TODO: create method that hold item 1's position and sets item created to it
     private void combineItems(int itemA, int itemB) {
-        Item item1 = getItemById(itemA, false);
-        Item item2 = getItemById(itemB, false);
-
+        Item item1 = getItemById(itemA);
+        Item item2 = getItemById(itemB);
         if (item1 instanceof RecoveryItem herb1 && item2 instanceof RecoveryItem herb2) {
-            RecoveryItem combinedHerb = herb1.mixHerb(herb2);
-            if (combinedHerb != null) {
-                this.removeFromInventory(item1);
-                this.removeFromInventory(item2);
-                addToInventory(combinedHerb);
-                System.out.println("\nHerbs combined successfully!");
-            }
+            combineHerbs(herb1, herb2);
         } else if (item1 instanceof Weapon && item2 instanceof Ammunition || item1 instanceof Ammunition && item2 instanceof Weapon) {
+            combineWeaponWithAmmo(item1, item2);
+        } else if (item1 instanceof Weapon && item2 instanceof Parts || item1 instanceof Parts && item2 instanceof Weapon) {
+           combineWeaponWithParts(item1, item2);
+        } else if (item1 instanceof KeyItem keyItem1 && item2 instanceof KeyItem keyItem2) {
+            craftKeyItems(keyItem1, keyItem2);
+        } else {
+            System.out.println("\nCannot combine these items.");
+        }
+    }
+
+    private void combineHerbs(RecoveryItem herb1, RecoveryItem herb2) {
+        RecoveryItem combinedHerb = herb1.mixHerb(herb2);
+        if (combinedHerb != null) {
+            this.removeFromInventory(herb1);
+            this.removeFromInventory(herb2);
+            addToInventory(combinedHerb);
+            System.out.println("\nHerbs combined successfully!");
+        }
+    }
+
+    private void combineWeaponWithAmmo(Item item1, Item item2) {
+        //treating casting exception
+        if (item1 instanceof Weapon && item2 instanceof Ammunition || item1 instanceof Ammunition && item2 instanceof Weapon) {
             Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
             Ammunition ammo = (item1 instanceof Ammunition) ? (Ammunition) item1 : (Ammunition) item2;
-
             ReloadResultRecord reloadResult = weapon.reloadWeapon(ammo);
             Ammunition returnedAmmo = reloadResult.returnedAmmo();
             if (returnedAmmo != null) {
-                boolean ammoAdded = false;
-                for (Item item : equipments) {
-                    if (item instanceof Ammunition inventoryAmmo) {
-                        if (inventoryAmmo.getAmmoType() == returnedAmmo.getAmmoType()) {
-                            inventoryAmmo.setQuantity(inventoryAmmo.getQuantity() + returnedAmmo.getQuantity());
-                            ammoAdded = true;
-                            break;
-                        }
-                    }
-                }
-                if (!ammoAdded) {
+                updateInventoryAmmo(returnedAmmo);
+            }
+            if (weapon.getTypeWeapon() != WeaponType.INFINITE_WEAPON && ammo.getQuantity() <= 0) {
+                this.removeFromInventory(ammo);
+            }
+        }
+    }
+
+    private void updateInventoryAmmo(Ammunition returnedAmmo) {
+        equipments.stream()
+                .filter(item -> item instanceof Ammunition && ((Ammunition) item).getAmmoType() == returnedAmmo.getAmmoType())
+                .peek(item -> ((Ammunition) item).setQuantity(((Ammunition) item).getQuantity() + returnedAmmo.getQuantity()))
+                .findFirst()
+                .orElseGet(() -> {
                     addToInventory(returnedAmmo);
-                }
-            }
-            if (weapon.getTypeWeapon() != WeaponType.INFINITE_WEAPON) {
-                if (ammo.getQuantity() <= 0) {
-                    this.removeFromInventory(ammo);
-                }
-            }
-        } else if (item1 instanceof Weapon && item2 instanceof Parts || item1 instanceof Parts && item2 instanceof Weapon) {
+                    return returnedAmmo;
+                });
+    }
+
+    private void combineWeaponWithParts(Item item1, Item item2) {
+        //treating casting exception
+        if (item1 instanceof Weapon && item2 instanceof Parts || item1 instanceof Parts && item2 instanceof Weapon) {
             Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
             Parts parts = (item1 instanceof Parts) ? (Parts) item1 : (Parts) item2;
             Weapon customWeapon = weapon.upgradeWeapon(parts);
@@ -635,56 +581,47 @@ public class Inventory {
             } else {
                 System.out.println("\nThere is no need to combine these.");
             }
-        } else if (item1 instanceof KeyItem key1 && item2 instanceof KeyItem key2) {
-            KeyItem combinedKeyItem = key1.combineKeyItems(key2);
-            if (combinedKeyItem != null) {
-                this.removeFromInventory(item1);
-                this.removeFromInventory(item2);
-                addToInventory(combinedKeyItem);
-                System.out.println("\nItems combined successfully!");
-            } else {
-                System.out.println("\nThere is no need to combine these.");
-            }
-        } else {
-            System.out.println("\nCannot combine these items.");
         }
     }
 
-    private void itemBoxIn(int item){
-        Item itemToStorage = getItemById(item, false);
-        if (itemToStorage != null) {
-            addToItemBox(itemToStorage);
-            removeFromInventory(itemToStorage);
+    private void craftKeyItems(KeyItem item1, KeyItem item2) {
+        KeyItem combinedKeyItem = item1.combineKeyItems(item2);
+        if (combinedKeyItem != null) {
+            this.removeFromInventory(item1);
+            this.removeFromInventory(item2);
+            addToInventory(combinedKeyItem);
+            System.out.println("\nItems combined successfully!");
         } else {
-            System.out.println("\nError: item not found.");
+            System.out.println("\nThere is no need to combine these.");
         }
     }
 
-    private void itemBoxOut(int item){
-        Item itemToGetFromStorage = getItemById(item, true);
-        if(itemToGetFromStorage != null) {
-            addToInventory(itemToGetFromStorage);
-            removeFromItemBox(itemToGetFromStorage);
+    private void itemBoxTransfer(int itemID, boolean toItemBox){
+        Item item = getItemById(itemID);
+        if (item != null && toItemBox) {
+            addToItemBox(item);
+            removeFromInventory(item);
+        } else if (item != null) {
+            addToInventory(item);
+            removeFromItemBox(item);
         } else {
             System.out.println("\nError: item not found.");
         }
     }
 
     //fires a weapon and calculates ammo use with fireCount()
-    private void useWeapon(int itemWeapon){
-        int count = 1;
-        Item item = getItemById(itemWeapon, false);
+    private void useWeapon(int weaponID){
+        Item item = getItemById(weaponID);
         switch (item) {
             case null -> System.out.println("\nWeapon not found");
-            case Weapon weaponInUse -> weaponInUse.fireCount(item.getName(), count);
-            case Knife knifeInUse -> knifeInUse.swingCount(item.getName(), count);
-            default -> {
-            }
+            case Weapon weaponInUse -> weaponInUse.fireCount(item.getName(), 1);
+            case Knife knifeInUse -> knifeInUse.swingCount(item.getName(), 1);
+            default -> {}
         }
     }
 
-    private void readFile(int item){
-        Item file = getFileById(item);
+    private void readFile(int fileID){
+        Item file = getFileById(fileID);
         if (file != null){
             if (file instanceof File fileToRead){
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -697,7 +634,7 @@ public class Inventory {
 
     //method to develop films
     private void darkRoom(int film){
-        Item item = getItemById(film, false);
+        Item item = getItemById(film);
         if (item instanceof KeyItem filmToDevelop) {
             if (filmToDevelop.getTypeKey() == KeyType.FILM) {
                 File developedFile = filmToDevelop.developFilm(filmToDevelop);

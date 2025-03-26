@@ -24,7 +24,7 @@ Feel free to fork this project ;)
 
 # Planned Features
 
-1. Refactoring with Streams, and other optimizations.
+1. Refactoring with Streams, and other optimizations (currently in progress).
 2. Frontend development (currently in progress).
 3. Database integration (currently in progress).
 4. Full web version using RESTful API concepts with Spring Boot and JPA/Hibernate (currently in progress).
@@ -50,3 +50,4 @@ Feel free to fork this project ;)
 9. Moved Characters inventories to Inventory Class and declared them static.
 10. Reordered packages to improve architecture. 
 11. Started implementing a CLI.
+12. Started using streams.

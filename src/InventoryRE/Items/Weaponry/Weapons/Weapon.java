@@ -104,11 +104,11 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
             System.out.println("These items cannot be combined");
             return null;
         }
-        if (this.getName().equalsIgnoreCase("H&K VP70") && part.getTypePart() == PartType.HANDGUN_PARTS) {
+        if (this.getId() == 2 && part.getTypePart() == PartType.HANDGUN_PARTS) {
             return itemDatabase.getHK_VP70_BURST();
-        } else if (this.getName().equalsIgnoreCase("Remington 1100P") && part.getTypePart() == PartType.SHOTGUN_PARTS) {
+        } else if (this.getId() == 5 && part.getTypePart() == PartType.SHOTGUN_PARTS) {
             return itemDatabase.getREMINGTON_M1100();
-        } else if (this.getName().equalsIgnoreCase("Desert Eagle") && part.getTypePart() == PartType.MAGNUM_PARTS) {
+        } else if (this.getId() == 11 && part.getTypePart() == PartType.MAGNUM_PARTS) {
             return itemDatabase.getDESERT_EAGLE_CUSTOM();
         }
         return null;
@@ -166,7 +166,6 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
         } else {
             int bulletsUsed = count * fireRate;
             if (bulletsUsed > this.getMagazine()) {
-                count = this.getMagazine() / fireRate;
                 setMagazine(0);
                 System.out.println("\nYou've shot an enemy with your \"" + getName() + "\"! Now your weapon is empty");
             } else {
