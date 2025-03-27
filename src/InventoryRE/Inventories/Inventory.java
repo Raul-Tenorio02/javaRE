@@ -235,12 +235,11 @@ public class Inventory {
         if (this.equals(Leon) || this.equals(Claire) || this.equals(Ada)) {
             while (opt_set1 != 6) {
                 System.out.println("\nWhat do you want to do next?");
-                System.out.println("1. Open Item Section");
-                System.out.println("2. Open File Section");
-                System.out.println("3. Open Item Box");
-                System.out.println("4. Collect items");
-                System.out.println("5. Fire a weapon.");
-                System.out.println("6. Exit");
+                System.out.println("1. Open Inventory");
+                System.out.println("2. Open Item Box");
+                System.out.println("3. Collect items");
+                System.out.println("4. Fire a weapon.");
+                System.out.println("5. Exit");
                 System.out.print("Type here: ");
                 opt_set1 = scanner.nextInt();
                 scanner.nextLine();
@@ -251,10 +250,11 @@ public class Inventory {
                             int opt_set2 = 0;
                             while (opt_set2 != 4) {
                                 System.out.println("\nWhat do you want to do next?");
-                                System.out.println("1. Equip weapon.");
-                                System.out.println("2. Combine items.");
-                                System.out.println("3. Reveal a file's content.");
-                                System.out.println("4. Return.");
+                                System.out.println("1. Open File section.");
+                                System.out.println("2. Equip weapon.");
+                                System.out.println("3. Combine items.");
+                                System.out.println("4. Reveal a file's content.");
+                                System.out.println("5. Return.");
                                 System.out.print("Type here: ");
                                 opt_set2 = scanner.nextInt();
                                 scanner.nextLine();
@@ -286,37 +286,35 @@ public class Inventory {
                                         characterInUse.darkRoom(fileToReveal);
                                         break;
                                     case 4:
+                                        characterInUse.listFiles();
+                                        int opt_set3 = 0;
+                                        while (opt_set3 != 2) {
+                                            System.out.println("\nWhat do you want to do next?");
+                                            System.out.println("1. Read a file.");
+                                            System.out.println("2. Return.");
+                                            System.out.print("Type here: ");
+                                            opt_set3 = scanner.nextInt();
+                                            scanner.nextLine();
+                                            switch (opt_set3) {
+                                                case 1:
+                                                    System.out.println("\nChoose a file (ID): ");
+                                                    System.out.print("Type here: ");
+                                                    int fileToRead = scanner.nextInt();
+                                                    scanner.nextLine();
+                                                    characterInUse.readFile(fileToRead);
+                                                    break;
+                                                case 2:
+                                                    break;
+                                            }
+                                        }
+                                        break;
+                                    case 5:
                                         break;
                                 }
                             }
                         }
                         break;
                     case 2:
-                        if (characterInUse != null) {
-                            characterInUse.listFiles();
-                            int opt_set3 = 0;
-                            while (opt_set3 != 2) {
-                                System.out.println("\nWhat do you want to do next?");
-                                System.out.println("1. Read a file.");
-                                System.out.println("2. Return.");
-                                System.out.print("Type here: ");
-                                opt_set3 = scanner.nextInt();
-                                scanner.nextLine();
-                                switch (opt_set3) {
-                                    case 1:
-                                        System.out.println("\nChoose a file (ID): ");
-                                        System.out.print("Type here: ");
-                                        int fileToRead = scanner.nextInt();
-                                        scanner.nextLine();
-                                        characterInUse.readFile(fileToRead);
-                                        break;
-                                    case 2:
-                                        break;
-                                }
-                            }
-                        }
-                        break;
-                    case 3:
                         if (characterInUse != null) {
                             characterInUse.listItemBox();
                             int opt_itemBox = 0;
@@ -353,7 +351,7 @@ public class Inventory {
                             }
                         }
                         break;
-                    case 4:
+                    case 3:
                         if (characterInUse != null) {
                         characterInUse.listDatabase();
                         System.out.println("\nSelect an item to collect (ID).");
@@ -364,7 +362,7 @@ public class Inventory {
                         characterInUse.listInventory();
                         }
                         break;
-                    case 5:
+                    case 4:
                         if (equippedWeapon == null) {
                             System.out.println("\nYou're not equipped with any weapons.");
                         } else {
@@ -379,7 +377,7 @@ public class Inventory {
                             }
                         }
                         break;
-                    case 6:
+                    case 5:
                         System.out.println("\nReturning to Main Menu...");
                         break;
                     default:
@@ -390,10 +388,9 @@ public class Inventory {
         } else {
             while (opt_set1 != 5) {
                 System.out.println("\nWhat do you want to do next?");
-                System.out.println("1. Open Item Section");
-                System.out.println("2. Open File Section");
-                System.out.println("3. Collect items");
-                System.out.println("4. Exit");
+                System.out.println("1. Open Inventory");
+                System.out.println("2. Collect items");
+                System.out.println("3. Exit");
                 opt_set1 = scanner.nextInt();
                 scanner.nextLine();
                 switch (opt_set1) {
@@ -403,7 +400,8 @@ public class Inventory {
                         while (opt_set2 != 2) {
                             System.out.println("\nWhat do you want to do next?");
                             System.out.println("1. Combine items.");
-                            System.out.println("2. Return.");
+                            System.out.println("2. Open File Section.");
+                            System.out.println("3. Return.");
                             System.out.print("Type here: ");
                             opt_set2 = scanner.nextInt();
                             scanner.nextLine();
@@ -420,34 +418,34 @@ public class Inventory {
                                     Sherry.listInventory();
                                     break;
                                 case 2:
+                                    Sherry.listFiles();
+                                    int opt_set3 = 0;
+                                    while (opt_set3 != 2) {
+                                        System.out.println("\nWhat do you want to do next?");
+                                        System.out.println("1. Read a file.");
+                                        System.out.println("2. Return.");
+                                        System.out.print("Type here: ");
+                                        opt_set3 = scanner.nextInt();
+                                        scanner.nextLine();
+                                        switch (opt_set3) {
+                                            case 1:
+                                                System.out.println("\nChoose a file (ID): ");
+                                                System.out.print("Type here: ");
+                                                int fileToRead = scanner.nextInt();
+                                                scanner.nextLine();
+                                                Sherry.readFile(fileToRead);
+                                                break;
+                                            case 2:
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case 3:
                                     break;
                             }
                         }
                         break;
                     case 2:
-                        Sherry.listFiles();
-                        int opt_set3 = 0;
-                        while (opt_set3 != 2) {
-                            System.out.println("\nWhat do you want to do next?");
-                            System.out.println("1. Read a file.");
-                            System.out.println("2. Return.");
-                            System.out.print("Type here: ");
-                            opt_set3 = scanner.nextInt();
-                            scanner.nextLine();
-                            switch (opt_set3) {
-                                case 1:
-                                    System.out.println("\nChoose a file (ID): ");
-                                    System.out.print("Type here: ");
-                                    int fileToRead = scanner.nextInt();
-                                    scanner.nextLine();
-                                    Sherry.readFile(fileToRead);
-                                    break;
-                                case 2:
-                                    break;
-                            }
-                        }
-                        break;
-                    case 3:
                         Sherry.listDatabase();
                         System.out.println("\nSelect an item to collect (ID).");
                         System.out.print("Type here: ");
@@ -456,7 +454,7 @@ public class Inventory {
                         Sherry.collectItem(itemToCollect);
                         Sherry.listInventory();
                         break;
-                    case 4:
+                    case 3:
                         System.out.println("\nReturning to Main Menu...");
                         break;
                     default:
