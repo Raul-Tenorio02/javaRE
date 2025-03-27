@@ -22,7 +22,7 @@ public final class ItemDatabase {
     }
 
     public Weapon getHK_VP70(){
-        return new Weapon(2, "H&K VP70", "\"Manufactured by H&K, Germany. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 18, 18);
+        return new Weapon(2, "H&K VP70", "\"Manufactured by H&K, Germany. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 18, 18, FireType.SINGLE);
     }
 
     public Weapon getHK_VP70_BURST(){
@@ -30,15 +30,15 @@ public final class ItemDatabase {
     }
 
     public Weapon getBROWNING_HP(){
-        return new Weapon(4,"Browning HP", "\"Manufactured by FN, Belgium. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 13, 13);
+        return new Weapon(4,"Browning HP", "\"Manufactured by FN, Belgium. It uses 9mm parabellum rounds.\"", ItemType.WEAPON, WeaponType.HANDGUN, 13, 13, FireType.SINGLE);
     }
 
     public Weapon getREMINGTON_1100P(){
-        return new Weapon(5,"Remington M1100-P", "\"It uses 12 gauge rounds. Smaller than a standard M1100, as its barrel is cut.\"", ItemType.WEAPON, WeaponType.SHOTGUN, 5, 5);
+        return new Weapon(5,"Remington M1100-P", "\"It uses 12 gauge rounds. Smaller than a standard M1100, as its barrel is cut.\"", ItemType.WEAPON, WeaponType.SHOTGUN, 5, 5, FireType.SINGLE);
     }
 
     public Weapon getREMINGTON_M1100(){
-        return new Weapon(6,"Remington M1100", "\"M1100 full size semi-automatic. The longer barrel results in more concentrated blasts.\"", ItemType.SPECIAL, WeaponType.SHOTGUN, 7, 7);
+        return new Weapon(6,"Remington M1100", "\"M1100 full size semi-automatic. The longer barrel results in more concentrated blasts.\"", ItemType.SPECIAL, WeaponType.SHOTGUN, 7, 7, FireType.SINGLE);
     }
 
     public Weapon getBOW_GUN(){
@@ -46,48 +46,48 @@ public final class ItemDatabase {
     }
 
     public Weapon getCOLT_SAA(){
-        return new Weapon(8,"Colt S.A.A", "\"Colt S.A.A. Artillery Model. Used by cowboys in the Wild West. Designed for a quick draw.\"", ItemType.WEAPON, WeaponType.HANDGUN, 6, 6);
+        return new Weapon(8,"Colt S.A.A", "\"Colt S.A.A. Artillery Model. Used by cowboys in the Wild West. Designed for a quick draw.\"", ItemType.WEAPON, WeaponType.HANDGUN, 6, 6, FireType.SINGLE);
     }
 
     public Weapon getM79_GL(){
-        return new Weapon(9,"M79 Grenade launcher", "\"Various rounds can be used. The cut stock causes a greater recoil. Made in the USA.\"", ItemType.WEAPON, WeaponType.GRENADE_LAUNCHER, 6, 255, AmmoType.GRENADE_ROUNDS);
+        return new Weapon(9,"M79 Grenade launcher", "\"Various rounds can be used. The cut stock causes a greater recoil. Made in the USA.\"", ItemType.WEAPON, WeaponType.GRENADE_LAUNCHER, 6, 255, FireType.SINGLE, AmmoType.GRENADE_ROUNDS);
     }
 
     public Weapon getMAC11(){
-        return new Weapon(10,"MAC11 Sub Machine Gun", "\"Manufactured by Military Armament CORP. It uses DOT380 rounds.", ItemType.WEAPON, WeaponType.MACHINE_GUN, 100, 100);
+        return new Weapon(10,"MAC11 Sub Machine Gun", "\"Manufactured by Military Armament CORP. It uses DOT380 rounds.", ItemType.WEAPON, WeaponType.MACHINE_GUN, 100, 100, FireType.SINGLE);
     }
 
     public Weapon getDESERT_EAGLE(){
-        return new Weapon(11,"Desert Eagle 50A.E", "\"A high caliber magnum pistol. It uses powerful DOT50A.E rounds. By IMI, Israel.\"", ItemType.WEAPON, WeaponType.MAGNUM, 8, 8);
+        return new Weapon(11,"Desert Eagle 50A.E", "\"A high caliber magnum pistol. It uses powerful DOT50A.E rounds. By IMI, Israel.\"", ItemType.WEAPON, WeaponType.MAGNUM, 8, 8, FireType.SINGLE);
     }
 
     public Weapon getDESERT_EAGLE_CUSTOM(){
-        return new Weapon(12,"Desert Eagle 50A.E Custom", "\"10 inch barrel is put on to D.E.50A.E. It can fire DOT50A.E. rounds more powerfully.\"", ItemType.SPECIAL, WeaponType.MAGNUM, 8, 8);
+        return new Weapon(12,"Desert Eagle 50A.E Custom", "\"10 inch barrel is put on to D.E.50A.E. It can fire DOT50A.E. rounds more powerfully.\"", ItemType.SPECIAL, WeaponType.MAGNUM, 8, 8, FireType.SINGLE);
     }
 
     public Weapon getSPARK_SHOT(){
-        return new Weapon(13,"Spark Shot", "\"High voltage gun to repel experimental animals. It uses Spark Shot rounds and has a range of 10 feet\"", ItemType.WEAPON, WeaponType.SPARKSHOT, 100, 100);
+        return new Weapon(13,"Spark Shot", "\"High voltage gun to repel experimental animals. It uses Spark Shot rounds and has a range of 10 feet\"", ItemType.WEAPON, WeaponType.SPARKSHOT, 100, 100, FireType.SINGLE);
     }
 
     public Weapon getFLAMETHROWER(){
-        return new Weapon(14,"Flamethrower", "\"Chemical fuel flamethrower made by Umbrella Inc. The fuel is fed from a small cartridge.\"", ItemType.WEAPON, WeaponType.FLAMETHROWER, 100, 100);
+        return new Weapon(14,"Flamethrower", "\"Chemical fuel flamethrower made by Umbrella Inc. The fuel is fed from a small cartridge.\"", ItemType.WEAPON, WeaponType.FLAMETHROWER, 100, 100, FireType.SINGLE);
     }
 
     public Weapon getROCKET_LAUNCHER(){
-        return new Weapon(15,"Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.WEAPON, WeaponType.ROCKET_LAUNCHER, 1, 1);
+        return new Weapon(15,"Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.WEAPON, WeaponType.ROCKET_LAUNCHER, 1, 1, FireType.SINGLE);
     }
 
     //INFINITE WEAPONS
     public Weapon getINFINITE_MAC11(){
-        return new Weapon(16,"MAC11 Sub Machine Gun", "\"Manufactured by Military Armament CORP. It uses DOT380 rounds.", ItemType.WEAPON, WeaponType.MACHINE_GUN, 1, 1);
+        return new Weapon(16,"MAC11 Sub Machine Gun", "\"Manufactured by Military Armament CORP. It uses DOT380 rounds.", ItemType.WEAPON, WeaponType.MACHINE_GUN, 1, 1, FireType.SINGLE);
     }
 
     public Weapon getINFINITE_ROCKET_LAUNCHER(){
-        return new Weapon(17,"Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON, 1, 1);
+        return new Weapon(17,"Rocket Launcher", "\"A rocket launcher. One shot from this should kill any enemy.\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON, 1, 1, FireType.SINGLE);
     }
 
     public Weapon getGATLING_GUN(){
-        return new Weapon(18,"Gatling Gun", "\"A powerful weapon that sprays bullets into targets. I should be able to defeat any enemy with this.\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON, 1, 1);
+        return new Weapon(18,"Gatling Gun", "\"A powerful weapon that sprays bullets into targets. I should be able to defeat any enemy with this.\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON, 1, 1, FireType.SINGLE);
     }
 
     //PARTS

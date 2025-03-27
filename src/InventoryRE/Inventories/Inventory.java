@@ -9,7 +9,7 @@ import InventoryRE.Items.Recovery.RecoveryItem;
 import InventoryRE.Items.Weaponry.Ammunition.AmmoType;
 import InventoryRE.Items.Weaponry.Ammunition.Ammunition;
 import InventoryRE.Items.Weaponry.WeaponParts.Parts;
-import InventoryRE.Items.Weaponry.Weapons.ReloadResultRecord;
+import InventoryRE.Items.Weaponry.Weapons.ReloadRecord;
 import InventoryRE.Items.Weaponry.Weapons.Weapon;
 import InventoryRE.Items.Weaponry.Knife.Knife;
 import InventoryRE.Items.Weaponry.Weapons.WeaponType;
@@ -545,7 +545,7 @@ public class Inventory {
         if (item1 instanceof Weapon && item2 instanceof Ammunition || item1 instanceof Ammunition && item2 instanceof Weapon) {
             Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
             Ammunition ammo = (item1 instanceof Ammunition) ? (Ammunition) item1 : (Ammunition) item2;
-            ReloadResultRecord reloadResult = weapon.reloadWeapon(ammo);
+            ReloadRecord reloadResult = weapon.reloadWeapon(ammo);
             Ammunition returnedAmmo = reloadResult.returnedAmmo();
             if (returnedAmmo != null) {
                 updateInventoryAmmo(returnedAmmo);
@@ -614,8 +614,8 @@ public class Inventory {
         Item item = getItemById(weaponID);
         switch (item) {
             case null -> System.out.println("\nWeapon not found");
-            case Weapon weaponInUse -> weaponInUse.fireCount(item.getName(), 1);
-            case Knife knifeInUse -> knifeInUse.swingCount(item.getName(), 1);
+            case Weapon weaponInUse -> weaponInUse.fireCount( 1); //count could be used for calculating damage
+            case Knife knifeInUse -> knifeInUse.swingCount( 1);
             default -> {}
         }
     }

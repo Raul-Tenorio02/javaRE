@@ -24,10 +24,10 @@ public class RecoveryItem extends Item implements MixInterface {
 
     @Override
     public RecoveryItem mixHerb(RecoveryItem otherHerb) {
-        if (this.getType() != ItemType.RECOVERY && otherHerb.getType() != ItemType.RECOVERY) {
+        if (this.getType() != ItemType.RECOVERY || otherHerb.getType() != ItemType.RECOVERY) {
             System.out.println("\nThere is no need of mixing these.");
             return null;
-    }
+        }
         Map<Set<RecoveryType>, RecoveryItem> herbMixes = new HashMap<>();
         herbMixes.put(new HashSet<>(Arrays.asList(RecoveryType.GREEN, RecoveryType.GREEN)), itemDatabase.getMIXED_HERB_GG());
         herbMixes.put(new HashSet<>(Arrays.asList(RecoveryType.GG, RecoveryType.GREEN)), itemDatabase.getMIXED_HERB_GGG());
@@ -38,11 +38,11 @@ public class RecoveryItem extends Item implements MixInterface {
 
         Set<RecoveryType> herbTypes = new HashSet<>(Arrays.asList(this.typeRecovery, otherHerb.typeRecovery));
 
-        if (herbMixes.containsKey(herbTypes)) {
-            return herbMixes.get(herbTypes);
+        RecoveryItem mixedHerb = herbMixes.get(herbTypes);
+        if (mixedHerb == null) {
+            System.out.println("\nThere is no need of mixing these.");
         }
-        System.out.println("\nThere is no need of mixing these.");
-        return null;
+        return mixedHerb;
     }
 
 }

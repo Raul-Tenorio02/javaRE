@@ -1,8 +1,5 @@
 package InventoryRE;
 
-import InventoryRE.Items.Item;
-import InventoryRE.Items.ItemType;
-
 import java.util.Scanner;
 
 import static InventoryRE.Inventories.Inventory.Claire;

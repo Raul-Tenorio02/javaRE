@@ -5,6 +5,9 @@ import InventoryRE.Items.Item;
 import InventoryRE.Items.ItemDatabase;
 import InventoryRE.Items.ItemType;
 
+import java.util.Map;
+import java.util.Set;
+
 public final class KeyItem extends Item implements KeyItemInterface {
 
     private final KeyType typeKey;
@@ -46,29 +49,28 @@ public final class KeyItem extends Item implements KeyItemInterface {
     @Override
     public File developFilm(KeyItem film) {
         if (this.typeKey == KeyType.FILM) {
-            if (film.getId() == 38) {
-                return itemDatabase.getFILM_A();
-            } else if (film.getId() == 39) {
-                return itemDatabase.getFILM_B();
-            } else if (film.getId() == 40) {
-                return itemDatabase.getFILM_C();
-            } else if (film.getId() == 41) {
-                return itemDatabase.getFILM_D();
+            switch (film.getId()) {
+                case 38: return itemDatabase.getFILM_A();
+                case 39: return itemDatabase.getFILM_B();
+                case 40: return itemDatabase.getFILM_C();
+                case 41: return itemDatabase.getFILM_D();
             }
-            return null;
         }
         return null;
     }
 
     @Override
     public KeyItem combineKeyItems(KeyItem otherKeyItem){
-        if (this.getType() == ItemType.KEY && otherKeyItem.getType() == ItemType.KEY){
-            if (this.getId() == itemDatabase.getPLASTIC_BOMB().getId() && otherKeyItem.getId() == itemDatabase.getDETONATOR().getId() || this.getId() == itemDatabase.getDETONATOR().getId() && otherKeyItem.getId() == (itemDatabase.getPLASTIC_BOMB().getId())) {
-                return itemDatabase.getBOMB_DET();
-            } else if (this.getId() == itemDatabase.getBLUE_STONE_LEFT().getId() && otherKeyItem.getId() == itemDatabase.getBLUE_STONE_RIGHT().getId() || this.getId() == itemDatabase.getBLUE_STONE_RIGHT().getId() && otherKeyItem.getId() == (itemDatabase.getBLUE_STONE_LEFT().getId())) {
-                return itemDatabase.getJAGUAR_STONE();
-            }
+        if (this.getType() != ItemType.KEY && otherKeyItem.getType() != ItemType.KEY) {
+            return null;
         }
-        return null;
+
+        Map<Set<Integer>, KeyItem> keyCrafts = Map.of(
+                Set.of(itemDatabase.getPLASTIC_BOMB().getId(), itemDatabase.getDETONATOR().getId()), itemDatabase.getBOMB_DET(),
+                Set.of(itemDatabase.getBLUE_STONE_LEFT().getId(), itemDatabase.getBLUE_STONE_RIGHT().getId()), itemDatabase.getJAGUAR_STONE()
+                );
+        Set<Integer> keySet = Set.of(this.getId(), otherKeyItem.getId());
+
+        return keyCrafts.getOrDefault(keySet, null);
     }
 }

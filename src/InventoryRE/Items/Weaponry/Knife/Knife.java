@@ -16,7 +16,7 @@ public final class Knife extends Item implements KnifeInterface{
     }
 
     @Override
-    public void swingCount(String name, int count){
+    public void swingCount(int count){
         System.out.println("\nYou've stabbed an enemy " + count + "x!");
     }
 }
