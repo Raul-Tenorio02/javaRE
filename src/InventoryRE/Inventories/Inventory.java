@@ -97,8 +97,9 @@ public class Inventory {
         printList("ITEM DATABASE", database);
     }
 
-    private Item getItemById (int itemToSearch) {
-        return equipments.stream()
+    private Item getItemById (int itemToSearch, boolean searchItemBox) {
+        List<Item> targetList = searchItemBox ? itemBox : equipments;
+        return targetList.stream()
                 .filter(item -> item != null && Objects.equals(item.getId(), itemToSearch))
                 .findFirst()
                 .orElse(null);
@@ -264,7 +265,7 @@ public class Inventory {
                                         System.out.print("Type here (ID): ");
                                         int opt_gun = scanner.nextInt();
                                         scanner.nextLine();
-                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun));
+                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun, false));
                                         break;
                                     case 2:
                                         System.out.println("\nSelect items to combine (ID).");
@@ -513,8 +514,8 @@ public class Inventory {
 
     //TODO: create method that hold item 1's position and sets item created to it
     private void combineItems(int itemA, int itemB) {
-        Item item1 = getItemById(itemA);
-        Item item2 = getItemById(itemB);
+        Item item1 = getItemById(itemA, false);
+        Item item2 = getItemById(itemB, false);
         if (item1 instanceof RecoveryItem herb1 && item2 instanceof RecoveryItem herb2) {
             combineHerbs(herb1, herb2);
         } else if (item1 instanceof Weapon && item2 instanceof Ammunition || item1 instanceof Ammunition && item2 instanceof Weapon) {
@@ -595,21 +596,24 @@ public class Inventory {
     }
 
     private void itemBoxTransfer(int itemID, boolean toItemBox){
-        Item item = getItemById(itemID);
-        if (item != null && toItemBox) {
-            addToItemBox(item);
-            removeFromInventory(item);
-        } else if (item != null) {
-            addToInventory(item);
-            removeFromItemBox(item);
+        if (toItemBox) {
+            Item item = getItemById(itemID, false);
+            if (item != null) {
+                addToItemBox(item);
+                removeFromInventory(item);
+            }
         } else {
-            System.out.println("\nError: item not found.");
+            Item item = getItemById(itemID, true);
+            if (item != null) {
+                addToInventory(item);
+                removeFromItemBox(item);
+            }
         }
     }
 
     //fires a weapon and calculates ammo use with fireCount()
     private void useWeapon(int weaponID){
-        Item item = getItemById(weaponID);
+        Item item = getItemById(weaponID, false);
         switch (item) {
             case null -> System.out.println("\nWeapon not found");
             case Weapon weaponInUse -> weaponInUse.fireCount( 1); //count could be used for calculating damage
@@ -632,7 +636,7 @@ public class Inventory {
 
     //method to develop films
     private void darkRoom(int film){
-        Item item = getItemById(film);
+        Item item = getItemById(film, false);
         if (item instanceof KeyItem filmToDevelop) {
             if (filmToDevelop.getTypeKey() == KeyType.FILM) {
                 File developedFile = filmToDevelop.developFilm(filmToDevelop);
