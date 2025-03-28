@@ -7,8 +7,10 @@ public enum Characters {
     ADA,
     SHERRY,
 
-    HUNK, // "the 4th survivor"
-    TOFU, // "the tofu survivor"
-    CHRIS // "extreme battle" mode
+    /*
+    HUNK, -> "the 4th survivor"
+    TOFU, -> "the tofu survivor"
+    CHRIS -> "extreme battle" mode
+    */
 
 }
