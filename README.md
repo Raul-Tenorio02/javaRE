@@ -26,9 +26,7 @@ Feel free to fork this project ;)
 
 1. Frontend development (currently in progress).
 2. Database integration (currently in progress).
-3. Full web version using RESTFUL API concepts with Spring Boot and JPA/Hibernate (currently in progress).
-4. Improve commenting.
-5. Add Try/Catch.
+3.  Create web and RESTful versions with Spring Boot, JPA/Hibernate, MySQL, etc. (currently in progress).
 
 # Getting Started
 
@@ -57,3 +55,6 @@ Feel free to fork this project ;)
 10. Reordered packages to improve architecture. 
 11. Started implementing a CLI.
 12. Implemented streams use.
+13. Added commenting.
+14. Added use of Try/Catch.
+15. Deleted Knife Directory and included its methods and interfaces in other classes to reduce redundancy.
