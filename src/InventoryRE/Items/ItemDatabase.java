@@ -7,7 +7,6 @@ import InventoryRE.Items.Recovery.RecoveryItem;
 import InventoryRE.Items.Recovery.RecoveryType;
 import InventoryRE.Items.Weaponry.Ammunition.AmmoType;
 import InventoryRE.Items.Weaponry.Ammunition.Ammunition;
-import InventoryRE.Items.Weaponry.Knife.Knife;
 import InventoryRE.Items.Weaponry.WeaponParts.PartType;
 import InventoryRE.Items.Weaponry.WeaponParts.Parts;
 import InventoryRE.Items.Weaponry.Weapons.FireType;
@@ -17,8 +16,8 @@ import InventoryRE.Items.Weaponry.Weapons.WeaponType;
 public final class ItemDatabase {
 
     //WEAPONS
-    public Knife getKNIFE() {
-        return new Knife(1, "Knife", "\"A combat knife. It could come in handy...\"", ItemType.WEAPON, WeaponType.INFINITE_WEAPON);
+    public Weapon getKNIFE() {
+        return new Weapon(1, "Knife", "\"A combat knife. It could come in handy...\"", ItemType.WEAPON, WeaponType.KNIFE);
     }
 
     public Weapon getHK_VP70(){
