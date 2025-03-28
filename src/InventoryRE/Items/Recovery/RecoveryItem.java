@@ -22,6 +22,7 @@ public class RecoveryItem extends Item implements MixInterface {
         return " | " + getName() + " | " + getDescription();
     }
 
+    // mapping all possible herb mixes
     @Override
     public RecoveryItem mixHerb(RecoveryItem otherHerb) {
         if (this.getType() != ItemType.RECOVERY || otherHerb.getType() != ItemType.RECOVERY) {
