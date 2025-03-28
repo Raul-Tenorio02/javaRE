@@ -11,7 +11,6 @@ import InventoryRE.Items.Weaponry.Ammunition.Ammunition;
 import InventoryRE.Items.Weaponry.WeaponParts.Parts;
 import InventoryRE.Items.Weaponry.Weapons.ReloadRecord;
 import InventoryRE.Items.Weaponry.Weapons.Weapon;
-import InventoryRE.Items.Weaponry.Knife.Knife;
 import InventoryRE.Items.Weaponry.Weapons.WeaponType;
 
 import java.util.*;
@@ -37,6 +36,7 @@ public class Inventory {
         return equippedWeapon;
     }
 
+    // inventories functioning
     private void addToDatabase(Item item){
         database.add(item);
     }
@@ -75,6 +75,7 @@ public class Inventory {
         itemBox.remove(item);
     }
 
+    // sets a pattern to print inventories depending on which character is in use
     private void printList(String title, List<Item> items) {
         System.out.println("\n---------------------------------------------------------"+ title + "--------------------------------------------------------\n");
         items.forEach(item -> System.out.println("ID: " + item.getId() + " " + item));
@@ -97,6 +98,7 @@ public class Inventory {
         printList("ITEM DATABASE", database);
     }
 
+    // track items in different inventory sections
     private Item getItemById (int itemToSearch, boolean searchItemBox) {
         List<Item> targetList = searchItemBox ? itemBox : equipments;
         return targetList.stream()
@@ -112,6 +114,7 @@ public class Inventory {
                 .orElse(null);
     }
 
+    // set characters inventories and items database
     public static Inventory Leon = new Inventory(Characters.LEON);
     public static Inventory Claire = new Inventory(Characters.CLAIRE);
     public static Inventory Ada = new Inventory(Characters.ADA);
@@ -220,6 +223,7 @@ public class Inventory {
         }
     }
 
+    // the heart of this application
     public void startCLI() {
         Scanner scanner = new Scanner(System.in);
         Inventory characterInUse = null;
@@ -239,7 +243,7 @@ public class Inventory {
                 System.out.println("1. Open Inventory");
                 System.out.println("2. Open Item Box");
                 System.out.println("3. Collect items");
-                System.out.println("4. Fire a weapon.");
+                System.out.println("4. Use a weapon.");
                 System.out.println("5. Exit");
                 System.out.print("Type here: ");
                 opt_set1 = scanner.nextInt();
@@ -261,32 +265,6 @@ public class Inventory {
                                 scanner.nextLine();
                                 switch (opt_set2) {
                                     case 1:
-                                        System.out.println("\nWhich weapon do you want to equip?");
-                                        System.out.print("Type here (ID): ");
-                                        int opt_gun = scanner.nextInt();
-                                        scanner.nextLine();
-                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun, false));
-                                        break;
-                                    case 2:
-                                        System.out.println("\nSelect items to combine (ID).");
-                                        System.out.print("Item 1: ");
-                                        int item1 = scanner.nextInt();
-                                        scanner.nextLine();
-                                        System.out.print("Item 2: ");
-                                        int item2 = scanner.nextInt();
-                                        scanner.nextLine();
-                                        characterInUse.combineItems(item1, item2);
-                                        characterInUse.listInventory();
-                                        break;
-                                    case 3:
-                                        System.out.println("\n---------------------------DARK ROOM--------------------------");
-                                        System.out.println("Choose a file to develop (ID)");
-                                        System.out.print("Type here: ");
-                                        int fileToReveal = scanner.nextInt();
-                                        scanner.nextLine();
-                                        characterInUse.darkRoom(fileToReveal);
-                                        break;
-                                    case 4:
                                         characterInUse.listFiles();
                                         int opt_set3 = 0;
                                         while (opt_set3 != 2) {
@@ -308,6 +286,32 @@ public class Inventory {
                                                     break;
                                             }
                                         }
+                                        break;
+                                    case 2:
+                                        System.out.println("\nWhich weapon do you want to equip?");
+                                        System.out.print("Type here (ID): ");
+                                        int opt_gun = scanner.nextInt();
+                                        scanner.nextLine();
+                                        equippedWeapon = characterInUse.equipWeapon((Weapon) getItemById(opt_gun, false));
+                                        break;
+                                    case 3:
+                                        System.out.println("\nSelect items to combine (ID).");
+                                        System.out.print("Item 1: ");
+                                        int item1 = scanner.nextInt();
+                                        scanner.nextLine();
+                                        System.out.print("Item 2: ");
+                                        int item2 = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.combineItems(item1, item2);
+                                        characterInUse.listInventory();
+                                        break;
+                                    case 4:
+                                        System.out.println("\n---------------------------DARK ROOM--------------------------");
+                                        System.out.println("Choose a file to develop (ID)");
+                                        System.out.print("Type here: ");
+                                        int fileToReveal = scanner.nextInt();
+                                        scanner.nextLine();
+                                        characterInUse.darkRoom(fileToReveal);
                                         break;
                                     case 5:
                                         break;
@@ -370,7 +374,7 @@ public class Inventory {
                             int stopFire = 0;
                             while (stopFire != 2) {
                                 characterInUse.useWeapon(equippedWeapon.getId());
-                                System.out.println("Keep firing?");
+                                System.out.println("\nKeep attacking?");
                                 System.out.println("1. Yes.");
                                 System.out.println("2. No.");
                                 System.out.print("Type here: ");
@@ -387,6 +391,7 @@ public class Inventory {
                 }
             }
         } else {
+            // Specific for Sherry's
             while (opt_set1 != 3) {
                 System.out.println("\nWhat do you want to do next?");
                 System.out.println("1. Open Inventory");
@@ -466,6 +471,7 @@ public class Inventory {
         }
     }
 
+    // items collecting and stacking
     private void collectItem(int itemToCollect) {
         getFromDatabase(itemToCollect).ifPresentOrElse(
                 item -> {
@@ -486,11 +492,11 @@ public class Inventory {
                 .findFirst()
                 .ifPresentOrElse(inventoryItem -> {
                         Ammunition inventoryAmmo = (Ammunition) inventoryItem;
-                        updateAmmo(inventoryAmmo, ammo.getAmmoType());
+                        ammoToStack(inventoryAmmo, ammo.getAmmoType());
                         }, () -> addToInventory(ammo));
     }
 
-    private void updateAmmo(Ammunition inventoryAmmo, AmmoType ammoType) {
+    private void ammoToStack(Ammunition inventoryAmmo, AmmoType ammoType) {
         int quantityToAdd = switch (ammoType) {
             case HANDGUN_BULLETS -> 15;
             case SHOTGUN_SHELLS -> 7;
@@ -512,6 +518,18 @@ public class Inventory {
                         () -> addToInventory(keyItem));
     }
 
+    private void updateInventoryAmmo(Ammunition returnedAmmo) {
+        equipments.stream()
+                .filter(item -> item instanceof Ammunition && ((Ammunition) item).getAmmoType() == returnedAmmo.getAmmoType())
+                .peek(item -> ((Ammunition) item).setQuantity(((Ammunition) item).getQuantity() + returnedAmmo.getQuantity()))
+                .findFirst()
+                .orElseGet(() -> {
+                    addToInventory(returnedAmmo);
+                    return returnedAmmo;
+                });
+    }
+
+    // items combining system
     //TODO: create method that hold item 1's position and sets item created to it
     private void combineItems(int itemA, int itemB) {
         Item item1 = getItemById(itemA, false);
@@ -523,7 +541,7 @@ public class Inventory {
         } else if (item1 instanceof Weapon && item2 instanceof Parts || item1 instanceof Parts && item2 instanceof Weapon) {
            combineWeaponWithParts(item1, item2);
         } else if (item1 instanceof KeyItem keyItem1 && item2 instanceof KeyItem keyItem2) {
-            craftKeyItems(keyItem1, keyItem2);
+            craftKeyItem(keyItem1, keyItem2);
         } else {
             System.out.println("\nCannot combine these items.");
         }
@@ -540,7 +558,6 @@ public class Inventory {
     }
 
     private void combineWeaponWithAmmo(Item item1, Item item2) {
-        //treating casting exception
         if (item1 instanceof Weapon && item2 instanceof Ammunition || item1 instanceof Ammunition && item2 instanceof Weapon) {
             Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
             Ammunition ammo = (item1 instanceof Ammunition) ? (Ammunition) item1 : (Ammunition) item2;
@@ -555,19 +572,7 @@ public class Inventory {
         }
     }
 
-    private void updateInventoryAmmo(Ammunition returnedAmmo) {
-        equipments.stream()
-                .filter(item -> item instanceof Ammunition && ((Ammunition) item).getAmmoType() == returnedAmmo.getAmmoType())
-                .peek(item -> ((Ammunition) item).setQuantity(((Ammunition) item).getQuantity() + returnedAmmo.getQuantity()))
-                .findFirst()
-                .orElseGet(() -> {
-                    addToInventory(returnedAmmo);
-                    return returnedAmmo;
-                });
-    }
-
     private void combineWeaponWithParts(Item item1, Item item2) {
-        //treating casting exception
         if (item1 instanceof Weapon && item2 instanceof Parts || item1 instanceof Parts && item2 instanceof Weapon) {
             Weapon weapon = (item1 instanceof Weapon) ? (Weapon) item1 : (Weapon) item2;
             Parts parts = (item1 instanceof Parts) ? (Parts) item1 : (Parts) item2;
@@ -583,7 +588,7 @@ public class Inventory {
         }
     }
 
-    private void craftKeyItems(KeyItem item1, KeyItem item2) {
+    private void craftKeyItem(KeyItem item1, KeyItem item2) {
         KeyItem combinedKeyItem = item1.combineKeyItems(item2);
         if (combinedKeyItem != null) {
             this.removeFromInventory(item1);
@@ -595,6 +600,7 @@ public class Inventory {
         }
     }
 
+    // storage or retrieves items in the item box
     private void itemBoxTransfer(int itemID, boolean toItemBox){
         if (toItemBox) {
             Item item = getItemById(itemID, false);
@@ -616,12 +622,12 @@ public class Inventory {
         Item item = getItemById(weaponID, false);
         switch (item) {
             case null -> System.out.println("\nWeapon not found");
-            case Weapon weaponInUse -> weaponInUse.fireCount( 1); //count could be used for calculating damage
-            case Knife knifeInUse -> knifeInUse.swingCount( 1);
+            case Weapon weaponInUse -> weaponInUse.weaponUseCount(1); //count could (maybe) be used for calculating damage
             default -> {}
         }
     }
 
+    // reading files and developing films
     private void readFile(int fileID){
         Item file = getFileById(fileID);
         if (file != null){
@@ -634,7 +640,6 @@ public class Inventory {
         }
     }
 
-    //method to develop films
     private void darkRoom(int film){
         Item item = getItemById(film, false);
         if (item instanceof KeyItem filmToDevelop) {
