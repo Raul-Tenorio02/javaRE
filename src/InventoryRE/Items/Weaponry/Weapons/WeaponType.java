@@ -2,6 +2,7 @@ package InventoryRE.Items.Weaponry.Weapons;
 
 public enum WeaponType {
 
+    KNIFE,
     HANDGUN,
     SHOTGUN,
     BOWGUN,
