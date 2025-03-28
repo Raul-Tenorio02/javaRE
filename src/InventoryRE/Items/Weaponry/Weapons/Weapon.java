@@ -7,30 +7,35 @@ import InventoryRE.Items.Weaponry.Ammunition.AmmoType;
 import InventoryRE.Items.Weaponry.Ammunition.Ammunition;
 import InventoryRE.Items.Weaponry.WeaponParts.PartType;
 import InventoryRE.Items.Weaponry.WeaponParts.Parts;
-import InventoryRE.Items.Weaponry.WeaponParts.UpgradeWeaponsInterface;
 
 import java.util.*;
 import java.util.function.Supplier;
 
-public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInterface {
+public class Weapon extends Item implements WeaponInterface {
 
     private int magazine;
-    private final int maxCapacity;
+    private int maxCapacity;
     private final WeaponType typeWeapon;
     private AmmoType loadedAmmo;
-    private final FireType fireType;
+    private FireType fireType;
 
     ItemDatabase itemDatabase = new ItemDatabase();
 
-    public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType ) {
+    // basically knives
+    public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon) {
         super(id, name, description, type);
+        this.typeWeapon = typeWeapon;
+    }
+
+    // fire weapons
+    public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType) {
+        this(id, name, description, type, typeWeapon);
         this.magazine = magazine;
         this.maxCapacity = maxCapacity;
-        this.typeWeapon = typeWeapon;
         this.fireType = fireType;
     }
 
-    // overloading constructor to implement grenade launcher's specific reloading/switch ammo system
+    // grenade launcher's specific reloading/switch ammo system
     public Weapon(int id, String name, String description, ItemType type, WeaponType typeWeapon, int magazine, int maxCapacity, FireType fireType, AmmoType loadedAmmo) {
         this(id, name, description, type, typeWeapon, magazine, maxCapacity, fireType);
         this.loadedAmmo = loadedAmmo;
@@ -48,7 +53,7 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
         return maxCapacity;
     }
 
-    public WeaponType getTypeWeapon(){
+    public WeaponType getTypeWeapon() {
         return typeWeapon;
     }
 
@@ -59,12 +64,17 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
     @Override
     public String toString() {
         if (!isInfiniteWeapon()) {
+            if (this.getTypeWeapon() == WeaponType.KNIFE) {
+                return "| " + getName() + " | " + getDescription();
+            }
             return "| " + getName() + " | " + getDescription()
                     + " | Magazine: " + getMagazine() + " | Capacity: " + getMaxCapacity();
+        } else {
+            return " | " + getName() + " | " + getDescription() + " | Magazine: ∞";
         }
-        return " | " + getName() + " | " + getDescription() + " | Magazine: ∞";
     }
 
+    //reloading and upgrading weapons according to their individual attributes
     private boolean isWeapon() {
         return EnumSet.of(ItemType.WEAPON, ItemType.SPECIAL).contains(this.getType());
     }
@@ -77,7 +87,7 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
 
     @Override
     public ReloadRecord reloadWeapon(Ammunition ammo) {
-        if(!isWeapon()) {
+        if (!isWeapon()) {
             System.out.println("\nCannot combine these items.");
             return new ReloadRecord(this, null);
         }
@@ -136,7 +146,7 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
     }
 
     @Override
-    public Ammunition unloadAmmo(){
+    public Ammunition unloadAmmo() {
         if (loadedAmmo == null) return null;
 
         Map<AmmoType, Supplier<Ammunition>> ammoSupplier = Map.of(
@@ -156,22 +166,30 @@ public class Weapon extends Item implements WeaponInterface, UpgradeWeaponsInter
                 .orElse(null);
     }
 
+    // extension of useWeapon() method from Inventory
     //TODO: create section to handle specific grenade rounds behavior
     @Override
-    public void fireCount(int count) {
-        int bulletsUsed = count * getFireRate();
-
-        if (isInfiniteWeapon()) {
-            System.out.println("\nYou've shot an enemy with your \"" + getName() + "\"!");
-            return;
-        }
-
-        if (bulletsUsed >= this.getMagazine()) {
-                setMagazine(0);
-                System.out.println("\nYou've shot an enemy with your \"" + getName() + "\"! Now your weapon is empty");
-            } else {
-                setMagazine(getMagazine() - bulletsUsed);
+    public void weaponUseCount(int count) {
+        if (this.getTypeWeapon() == WeaponType.KNIFE) {
+            System.out.println("\nYou've stabbed an enemy!");
+        } else {
+            int bulletsUsed = count * getFireRate();
+            if (isInfiniteWeapon()) {
                 System.out.println("\nYou've shot an enemy with your \"" + getName() + "\"!");
+                return;
+            }
+            if (this.getMagazine() == 0) {
+                System.out.println("\nYour weapon is empty!");
+            } else {
+                if (bulletsUsed >= this.getMagazine()) {
+                    setMagazine(0);
+                    System.out.println("\nYou've shot an enemy with your \"" + getName() + "\"! Now your weapon is empty");
+                } else {
+                    setMagazine(getMagazine() - bulletsUsed);
+                    System.out.println("\nYou've shot an enemy with your \"" + getName() + "\"!");
+                }
             }
         }
     }
+
+}
