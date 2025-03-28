@@ -19,7 +19,7 @@ public final class KeyItem extends Item implements KeyItemInterface {
         this.typeKey = typeKey;
     }
 
-    //overloading to add specific attributes for films and ink ribbons
+    // specific for films and ink ribbons
     public KeyItem(int id, String name, String description, ItemType type, KeyType typeKey, int quantity) {
         this(id, name, description, type, typeKey);
         this.quantity = quantity;
@@ -46,6 +46,7 @@ public final class KeyItem extends Item implements KeyItemInterface {
         }
     }
 
+    // crafting key items and developing films
     @Override
     public File developFilm(KeyItem film) {
         if (this.typeKey == KeyType.FILM) {
