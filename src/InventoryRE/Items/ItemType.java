@@ -9,6 +9,6 @@ public enum ItemType {
     PART,
     RECOVERY,
     KEY,
-    MISCELLANEOUS // future features
+    // MISCELLANEOUS -> future features
 
 }
