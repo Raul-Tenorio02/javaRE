@@ -3,6 +3,7 @@ package InventoryRE.Inventories;
 import InventoryRE.Items.Files.File;
 import InventoryRE.Items.Item;
 import InventoryRE.Items.ItemDatabase;
+import InventoryRE.Items.ItemType;
 import InventoryRE.Items.Key.KeyItem;
 import InventoryRE.Items.Key.KeyType;
 import InventoryRE.Items.Recovery.RecoveryItem;
@@ -77,7 +78,7 @@ public class Inventory {
 
     // sets a pattern to print inventories depending on which character is in use
     private void printList(String title, List<Item> items) {
-        System.out.println("\n---------------------------------------------------------"+ title + "--------------------------------------------------------\n");
+        System.out.println("\n---------------------------------------------------------"+ title + "-----------------------------------------------------------------------------\n");
         items.forEach(item -> System.out.println("ID: " + item.getId() + " " + item));
         System.out.println("\n--------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     }
@@ -364,7 +365,6 @@ public class Inventory {
                         int itemToCollect = scanner.nextInt();
                         scanner.nextLine();
                         characterInUse.collectItem(itemToCollect);
-                        characterInUse.listInventory();
                         }
                         break;
                     case 4:
@@ -476,10 +476,22 @@ public class Inventory {
         getFromDatabase(itemToCollect).ifPresentOrElse(
                 item -> {
                     switch (item) {
-                        case Ammunition ammo -> stackAmmo(ammo);
-                        case KeyItem inkRibbon -> stackInkRibbon(inkRibbon);
-                        case File file -> addToFiles(file);
-                        default -> addToInventory(item);
+                        case Ammunition ammo -> {
+                            stackAmmo(ammo);
+                            listInventory();
+                        }
+                        case KeyItem inkRibbon -> {
+                            stackInkRibbon(inkRibbon);
+                            listInventory();
+                        }
+                        case File file -> {
+                            addToFiles(file);
+                            readFile(file.getId());
+                        }
+                        default -> {
+                            addToInventory(item);
+                            listInventory();
+                        }
                     }
                     },
                 () -> System.out.println("Item not found")
