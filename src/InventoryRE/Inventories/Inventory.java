@@ -3,7 +3,6 @@ package InventoryRE.Inventories;
 import InventoryRE.Items.Files.File;
 import InventoryRE.Items.Item;
 import InventoryRE.Items.ItemDatabase;
-import InventoryRE.Items.ItemType;
 import InventoryRE.Items.Key.KeyItem;
 import InventoryRE.Items.Key.KeyType;
 import InventoryRE.Items.Recovery.RecoveryItem;
@@ -24,6 +23,70 @@ public class Inventory {
     private final List<Item> database;
     private final ItemDatabase itemDatabase;
     private Characters characters;
+
+    public Inventory(Characters character) {
+        this.equipments = new ArrayList<>();
+        this.itemBox = new ArrayList<>();
+        this.archive = new ArrayList<>();
+        this.database = new ArrayList<>();
+        itemDatabase = new ItemDatabase();
+
+        initialize(character);
+        setCharacters(character);
+
+        addAllToDatabase(
+                List.of(
+                        //WEAPONS
+                        itemDatabase.getKNIFE(), itemDatabase.getHK_VP70(), itemDatabase.getBROWNING_HP(),
+                        itemDatabase.getREMINGTON_1100P(), itemDatabase.getBOW_GUN(), itemDatabase.getCOLT_SAA(),
+                        itemDatabase.getM79_GL(), itemDatabase.getMAC11(), itemDatabase.getDESERT_EAGLE(),
+                        itemDatabase.getSPARK_SHOT(), itemDatabase.getFLAMETHROWER(), itemDatabase.getROCKET_LAUNCHER(),
+                        //custom weapons are declared in Weapon Class
+
+                        //INFINITE WEAPONS
+                        itemDatabase.getINFINITE_MAC11(), itemDatabase.getINFINITE_ROCKET_LAUNCHER(), itemDatabase.getGATLING_GUN(),
+
+                        //WEAPON PARTS
+                        itemDatabase.getHANDGUN_PARTS(), itemDatabase.getSHOTGUN_PARTS(), itemDatabase.getMAGNUM_PARTS(),
+
+                        //AMMUNITION
+                        itemDatabase.getHANDGUN_BULLETS(), itemDatabase.getSHOTGUN_SHELLS(), itemDatabase.getBOW_GUN_BOLTS(),
+                        itemDatabase.getGRENADE_ROUNDS(), itemDatabase.getACID_ROUNDS(), itemDatabase.getFLAME_ROUNDS(),
+                        itemDatabase.getMAGNUM_BULLETS(), itemDatabase.getMACHINE_GUN_BULLETS(),
+
+                        //KEY ITEMS
+                        itemDatabase.getLIGHTER(), itemDatabase.getLOCKPICK(), itemDatabase.getADA_PICTURE(), itemDatabase.getSHERRY_PICTURE(),
+                        itemDatabase.getSMALL_KEY(), itemDatabase.getINK_RIBBON(), itemDatabase.getBLUE_CARD_KEY(),
+                        itemDatabase.getCABIN_KEY(), itemDatabase.getFILM_1(), itemDatabase.getFILM_2(), itemDatabase.getFILM_3(),
+                        itemDatabase.getFILM_4(), itemDatabase.getUNICORN_MEDAL(), itemDatabase.getSPADE_KEY(),
+                        itemDatabase.getDIAMOND_KEY(), itemDatabase.getVIRGIN_HEART(), itemDatabase.getVALVE_HANDLE(),
+                        itemDatabase.getPLASTIC_BOMB(), itemDatabase.getDETONATOR(), itemDatabase.getHEART_KEY(),
+                        itemDatabase.getRED_CARD_KEY(), itemDatabase.getSQUARE_CRANK(), itemDatabase.getCORD(),
+                        itemDatabase.getCLUB_KEY(), itemDatabase.getKING_PLUG(), itemDatabase.getROOK_PLUG(),
+                        itemDatabase.getKNIGHT_PLUG(), itemDatabase.getBISHOP_PLUG(), itemDatabase.getEAGLE_STONE(),
+                        itemDatabase.getSERPENT_STONE(), itemDatabase.getBLUE_STONE_LEFT(), itemDatabase.getBLUE_STONE_RIGHT(),
+                        itemDatabase.getMANHOLE_OPENER(), itemDatabase.getGOLD_COGWHEEL(), itemDatabase.getEAGLE_MEDAL(),
+                        itemDatabase.getWOLF_MEDAL(), itemDatabase.getWEAPON_BOX_KEY(), itemDatabase.getDOWN_KEY(),
+                        itemDatabase.getUP_KEY(), itemDatabase.getFUSE_CASE(), itemDatabase.getMAIN_FUSE(),
+                        itemDatabase.getLAB_CARD_KEY(), itemDatabase.getMO_DISK(), itemDatabase.getPOWER_ROOM_KEY(),
+                        itemDatabase.getVACCINE_CART(), itemDatabase.getBASE_VACCINE(), itemDatabase.getVACCINE(),
+                        itemDatabase.getG_VIRUS(), itemDatabase.getMASTER_KEY(), itemDatabase.getPLATFORM_KEY(),
+                        itemDatabase.getJOINT_N_PLUG(), itemDatabase.getJOINT_S_PLUG(), itemDatabase.getLOCKER_KEY(),
+
+                        //RECOVERY ITEMS
+                        itemDatabase.getGREEN_HERB(), itemDatabase.getRED_HERB(),
+                        itemDatabase.getBLUE_HERB(), itemDatabase.getFIRST_AID_SPRAY(),
+
+                        //FILES
+                        itemDatabase.getPOLICE_MEMORANDUM(), itemDatabase.getCHRIS_DIARY(), itemDatabase.getMAIL_TO_CHRIS(),
+                        itemDatabase.getOPERATION_REPORT1(), itemDatabase.getMEMO_TO_LEON(), itemDatabase.getOPERATION_REPORT2(),
+                        itemDatabase.getCHIEF_DIARY(), itemDatabase.getPATROL_REPORT(), itemDatabase.getSECRETARY_DIARY_A(),
+                        itemDatabase.getSECRETARY_DIARY_B(), itemDatabase.getWATCHMAN_DIARY(), itemDatabase.getMAIL_TO_THE_CHIEF(),
+                        itemDatabase.getSEWER_MANAGER_FAX(), itemDatabase.getSEWER_MANAGE_DIARY(), itemDatabase.getLAB_SECURITY_MANUAL(),
+                        itemDatabase.getP_EPSILON_REPORT(), itemDatabase.getUSER_REGISTRATION(), itemDatabase.getVACCINE_SYNTHESIS()
+                )
+        );
+    }
 
     private Characters getCharacters() {
         return characters;
@@ -115,75 +178,11 @@ public class Inventory {
                 .orElse(null);
     }
 
-    // set characters inventories and items database
+    // set characters inventories
     public static Inventory Leon = new Inventory(Characters.LEON);
     public static Inventory Claire = new Inventory(Characters.CLAIRE);
     public static Inventory Ada = new Inventory(Characters.ADA);
     public static Inventory Sherry = new Inventory(Characters.SHERRY);
-
-    public Inventory(Characters character) {
-        this.equipments = new ArrayList<>();
-        this.itemBox = new ArrayList<>();
-        this.archive = new ArrayList<>();
-        this.database = new ArrayList<>();
-        itemDatabase = new ItemDatabase();
-
-        initialize(character);
-        setCharacters(character);
-
-        addAllToDatabase(
-                List.of(
-                        //WEAPONS
-                        itemDatabase.getKNIFE(), itemDatabase.getHK_VP70(), itemDatabase.getBROWNING_HP(),
-                        itemDatabase.getREMINGTON_1100P(), itemDatabase.getBOW_GUN(), itemDatabase.getCOLT_SAA(),
-                        itemDatabase.getM79_GL(), itemDatabase.getMAC11(), itemDatabase.getDESERT_EAGLE(),
-                        itemDatabase.getSPARK_SHOT(), itemDatabase.getFLAMETHROWER(), itemDatabase.getROCKET_LAUNCHER(),
-                        //custom weapons are declared in Weapon Class
-
-                        //INFINITE WEAPONS
-                        itemDatabase.getINFINITE_MAC11(), itemDatabase.getINFINITE_ROCKET_LAUNCHER(), itemDatabase.getGATLING_GUN(),
-
-                        //WEAPON PARTS
-                        itemDatabase.getHANDGUN_PARTS(), itemDatabase.getSHOTGUN_PARTS(), itemDatabase.getMAGNUM_PARTS(),
-
-                        //AMMUNITION
-                        itemDatabase.getHANDGUN_BULLETS(), itemDatabase.getSHOTGUN_SHELLS(), itemDatabase.getBOW_GUN_BOLTS(),
-                        itemDatabase.getGRENADE_ROUNDS(), itemDatabase.getACID_ROUNDS(), itemDatabase.getFLAME_ROUNDS(),
-                        itemDatabase.getMAGNUM_BULLETS(), itemDatabase.getMACHINE_GUN_BULLETS(),
-
-                        //KEY ITEMS
-                        itemDatabase.getLIGHTER(), itemDatabase.getLOCKPICK(), itemDatabase.getADA_PICTURE(), itemDatabase.getSHERRY_PICTURE(),
-                        itemDatabase.getSMALL_KEY(), itemDatabase.getINK_RIBBON(), itemDatabase.getBLUE_CARD_KEY(),
-                        itemDatabase.getCABIN_KEY(), itemDatabase.getFILM_1(), itemDatabase.getFILM_2(), itemDatabase.getFILM_3(),
-                        itemDatabase.getFILM_4(), itemDatabase.getUNICORN_MEDAL(), itemDatabase.getSPADE_KEY(),
-                        itemDatabase.getDIAMOND_KEY(), itemDatabase.getVIRGIN_HEART(), itemDatabase.getVALVE_HANDLE(),
-                        itemDatabase.getPLASTIC_BOMB(), itemDatabase.getDETONATOR(), itemDatabase.getHEART_KEY(),
-                        itemDatabase.getRED_CARD_KEY(), itemDatabase.getSQUARE_CRANK(), itemDatabase.getCORD(),
-                        itemDatabase.getCLUB_KEY(), itemDatabase.getKING_PLUG(), itemDatabase.getROOK_PLUG(),
-                        itemDatabase.getKNIGHT_PLUG(), itemDatabase.getBISHOP_PLUG(), itemDatabase.getEAGLE_STONE(),
-                        itemDatabase.getSERPENT_STONE(), itemDatabase.getBLUE_STONE_LEFT(), itemDatabase.getBLUE_STONE_RIGHT(),
-                        itemDatabase.getMANHOLE_OPENER(), itemDatabase.getGOLD_COGWHEEL(), itemDatabase.getEAGLE_MEDAL(),
-                        itemDatabase.getWOLF_MEDAL(), itemDatabase.getWEAPON_BOX_KEY(), itemDatabase.getDOWN_KEY(),
-                        itemDatabase.getUP_KEY(), itemDatabase.getFUSE_CASE(), itemDatabase.getMAIN_FUSE(),
-                        itemDatabase.getLAB_CARD_KEY(), itemDatabase.getMO_DISK(), itemDatabase.getPOWER_ROOM_KEY(),
-                        itemDatabase.getVACCINE_CART(), itemDatabase.getBASE_VACCINE(), itemDatabase.getVACCINE(),
-                        itemDatabase.getG_VIRUS(), itemDatabase.getMASTER_KEY(), itemDatabase.getPLATFORM_KEY(),
-                        itemDatabase.getJOINT_N_PLUG(), itemDatabase.getJOINT_S_PLUG(), itemDatabase.getLOCKER_KEY(),
-
-                        //RECOVERY ITEMS
-                        itemDatabase.getGREEN_HERB(), itemDatabase.getRED_HERB(),
-                        itemDatabase.getBLUE_HERB(), itemDatabase.getFIRST_AID_SPRAY(),
-
-                        //FILES
-                        itemDatabase.getPOLICE_MEMORANDUM(), itemDatabase.getCHRIS_DIARY(), itemDatabase.getMAIL_TO_CHRIS(),
-                        itemDatabase.getOPERATION_REPORT1(), itemDatabase.getMEMO_TO_LEON(), itemDatabase.getOPERATION_REPORT2(),
-                        itemDatabase.getCHIEF_DIARY(), itemDatabase.getPATROL_REPORT(), itemDatabase.getSECRETARY_DIARY_A(),
-                        itemDatabase.getSECRETARY_DIARY_B(), itemDatabase.getWATCHMAN_DIARY(), itemDatabase.getMAIL_TO_THE_CHIEF(),
-                        itemDatabase.getSEWER_MANAGER_FAX(), itemDatabase.getSEWER_MANAGE_DIARY(), itemDatabase.getLAB_SECURITY_MANUAL(),
-                        itemDatabase.getP_EPSILON_REPORT(), itemDatabase.getUSER_REGISTRATION(), itemDatabase.getVACCINE_SYNTHESIS()
-                )
-        );
-    }
 
     private void initialize(Characters character){
         switch (character) {
